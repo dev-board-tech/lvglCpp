@@ -5,11 +5,8 @@
 #include <esp_lcd_panel_rgb.h>
 #include <esp_lcd_panel_vendor.h>
 
-#if !__IN_ECLIPSE__
-#include "lvgl.h"
-#else
-#include "lvgl/lvgl.h"
-#endif
+#include <lvgl.h>
+#include <lvglCpp.h>
 #include <nvs_flash.h>
 #include <nvs.h>
 #include <OneButton.h>
@@ -20,13 +17,9 @@
 #include "xpt2046.h" // https://github.com/liangyingy/arduino_xpt2046_library.git
 
 #include "data.h"
-#include "image/logo.h"
-//#include "image/fan30.c"
+#include "logo.h"
 #include "dbg.h"
 
-#include "lvglCpp/src/lvglCpp.h"
-
-#include "lvglCpp/tests/test1.h"
 
 /**
  * Please update the following configuration according to your LCD spec
@@ -98,6 +91,8 @@ static void lvglTask(void *param) {
 	}
 	vTaskDelete(NULL);
 }
+
+extern void uiInit();
 
 void setup() {
 	Serial.begin(115200);
@@ -235,7 +230,7 @@ void setup() {
 
 	DBG_println("run lvgl task");
 /*******************************************************************************************/
-	test1::test();
+	uiInit();
 
 	xTaskCreatePinnedToCore(lvglTask, "lvglTask", 4096, NULL, 6, NULL, 1);
 	buttonOK.attachLongPressStop(power_off);
