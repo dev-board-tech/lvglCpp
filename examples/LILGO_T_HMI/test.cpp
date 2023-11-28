@@ -6,7 +6,11 @@
  */
 
 #include <lvgl.h>
+#if __IN_ECLIPSE__
+#include "../../src/lvglCpp.h"
+#else
 #include <lvglCpp.h>
+#endif
 #include "dbg.h"
 
 void uiInit() {
@@ -15,17 +19,18 @@ void uiInit() {
   tView->addTab("Tab");
   tView->addTab("Tab 3");
   tView->addTab("Tab 4");
-  tView->renameTab(1,	"Tab 2");
+  tView->renameTab(1, "Tab 2");
 
   lv_obj_t *tab2 = tView->getTabObj("Tab 2");
   lv_obj_t *tab1 = tView->getTabObj("Tab 1");
   lv_obj_t *tab3 = tView->getTabObj("Tab 3");
   lv_obj_t *tab4 = tView->getTabObj("Tab 4");
   lvgl::ButtonMatrix *bMatrix = new lvgl::ButtonMatrix(tab2);
-  static const char * btnm_map[] = {"1", "2", "3", "4", "5", "\n",
-                    "6", "7", "8", "9", "0", "\n",
-                    "Action1", "Action2", ""
-                    };
+  static const char * btnm_map[] = {
+			"1", "2", "3", "4", "5", "\n",
+			"6", "7", "8", "9", "0", "\n",
+			"Action1", "Action2", ""
+			};
   bMatrix->setMap(btnm_map);
   bMatrix->setPos(0, 0);
   bMatrix->setVisible(false);
@@ -66,16 +71,16 @@ void uiInit() {
   dropDown->setPos(0, 80);
   dropDown->setSize(160, 40);
   dropDown->setOptions(""
-              "Apple\n"
-                            "Banana\n"
-                            "Orange\n"
-                            "Cherry\n"
-                            "Grape\n"
-                            "Raspberry\n"
-                            "Melon\n"
-                            "Orange\n"
-                            "Lemon\n"
-                            "Nuts");
+			"Apple\n"
+			"Banana\n"
+			"Orange\n"
+			"Cherry\n"
+			"Grape\n"
+			"Raspberry\n"
+			"Melon\n"
+			"Orange\n"
+			"Lemon\n"
+			"Nuts");
 
   LV_IMG_DECLARE(fan30);
   lvgl::Image *image = new lvgl::Image(tab1);
@@ -111,7 +116,6 @@ void uiInit() {
             "November\n"
             "December",
             LV_ROLLER_MODE_INFINITE);
-
 
   lv_draw_rect_dsc_t rect_dsc;
     lv_draw_rect_dsc_init(&rect_dsc);

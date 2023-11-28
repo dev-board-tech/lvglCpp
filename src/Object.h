@@ -8,16 +8,11 @@
 #ifndef LVCPP_LVOBJ_H_
 #define LVCPP_LVOBJ_H_
 
-#if !__IN_ECLIPSE__
-#include "lvgl.h"
-#else
-#include "../lvgl/lvgl.h"
-#endif
+#include <lvgl.h>
 #include <stdlib.h>
 
 
 namespace lvgl {
-
 class Object {
 protected:
 	lv_obj_t *_obj;

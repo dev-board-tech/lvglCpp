@@ -8,6 +8,11 @@
 #ifndef LVGLCPP_SRC_LVGLCPP_H_
 #define LVGLCPP_SRC_LVGLCPP_H_
 
+#include <lvgl.h>
+#if(LVGL_VERSION_MAJOR != 8 && LVGL_VERSION_MINOR != 2 && LVGL_VERSION_PATCH != 10)
+#error "LVGL Version must be 8.3.10"
+#endif
+
 #include "Arc.h"
 #include "Bar.h"
 #include "Button.h"

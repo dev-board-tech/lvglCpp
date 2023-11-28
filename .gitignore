@@ -30,3 +30,5 @@
 *.exe
 *.out
 *.app
+
+/examples/LILGO_T_HMI_Sloeber/Release/*
