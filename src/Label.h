@@ -9,6 +9,7 @@
 #define LVGLCPP_SRC_LABEL_H_
 
 #include "Object.h"
+#include "Button.h"
 
 namespace lvgl {
 class Label : public Object {
@@ -18,7 +19,7 @@ public:
 	 * @param parent    pointer to an object, it will be the parent of the new button matrix
 	 * @return          pointer to the created button matrix
 	 */
-	Label(lv_obj_t *parent = NULL) {
+	Label(lv_obj_t *parent) {
 		if(parent) {
 			_obj = lv_label_create(parent);
 		} else {
@@ -46,7 +47,7 @@ public:
 		_child = NULL;
 		_childs = NULL;
 	}
-	/**
+/**
 	 * Create an empty btnMatrix object, this is useful when used as a child.
 	 */
 	Label() {

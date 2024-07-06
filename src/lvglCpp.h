@@ -23,6 +23,8 @@
 #include "Image.h"
 #include "Label.h"
 #include "Line.h"
+#include "List.h"
+#include "MsgBox.h"
 #include "Object.h"
 #include "Roller.h"
 #include "Slider.h"

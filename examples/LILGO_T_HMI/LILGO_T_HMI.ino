@@ -237,7 +237,6 @@ void setup() {
 	xTaskCreatePinnedToCore(lvglTask, "lvglTask", 4096, NULL, 6, NULL, 1);
 	buttonOK.attachLongPressStop(power_off);
 }
-int angle = 0;
 // The loop function is called in an endless loop
 void loop() {
 	lv_timer_handler();
