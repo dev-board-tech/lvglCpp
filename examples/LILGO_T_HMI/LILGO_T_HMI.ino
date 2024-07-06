@@ -6,6 +6,7 @@
 #include <esp_lcd_panel_vendor.h>
 
 #include <lvgl.h>
+
 #include <lvglCpp.h>
 #include <nvs_flash.h>
 #include <nvs.h>
@@ -47,7 +48,7 @@ OneButton buttonNext(BUTTON1_PIN, true, false);
 
 uint8_t currentScreen = 0;
 
-portMUX_TYPE flushLock = (portMUX_TYPE) portMUX_INITIALIZER_UNLOCKED;
+//portMUX_TYPE flushLock = (portMUX_TYPE) portMUX_INITIALIZER_UNLOCKED;
 
 static lv_disp_draw_buf_t disp_buf; // contains internal graphic buffer(s) called draw buffer(s)
 static lv_disp_drv_t disp_drv;      // contains callback functions
@@ -68,10 +69,6 @@ static void lv_touchpad_read(lv_indev_drv_t *indev_driver, lv_indev_data_t *data
 		data->state = LV_INDEV_STATE_PR;
 		data->point.x = touch->X();
 		data->point.y = touch->Y();
-		// DBG_print("X: ");
-		// DBG_print(data->point.x);
-		// DBG_print(", Y: ");
-		// DBG_println(data->point.y);
 	} else {
 		data->state = LV_INDEV_STATE_REL;
 	}
@@ -177,7 +174,12 @@ void setup() {
 	SPI.begin(TOUCHSCREEN_SCLK_PIN, TOUCHSCREEN_MISO_PIN, TOUCHSCREEN_MOSI_PIN);
 	touch.begin(240, 320);
 	if (calibrated) {
-		touch.setCal(calibrationData[0].rawX, calibrationData[2].rawX, calibrationData[0].rawY, calibrationData[2].rawY, 240, 320);
+		touch.setCal(
+				calibrationData[0].rawX,
+				calibrationData[2].rawX,
+				calibrationData[0].rawY,
+				calibrationData[2].rawY,
+				240, 320);
 	} else {
 		touch.setCal(285, 1788, 311, 1877, 240, 320);
 	}
@@ -235,7 +237,6 @@ void setup() {
 	xTaskCreatePinnedToCore(lvglTask, "lvglTask", 4096, NULL, 6, NULL, 1);
 	buttonOK.attachLongPressStop(power_off);
 }
-int angle = 0;
 // The loop function is called in an endless loop
 void loop() {
 	lv_timer_handler();

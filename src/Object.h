@@ -8,16 +8,11 @@
 #ifndef LVCPP_LVOBJ_H_
 #define LVCPP_LVOBJ_H_
 
-#if !__IN_ECLIPSE__
-#include "lvgl.h"
-#else
-#include "../lvgl/lvgl.h"
-#endif
+#include <lvgl.h>
 #include <stdlib.h>
 
 
 namespace lvgl {
-
 class Object {
 protected:
 	lv_obj_t *_obj;
@@ -282,8 +277,8 @@ public:
 	 * @param Object       pointer to an object to align
 	 * @note            if the parent size changes `Object` needs to be aligned manually again
 	 */
-	static inline void objCenter(struct _lv_obj_t * Object) {
-	    lv_obj_align(Object, LV_ALIGN_CENTER, 0, 0);
+	inline void objCenter() {
+	    lv_obj_align(_obj, LV_ALIGN_CENTER, 0, 0);
 	}
 
 
@@ -471,6 +466,11 @@ public:
 
 	inline Object *mobeChildrenBy(lv_coord_t x_diff, lv_coord_t y_diff, bool ignore_floating) {
 		lv_obj_move_children_by(_obj, x_diff, y_diff, ignore_floating);
+		return this;
+	}
+
+	inline Object *clean() {
+		lv_obj_clean(_obj);
 		return this;
 	}
 
@@ -883,6 +883,10 @@ public:
 		lv_obj_set_style_text_align(_obj, value, selector);
 		return this;
 	}
+	inline Object *setStylePadAll(lv_coord_t value, lv_style_selector_t selector) {
+		lv_obj_set_style_pad_all(_obj, value, selector);
+		return this;
+	}
 	inline Object *setStyleRadius(lv_coord_t value, lv_style_selector_t selector) {
 		lv_obj_set_style_radius(_obj, value, selector);
 		return this;
@@ -934,6 +938,129 @@ public:
 	inline Object *setStyleBaseDir(lv_base_dir_t value, lv_style_selector_t selector) {
 		lv_obj_set_style_base_dir(_obj, value, selector);
 		return this;
+	}
+	inline Object *setEventValueChanged(lv_event_cb_t event_cb, void * user_data = NULL) {
+		lv_obj_add_event_cb(_obj, event_cb, LV_EVENT_VALUE_CHANGED, user_data);
+		return this;
+	}
+	inline Object *setEventClicked(lv_event_cb_t event_cb, void * user_data = NULL) {
+		lv_obj_add_event_cb(_obj, event_cb, LV_EVENT_CLICKED, user_data);
+		return this;
+	}
+	
+	inline Object *addStyle(lv_style_t * style, lv_style_selector_t selector) {
+		lv_obj_add_style(_obj, style, selector);
+		return this;
+	}
+	
+	inline Object *removeStyle(lv_style_t * style, lv_style_selector_t selector) {
+		lv_obj_remove_style(_obj, style, selector);
+		return this;
+	}
+	
+	inline Object *removeStyleAll() {
+		lv_obj_remove_style(_obj, NULL, (lv_style_selector_t)LV_PART_ANY | (lv_style_selector_t)LV_STATE_ANY);
+		return this;
+	}
+	
+	inline Object *reportStyleChanged(lv_style_t * style) {
+		lv_obj_report_style_change(style);
+		return this;
+	}
+	
+	inline Object *refreshStyle(lv_part_t part, lv_style_prop_t prop) {
+		lv_obj_refresh_style(_obj, part, prop);
+		return this;
+	}
+	
+	inline Object *enableStyleRefresh(bool en) {
+		lv_obj_enable_style_refresh(en);
+		return this;
+	}
+	
+	inline lv_style_value_t getStyleProp(lv_part_t part, lv_style_prop_t prop) {
+		return lv_obj_get_style_prop(_obj, part, prop);
+	}
+	
+	inline Object *setLocalStyleProp(lv_style_prop_t prop, lv_style_value_t value, lv_style_selector_t selector) {
+		lv_obj_set_local_style_prop(_obj, prop, value, selector);
+		return this;
+	}
+	
+	inline Object *setLocalStylePropMeta(lv_style_prop_t prop, uint16_t meta, lv_style_selector_t selector) {
+		lv_obj_set_local_style_prop_meta(_obj, prop, meta, selector);
+		return this;
+	}
+	
+	inline lv_style_res_t getLocalStyleProp(lv_style_prop_t prop, lv_style_value_t * value, lv_style_selector_t selector) {
+		return lv_obj_get_local_style_prop(_obj, prop, value, selector);
+	}
+	
+	inline bool removeLocalStyleProp(lv_style_prop_t prop, lv_style_selector_t selector) {
+		return lv_obj_remove_local_style_prop(_obj, prop, selector);
+	}
+	
+	inline lv_style_value_t styleApplyColorFilter(uint32_t part, lv_style_value_t v) {
+		return _lv_obj_style_apply_color_filter(_obj, part, v);
+	}
+	
+	inline Object *styleCreateTransition(lv_part_t part, lv_state_t prev_state, lv_state_t new_state, const _lv_obj_style_transition_dsc_t * tr) {
+		_lv_obj_style_create_transition(_obj, part, prev_state, new_state, tr);
+		return this;
+	}
+	
+	inline _lv_style_state_cmp_t styleStateCompare(lv_state_t state1, lv_state_t state2) {
+		return _lv_obj_style_state_compare(_obj, state1, state2);
+	}
+	
+	inline Object *fadeIn(uint32_t time, uint32_t delay) {
+		lv_obj_fade_in(_obj, time, delay);
+		return this;
+	}
+	
+	inline Object *fadeOut(uint32_t time, uint32_t delay) {
+		lv_obj_fade_out(_obj, time, delay);
+		return this;
+	}
+	
+	inline lv_state_t styleGetSelectorState(lv_style_selector_t selector) {
+		return lv_obj_style_get_selector_state(selector);
+	}
+	
+	inline lv_part_t styleGetSelectorPart(lv_style_selector_t selector) {
+		return lv_obj_style_get_selector_part(selector);
+	}
+	
+	inline Object *setStylePadHor(lv_coord_t value, lv_style_selector_t selector) {
+		lv_obj_set_style_pad_hor(_obj, value, selector);
+		return this;
+	}
+	
+	inline Object *setStylePadVer(lv_coord_t value, lv_style_selector_t selector) {
+		lv_obj_set_style_pad_ver(_obj, value, selector);
+		return this;
+	}
+	
+	inline Object *setStylePadGap(lv_coord_t value, lv_style_selector_t selector) {
+		lv_obj_set_style_pad_gap(_obj, value, selector);
+		return this;
+	}
+	
+	inline Object *setStyleSize(lv_coord_t value, lv_style_selector_t selector) {
+		lv_obj_set_style_size(_obj, value, selector);
+		return this;
+	}
+	
+	inline lv_text_align_t calculateTextAlign(lv_part_t part, const char * txt) {
+		return lv_obj_calculate_style_text_align(_obj, part, txt);
+	}
+	
+	inline lv_text_align_t getStyleTransformZoomSafe(uint32_t part) {
+		return lv_obj_get_style_transform_zoom_safe(_obj, part);
+	}
+	
+	inline lv_opa_t getStyleOpaRecursive(lv_part_t part) {
+		return lv_obj_get_style_opa_recursive(_obj, part);
 	}
 };
 
