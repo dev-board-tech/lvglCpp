@@ -8,6 +8,7 @@
 #ifndef LVGLCPP_SRC_BUTTON_H_
 #define LVGLCPP_SRC_BUTTON_H_
 
+#include <stdio.h>
 #include <stdarg.h>
 
 #include "Label.h"

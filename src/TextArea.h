@@ -8,6 +8,9 @@
 #ifndef LVGLCPP_SRC_TEXTAREA_H_
 #define LVGLCPP_SRC_TEXTAREA_H_
 
+#include <stdio.h>
+#include <stdarg.h>
+
 #include "Object.h"
 
 namespace lvgl {
