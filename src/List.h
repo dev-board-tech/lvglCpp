@@ -1,6 +1,9 @@
 #ifndef LVGLCPP_SRC_LIST_H_
 #define LVGLCPP_SRC_LIST_H_
 
+#include <stdio.h>
+#include <stdarg.h>
+
 #include "Object.h"
 #include "Button.h"
 #include "Label.h"
