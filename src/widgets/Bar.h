@@ -1,8 +1,7 @@
 /*
  * Bar.h
  *
- *  Created on: Nov 27, 2023
- *      Author: morgoth
+ *      Author: Iulian Gheorghiu
  */
 
 #ifndef LVGLCPP_SRC_BAR_H_
@@ -44,7 +43,7 @@ namespace lvgl {
 				return this;
 			}
 
-			inline lv_obj_t *getObj() {
+			inline lv_obj_t *GetObj() {
 				return _obj;
 			}
 
@@ -62,7 +61,7 @@ namespace lvgl {
 			 * @param value     new value
 			 * @param anim      LV_ANIM_ON: set the value with an animation; LV_ANIM_OFF: change the value immediately
 			 */
-			inline Bar *setValue(int32_t value, lv_anim_enable_t anim) {
+			inline Bar *SetValue(int32_t value, lv_anim_enable_t anim) {
 				lv_bar_set_value(_obj, value, anim);
 				return this;
 			}
@@ -73,7 +72,7 @@ namespace lvgl {
 			 * @param value     new start value
 			 * @param anim      LV_ANIM_ON: set the value with an animation; LV_ANIM_OFF: change the value immediately
 			 */
-			inline Bar *setStartValue(int32_t start_value, lv_anim_enable_t anim) {
+			inline Bar *SetStartValue(int32_t start_value, lv_anim_enable_t anim) {
 				lv_bar_set_start_value(_obj, start_value,  anim);
 				return this;
 			}
@@ -84,7 +83,7 @@ namespace lvgl {
 			 * @param min       minimum value
 			 * @param max       maximum value
 			 */
-			inline Bar *setRange(int32_t min, int32_t max) {
+			inline Bar *SetRange(int32_t min, int32_t max) {
 				lv_bar_set_range(_obj, min, max);
 				return this;
 			}
@@ -94,7 +93,7 @@ namespace lvgl {
 			 * @param obj       pointer to bar object
 			 * @param mode      bar type from ::lv_bar_mode_t
 			 */
-			inline Bar *setMode(lv_bar_mode_t mode) {
+			inline Bar *SetMode(lv_bar_mode_t mode) {
 				lv_bar_set_mode(_obj,  mode);
 				return this;
 			}
@@ -108,7 +107,7 @@ namespace lvgl {
 			 * @param obj       pointer to a bar object
 			 * @return          the value of the bar
 			 */
-			inline int32_t getValue() {
+			inline int32_t GetValue() {
 				return lv_bar_get_value((const lv_obj_t *)_obj);
 			}
 
@@ -117,7 +116,7 @@ namespace lvgl {
 			 * @param obj       pointer to a bar object
 			 * @return          the start value of the bar
 			 */
-			inline int32_t getStartValue() {
+			inline int32_t GetStartValue() {
 				return lv_bar_get_start_value((const lv_obj_t *)_obj);
 			}
 
@@ -126,7 +125,7 @@ namespace lvgl {
 			 * @param obj       pointer to a bar object
 			 * @return          the minimum value of the bar
 			 */
-			inline int32_t getMinValue() {
+			inline int32_t GetMinValue() {
 				return lv_bar_get_min_value((const lv_obj_t *)_obj);
 			}
 
@@ -135,7 +134,7 @@ namespace lvgl {
 			 * @param obj       pointer to a bar object
 			 * @return          the maximum value of the bar
 			 */
-			inline int32_t getMaxValue() {
+			inline int32_t GetMaxValue() {
 				return lv_bar_get_max_value((const lv_obj_t *)_obj);
 			}
 
@@ -144,7 +143,7 @@ namespace lvgl {
 			 * @param obj       pointer to bar object
 			 * @return          bar type from ::lv_bar_mode_t
 			 */
-			inline lv_bar_mode_t getMode() {
+			inline lv_bar_mode_t GetMode() {
 				return lv_bar_get_mode(_obj);
 			}
 

@@ -1,8 +1,7 @@
 /*
  * Image.h
  *
- *  Created on: Nov 27, 2023
- *      Author: morgoth
+ *      Author: Iulian Gheorghiu
  */
 
 #ifndef LVGLCPP_SRC_IMAGE_H_
@@ -27,7 +26,7 @@ namespace lvgl {
 
 			}
 
-			inline lv_obj_t *getObj() {
+			inline lv_obj_t *GetObj() {
 				return _obj;
 			}
 
@@ -42,7 +41,7 @@ namespace lvgl {
 			 *                  2) path to an image file (e.g. "S:/dir/img.bin")or
 			 *                  3) a SYMBOL (e.g. LV_SYMBOL_OK)
 			 */
-			inline Image *setSource(const void *src) {
+			inline Image *SetSource(const void *src) {
 				lv_img_set_src(_obj, src);
 				return this;
 			}
@@ -52,7 +51,7 @@ namespace lvgl {
 			 * @param obj       pointer to an image
 			 * @param x         the new offset along x axis.
 			 */
-			inline Image *setOffset(lv_coord_t x, lv_coord_t y) {
+			inline Image *SetOffset(lv_coord_t x, lv_coord_t y) {
 				lv_img_set_offset_x(_obj, x);
 				lv_img_set_offset_y(_obj, y);
 				return this;
@@ -63,7 +62,7 @@ namespace lvgl {
 			 * @param obj       pointer to an image
 			 * @param x         the new offset along x axis.
 			 */
-			inline Image *setOffsetX(lv_coord_t x) {
+			inline Image *SetOffsetX(lv_coord_t x) {
 				lv_img_set_offset_x(_obj, x);
 				return this;
 			}
@@ -74,7 +73,7 @@ namespace lvgl {
 			 * @param obj       pointer to an image
 			 * @param y         the new offset along y axis.
 			 */
-			inline Image *setOffsetY(lv_coord_t y) {
+			inline Image *SetOffsetY(lv_coord_t y) {
 				lv_img_set_offset_y(_obj, y);
 				return this;
 			}
@@ -87,7 +86,7 @@ namespace lvgl {
 			 * @param obj       pointer to an image object
 			 * @param angle     rotation angle in degree with 0.1 degree resolution (0..3600: clock wise)
 			 */
-			inline Image *setAngle(int16_t angle) {
+			inline Image *SetAngle(int16_t angle) {
 				lv_img_set_angle(_obj, angle);
 				return this;
 			}
@@ -99,7 +98,7 @@ namespace lvgl {
 			 * @param x         rotation center x of the image
 			 * @param y         rotation center y of the image
 			 */
-			inline Image *setPivot(lv_coord_t x, lv_coord_t y) {
+			inline Image *SetPivot(lv_coord_t x, lv_coord_t y) {
 				lv_img_set_pivot(_obj, x, y);
 				return this;
 			}
@@ -116,7 +115,7 @@ namespace lvgl {
 			 * @example 128 half size
 			 * @example 512 double size
 			 */
-			inline Image *setZoom(uint16_t zoom) {
+			inline Image *SetZoom(uint16_t zoom) {
 				lv_img_set_zoom(_obj, zoom);
 				return this;
 			}
@@ -127,7 +126,7 @@ namespace lvgl {
 			 * @param obj       pointer to an image object
 			 * @param antialias true: anti-aliased; false: not anti-aliased
 			 */
-			inline Image *setAntiAlias(bool antialias) {
+			inline Image *SetAntiAlias(bool antialias) {
 				lv_img_set_antialias(_obj, antialias);
 				return this;
 			}
@@ -138,7 +137,7 @@ namespace lvgl {
 			 * @param obj       pointer to an image object
 			 * @param mode      the new size mode.
 			 */
-			inline Image *setSizeMode(lv_img_size_mode_t mode) {
+			inline Image *SetSizeMode(lv_img_size_mode_t mode) {
 				lv_img_set_size_mode(_obj, mode);
 				return this;
 			}
@@ -151,7 +150,7 @@ namespace lvgl {
 			 * @param obj       pointer to an image object
 			 * @return          the image source (symbol, file name or ::lv-img_dsc_t for C arrays)
 			 */
-			inline const void *getSource() {
+			inline const void *GetSource() {
 				return lv_img_get_src(_obj);
 			}
 
@@ -160,7 +159,7 @@ namespace lvgl {
 			 * @param img       pointer to an image
 			 * @return          offset X value.
 			 */
-			inline lv_coord_t getOffsetX() {
+			inline lv_coord_t GetOffsetX() {
 				return lv_img_get_offset_x(_obj);
 			}
 
@@ -169,7 +168,7 @@ namespace lvgl {
 			 * @param obj       pointer to an image
 			 * @return          offset Y value.
 			 */
-			inline lv_coord_t getOffsetY() {
+			inline lv_coord_t GetOffsetY() {
 				return lv_img_get_offset_y(_obj);
 			}
 
@@ -178,7 +177,7 @@ namespace lvgl {
 			 * @param obj       pointer to an image object
 			 * @return      rotation angle in 0.1 degrees (0..3600)
 			 */
-			inline uint16_t getAngle() {
+			inline uint16_t GetAngle() {
 				return lv_img_get_angle(_obj);
 			}
 
@@ -187,7 +186,7 @@ namespace lvgl {
 			 * @param img       pointer to an image object
 			 * @param pivot     store the rotation center here
 			 */
-			inline lv_point_t getPivot() {
+			inline lv_point_t GetPivot() {
 				lv_point_t pivot;
 				lv_img_get_pivot(_obj, &pivot);
 				return pivot;
@@ -198,7 +197,7 @@ namespace lvgl {
 			 * @param obj       pointer to an image object
 			 * @return          zoom factor (256: no zoom)
 			 */
-			inline uint16_t getZoom() {
+			inline uint16_t GetZoom() {
 				return lv_img_get_zoom(_obj);
 			}
 
@@ -207,7 +206,7 @@ namespace lvgl {
 			 * @param obj       pointer to an image object
 			 * @return          true: anti-aliased; false: not anti-aliased
 			 */
-			inline bool getAntialias() {
+			inline bool GetAntialias() {
 				return lv_img_get_antialias(_obj);
 			}
 
@@ -216,7 +215,7 @@ namespace lvgl {
 			 * @param obj       pointer to an image object
 			 * @return          element of @ref lv_img_size_mode_t
 			 */
-			inline lv_img_size_mode_t getSizeMode() {
+			inline lv_img_size_mode_t GetSizeMode() {
 				return lv_img_get_size_mode(_obj);
 			}
 

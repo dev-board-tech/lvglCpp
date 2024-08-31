@@ -1,8 +1,7 @@
 /*
- * button.h
+ * Button.h
  *
- *  Created on: Nov 27, 2023
- *      Author: morgoth
+ *      Author: Iulian Gheorghiu
  */
 
 #ifndef LVGLCPP_SRC_BUTTON_H_
@@ -31,8 +30,8 @@ namespace lvgl {
 			}
 
 			Button(Object *parent) {
-				if(parent && parent->getObj()) {
-					_obj = lv_btn_create(parent->getObj());
+				if(parent && parent->GetObj()) {
+					_obj = lv_btn_create(parent->GetObj());
 				} else {
 					_obj = lv_btn_create(lv_scr_act());
 				}
@@ -54,12 +53,12 @@ namespace lvgl {
 				va_start(args, fmt);
 				vsnprintf(buffer, size + 1, fmt, args);
 				va_end(args);
-				lv_label_set_text(_label->getObj(), buffer);
-				lv_obj_align(_label->getObj(), LV_ALIGN_CENTER, 0, 0);
+				lv_label_set_text(_label->GetObj(), buffer);
+				lv_obj_align(_label->GetObj(), LV_ALIGN_CENTER, 0, 0);
 			}
 
 			Button(Object *parent, char *fmt, ...) {
-				_obj = lv_btn_create(parent->getObj());
+				_obj = lv_btn_create(parent->GetObj());
 				if(fmt == NULL || fmt[0] == 0) {
 					_label = NULL;
 					return;
@@ -73,8 +72,8 @@ namespace lvgl {
 				va_start(args, fmt);
 				vsnprintf(buffer, size + 1, fmt, args);
 				va_end(args);
-				lv_label_set_text(_label->getObj(), buffer);
-				lv_obj_align(_label->getObj(), LV_ALIGN_CENTER, 0, 0);
+				lv_label_set_text(_label->GetObj(), buffer);
+				lv_obj_align(_label->GetObj(), LV_ALIGN_CENTER, 0, 0);
 			}
 			/**
 			 * Create an empty btnMatrix object, this is useful when used as a child.
@@ -92,16 +91,16 @@ namespace lvgl {
 			/**
 			 * Set the object pointer when used as a child.
 			 */
-			inline Button *setObj(lv_obj_t *obj) {
+			inline Button *SetObj(lv_obj_t *obj) {
 				_obj = obj;
 				return this;
 			}
 
-			inline lv_obj_t *getObj() {
+			inline lv_obj_t *GetObj() {
 				return _obj;
 			}
 
-			inline Label *getLabel() {
+			inline Label *GetLabel() {
 				return _label;
 			}
 			

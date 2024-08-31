@@ -1,3 +1,9 @@
+/*
+ * Rectangle.h
+ *
+ *      Author: Iulian Gheorghiu
+ */
+
 #ifndef LVCPP_DRAW_LVRECTANGLE_H_
 #define LVCPP_DRAW_LVRECTANGLE_H_
 
@@ -18,267 +24,267 @@ namespace lvgl {
 				}
 			}
 			
-			inline lv_draw_rect_dsc_t *get() {
+			inline lv_draw_rect_dsc_t *Get() {
 				return &rectangle;
 			}
 
-			inline void clone(Rectangle *rec) {
+			inline void Clone(Rectangle *rec) {
 				if(rec) {
 					memcpy(&rec->rectangle, &rectangle, sizeof(lv_draw_rect_dsc_t));
 				}
 			}
 
-			inline Rectangle *setRadius(lv_coord_t radius) {
+			inline Rectangle *SetRadius(lv_coord_t radius) {
 				rectangle.radius = radius;
 				return this;
 			}
-			inline lv_coord_t getRadius() {
+			inline lv_coord_t GetRadius() {
 				return rectangle.radius;
 			}
 
-			inline Rectangle *setBlendMode(lv_blend_mode_t blend_mode) {
+			inline Rectangle *SetBlendMode(lv_blend_mode_t blend_mode) {
 				rectangle.blend_mode = blend_mode;
 				return this;
 			}
-			inline lv_blend_mode_t getBlendMode() {
+			inline lv_blend_mode_t GetBlendMode() {
 				return rectangle.blend_mode;
 			}
 
 			/*Background*/
-			inline Rectangle *setOpacity(lv_opa_t bg_opa) {
+			inline Rectangle *SetOpacity(lv_opa_t bg_opa) {
 				rectangle.bg_opa = bg_opa;
 				return this;
 			}
-			inline lv_opa_t getOpacity() {
+			inline lv_opa_t GetOpacity() {
 				return rectangle.bg_opa;
 			}
 
 			/**< First element of a gradient is a color, so it maps well here*/
-			inline Rectangle *setColor(lv_color_t bg_color) {
+			inline Rectangle *SetColor(lv_color_t bg_color) {
 				rectangle.bg_color = bg_color;
 				return this;
 			}
-			inline lv_color_t getColor() {
+			inline lv_color_t GetColor() {
 				return rectangle.bg_color;
 			}
 
-			inline Rectangle *setGradientDirection(lv_grad_dir_t bg_grad_dir) {
+			inline Rectangle *SetGradientDirection(lv_grad_dir_t bg_grad_dir) {
 				rectangle.bg_grad.dir = bg_grad_dir;
 				return this;
 			}
-			inline lv_grad_dir_t getGradientDirection() {
+			inline lv_grad_dir_t GetGradientDirection() {
 				return rectangle.bg_grad.dir;
 			}
 
-			inline Rectangle *setGradientStopsCount(uint8_t stops_count) {
+			inline Rectangle *SetGradientStopsCount(uint8_t stops_count) {
 				rectangle.bg_grad.stops_count = stops_count;
 				return this;
 			}
-			inline uint8_t getGradientStopsCount() {
+			inline uint8_t GetGradientStopsCount() {
 				return rectangle.bg_grad.stops_count;
 			}
 
-			inline Rectangle *setGradientStopsColor(uint8_t idx, lv_color_t color) {
+			inline Rectangle *SetGradientStopsColor(uint8_t idx, lv_color_t color) {
 				rectangle.bg_grad.stops[idx].color = color;
 				return this;
 			}
-			inline lv_color_t getGradientStopsColor(uint8_t idx) {
+			inline lv_color_t GetGradientStopsColor(uint8_t idx) {
 				return rectangle.bg_grad.stops[idx].color;
 			}
 
-			inline Rectangle *setGradientStopsFraction(uint8_t idx, uint8_t fraction) {
+			inline Rectangle *SetGradientStopsFraction(uint8_t idx, uint8_t fraction) {
 				rectangle.bg_grad.stops[idx].frac = fraction;
 				return this;
 			}
-			inline uint8_t getGradientStopsFraction(uint8_t idx) {
+			inline uint8_t GetGradientStopsFraction(uint8_t idx) {
 				return rectangle.bg_grad.stops[idx].frac;
 			}
 
-			inline Rectangle *setGradientDither(lv_dither_mode_t dither) {
+			inline Rectangle *SetGradientDither(lv_dither_mode_t dither) {
 				rectangle.bg_grad.dither = dither;
 				return this;
 			}
-			inline lv_dither_mode_t getGradientDither() {
+			inline lv_dither_mode_t GetGradientDither() {
 				return rectangle.bg_grad.dither;
 			}
 
 			/*Background img*/
-			inline Rectangle *setImageSource(const void * bg_img_src) {
+			inline Rectangle *SetImageSource(const void * bg_img_src) {
 				rectangle.bg_img_src = bg_img_src;
 				return this;
 			}
-			inline const void * getImageSource() {
+			inline const void * GetImageSource() {
 				return rectangle.bg_img_src;
 			}
 
-			inline Rectangle *setImageSymbolFont(const void * bg_img_symbol_font) {
+			inline Rectangle *SetImageSymbolFont(const void * bg_img_symbol_font) {
 				rectangle.bg_img_symbol_font = bg_img_symbol_font;
 				return this;
 			}
-			inline const void * getImageSymbolFont() {
+			inline const void * GetImageSymbolFont() {
 				return rectangle.bg_img_symbol_font;
 			}
 
-			inline Rectangle *setImageReColor(lv_color_t bg_img_recolor) {
+			inline Rectangle *SetImageReColor(lv_color_t bg_img_recolor) {
 				rectangle.bg_img_recolor = bg_img_recolor;
 				return this;
 			}
-			inline lv_color_t getImageReColor() {
+			inline lv_color_t GetImageReColor() {
 				return rectangle.bg_img_recolor;
 			}
 
-			inline Rectangle *setImageOpacity(lv_opa_t bg_img_opa) {
+			inline Rectangle *SetImageOpacity(lv_opa_t bg_img_opa) {
 				rectangle.bg_img_opa = bg_img_opa;
 				return this;
 			}
-			inline lv_opa_t getImageOpacity() {
+			inline lv_opa_t GetImageOpacity() {
 				return rectangle.bg_img_opa;
 			}
 
-			inline Rectangle *setImageReColorOpacity(lv_opa_t bg_img_recolor_opa) {
+			inline Rectangle *SetImageReColorOpacity(lv_opa_t bg_img_recolor_opa) {
 				rectangle.bg_img_recolor_opa = bg_img_recolor_opa;
 				return this;
 			}
-			inline lv_opa_t getImageReColorOpacity() {
+			inline lv_opa_t GetImageReColorOpacity() {
 				return rectangle.bg_img_recolor_opa;
 			}
 
-			inline Rectangle *setImageTiled(uint8_t bg_img_tiled) {
+			inline Rectangle *SetImaGetiled(uint8_t bg_img_tiled) {
 				rectangle.bg_img_tiled = bg_img_tiled;
 				return this;
 			}
-			inline uint8_t getImageTiled() {
+			inline uint8_t GetImaGetiled() {
 				return rectangle.bg_img_tiled;
 			}
 
 			/*Border*/
-			inline Rectangle *setBorderColor(lv_color_t border_color) {
+			inline Rectangle *SetBorderColor(lv_color_t border_color) {
 				rectangle.border_color = border_color;
 				return this;
 			}
-			inline lv_color_t getBorderColor() {
+			inline lv_color_t GetBorderColor() {
 				return rectangle.border_color;
 			}
 
-			inline Rectangle *setBorderWidth(lv_coord_t border_width) {
+			inline Rectangle *SetBorderWidth(lv_coord_t border_width) {
 				rectangle.border_width = border_width;
 				return this;
 			}
-			inline lv_coord_t getBorderWidth() {
+			inline lv_coord_t GetBorderWidth() {
 				return rectangle.border_width;
 			}
 
-			inline Rectangle *setBorderOpacity(lv_opa_t border_opa) {
+			inline Rectangle *SetBorderOpacity(lv_opa_t border_opa) {
 				rectangle.border_opa = border_opa;
 				return this;
 			}
-			inline lv_opa_t getBorderOpacity() {
+			inline lv_opa_t GetBorderOpacity() {
 				return rectangle.border_opa;
 			}
-			inline Rectangle *setBorderOpacityPercent(uint8_t border_opa) {
+			inline Rectangle *SetBorderOpacityPercent(uint8_t border_opa) {
 				rectangle.border_opa = map(border_opa, 0, 100, 0, 255);
 				return this;
 			}
-			inline lv_opa_t getBorderOpacityPercent() {
+			inline lv_opa_t GetBorderOpacityPercent() {
 				return map(rectangle.border_opa, 0, 255, 0, 100);
 			}
 
 			/*There is a border it will be drawn later.*/
-			inline Rectangle *setBorderPost(uint8_t border_post) {
+			inline Rectangle *SetBorderPost(uint8_t border_post) {
 				rectangle.border_post = border_post;
 				return this;
 			}
-			inline uint8_t getBorderPost() {
+			inline uint8_t GetBorderPost() {
 				return rectangle.border_post;
 			}
 
-			inline Rectangle *setBorderSide(lv_border_side_t border_side) {
+			inline Rectangle *SetBorderSide(lv_border_side_t border_side) {
 				rectangle.border_side = border_side;
 				return this;
 			}
-			inline lv_border_side_t getBorderSide() {
+			inline lv_border_side_t GetBorderSide() {
 				return rectangle.border_side;
 			}
 
 			/*Outline*/
-			inline Rectangle *setOutlineColor(lv_color_t outline_color) {
+			inline Rectangle *SetOutlineColor(lv_color_t outline_color) {
 				rectangle.outline_color = outline_color;
 				return this;
 			}
-			inline lv_color_t getOutlineColor() {
+			inline lv_color_t GetOutlineColor() {
 				return rectangle.outline_color;
 			}
 
-			inline Rectangle *setOutlineWidth(lv_coord_t outline_width) {
+			inline Rectangle *SetOutlineWidth(lv_coord_t outline_width) {
 				rectangle.outline_width = outline_width;
 				return this;
 			}
-			inline lv_coord_t getOutlineWidth() {
+			inline lv_coord_t GetOutlineWidth() {
 				return rectangle.outline_width;
 			}
 
-			inline Rectangle *setOutlinePad(lv_coord_t outline_pad) {
+			inline Rectangle *SetOutlinePad(lv_coord_t outline_pad) {
 				rectangle.outline_pad = outline_pad;
 				return this;
 			}
-			inline lv_coord_t getOutlinePad() {
+			inline lv_coord_t GetOutlinePad() {
 				return rectangle.outline_pad;
 			}
 
-			inline Rectangle *setOutlineOpacity(lv_opa_t outline_opa) {
+			inline Rectangle *SetOutlineOpacity(lv_opa_t outline_opa) {
 				rectangle.outline_opa = outline_opa;
 				return this;
 			}
-			inline lv_opa_t getOutlineOpacity() {
+			inline lv_opa_t GetOutlineOpacity() {
 				return rectangle.outline_opa;
 			}
 
 			/*Shadow*/
-			inline Rectangle *setShadowColor(lv_color_t shadow_color) {
+			inline Rectangle *SetShadowColor(lv_color_t shadow_color) {
 				rectangle.shadow_color = shadow_color;
 				return this;
 			}
-			inline lv_color_t getShadowColor() {
+			inline lv_color_t GetShadowColor() {
 				return rectangle.shadow_color;
 			}
 
-			inline Rectangle *setShadowWidth(lv_coord_t shadow_width) {
+			inline Rectangle *SetShadowWidth(lv_coord_t shadow_width) {
 				rectangle.shadow_width = shadow_width;
 				return this;
 			}
-			inline lv_coord_t getShadowWidth() {
+			inline lv_coord_t GetShadowWidth() {
 				return rectangle.shadow_width;
 			}
 
-			inline Rectangle *setShadowOffsetX(lv_coord_t shadow_ofs_x) {
+			inline Rectangle *SetShadowOffsetX(lv_coord_t shadow_ofs_x) {
 				rectangle.shadow_ofs_x = shadow_ofs_x;
 				return this;
 			}
-			inline lv_coord_t getShadowOffsetX() {
+			inline lv_coord_t GetShadowOffsetX() {
 				return rectangle.shadow_ofs_x;
 			}
 
-			inline Rectangle *setShadowOffsetY(lv_coord_t shadow_ofs_y) {
+			inline Rectangle *SetShadowOffsetY(lv_coord_t shadow_ofs_y) {
 				rectangle.shadow_ofs_y = shadow_ofs_y;
 				return this;
 			}
-			inline lv_coord_t getShadowOffsetY() {
+			inline lv_coord_t GetShadowOffsetY() {
 				return rectangle.shadow_ofs_y;
 			}
 
-			inline Rectangle *setShadowSpread(lv_coord_t shadow_spread) {
+			inline Rectangle *SetShadowSpread(lv_coord_t shadow_spread) {
 				rectangle.shadow_spread = shadow_spread;
 				return this;
 			}
-			inline lv_coord_t getShadowSpread() {
+			inline lv_coord_t GetShadowSpread() {
 				return rectangle.shadow_spread;
 			}
 
-			inline Rectangle *setShadowOpacity(lv_opa_t shadow_opa) {
+			inline Rectangle *SetShadowOpacity(lv_opa_t shadow_opa) {
 				rectangle.shadow_opa = shadow_opa;
 				return this;
 			}
-			inline lv_opa_t getShadowOpacity() {
+			inline lv_opa_t GetShadowOpacity() {
 				return rectangle.shadow_opa;
 			}
 /**
@@ -289,6 +295,10 @@ namespace lvgl {
  */
 			static inline void drawRectangle(struct _lv_draw_ctx_t * draw_ctx, const lv_draw_rect_dsc_t * dsc, const lv_area_t * coords) {
 				lv_draw_rect(draw_ctx, dsc, coords);
+			}
+
+			static inline void drawRectangle(struct _lv_draw_ctx_t * draw_ctx, lvgl::draw::Rectangle * dsc, const lv_area_t * coords) {
+				lv_draw_rect(draw_ctx, dsc->Get(), coords);
 			}
 
 			private:

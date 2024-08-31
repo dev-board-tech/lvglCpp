@@ -1,8 +1,7 @@
 /*
  * Table.h
  *
- *  Created on: Nov 27, 2023
- *      Author: morgoth
+ *      Author: Iulian Gheorghiu
  */
 
 #ifndef LVGLCPP_SRC_TABLE_H_
@@ -30,7 +29,7 @@ namespace lvgl {
 
 			}
 
-			inline lv_obj_t *getObj() {
+			inline lv_obj_t *GetObj() {
 				return _obj;
 			}
 
@@ -46,7 +45,7 @@ namespace lvgl {
 			 * @param txt           text to display in the cell. It will be copied and saved so this variable is not required after this function call.
 			 * @note                New roes/columns are added automatically if required
 			 */
-			Table *setCellValue(uint16_t row, uint16_t col, const char * fmt, ...) {
+			Table *SetCellValue(uint16_t row, uint16_t col, const char * fmt, ...) {
 				va_list args;
 				va_start(args, fmt);
 				int size = vsnprintf(NULL, 0, fmt, args);
@@ -64,7 +63,7 @@ namespace lvgl {
 			 * @param obj           table pointer to a Table object
 			 * @param row_cnt       number of rows
 			 */
-			inline Table *setRowCount(uint16_t row_cnt) {
+			inline Table *SetRowCount(uint16_t row_cnt) {
 				lv_table_set_row_cnt(_obj, row_cnt);
 				return this;
 			}
@@ -74,7 +73,7 @@ namespace lvgl {
 			 * @param obj       table pointer to a Table object
 			 * @param col_cnt   number of columns.
 			 */
-			inline Table *setColCount(uint16_t col_cnt) {
+			inline Table *SetColCount(uint16_t col_cnt) {
 				lv_table_set_col_cnt(_obj, col_cnt);
 				return this;
 			}
@@ -85,7 +84,7 @@ namespace lvgl {
 			 * @param col_id    id of the column [0 .. LV_TABLE_COL_MAX -1]
 			 * @param w         width of the column
 			 */
-			inline Table *setColWidth(uint16_t col_id, lv_coord_t w) {
+			inline Table *SetColWidth(uint16_t col_id, lv_coord_t w) {
 				lv_table_set_col_width(_obj, col_id, w);
 				return this;
 			}
@@ -97,7 +96,7 @@ namespace lvgl {
 			 * @param col       id of the column [0 .. col_cnt -1]
 			 * @param ctrl      OR-ed values from ::lv_table_cell_ctrl_t
 			 */
-			inline Table *addCellCtrl(uint16_t row, uint16_t col, lv_table_cell_ctrl_t ctrl) {
+			inline Table *AddCellCtrl(uint16_t row, uint16_t col, lv_table_cell_ctrl_t ctrl) {
 				lv_table_add_cell_ctrl(_obj, row, col, ctrl);
 				return this;
 			}
@@ -110,7 +109,7 @@ namespace lvgl {
 			 * @param col       id of the column [0 .. col_cnt -1]
 			 * @param ctrl      OR-ed values from ::lv_table_cell_ctrl_t
 			 */
-			inline Table *clearCellCtrl(uint16_t row, uint16_t col, lv_table_cell_ctrl_t ctrl) {
+			inline Table *ClearCellCtrl(uint16_t row, uint16_t col, lv_table_cell_ctrl_t ctrl) {
 				lv_table_clear_cell_ctrl(_obj, row, col, ctrl);
 				return this;
 			}
@@ -126,7 +125,7 @@ namespace lvgl {
 			 * @param col       id of the column [0 .. col_cnt -1]
 			 * @return          text in the cell
 			 */
-			inline const char *getCellValue(uint16_t row, uint16_t col) {
+			inline const char *GetCellValue(uint16_t row, uint16_t col) {
 				return lv_table_get_cell_value(_obj, row, col);
 			}
 
@@ -135,7 +134,7 @@ namespace lvgl {
 			 * @param obj       table pointer to a Table object
 			 * @return          number of rows.
 			 */
-			inline uint16_t getRowCount() {
+			inline uint16_t GetRowCount() {
 				return lv_table_get_row_cnt(_obj);
 			}
 
@@ -144,7 +143,7 @@ namespace lvgl {
 			 * @param obj       table pointer to a Table object
 			 * @return          number of columns.
 			 */
-			inline uint16_t getColCount() {
+			inline uint16_t GetColCount() {
 				return lv_table_get_col_cnt(_obj);
 			}
 
@@ -154,7 +153,7 @@ namespace lvgl {
 			 * @param col       id of the column [0 .. LV_TABLE_COL_MAX -1]
 			 * @return          width of the column
 			 */
-			inline lv_coord_t getColWidth(uint16_t col) {
+			inline lv_coord_t GetColWidth(uint16_t col) {
 				return lv_table_get_col_width(_obj, col);
 			}
 
@@ -166,7 +165,7 @@ namespace lvgl {
 			 * @param ctrl      OR-ed values from ::lv_table_cell_ctrl_t
 			 * @return          true: all control bits are set; false: not all control bits are set
 			 */
-			inline bool hasCellCtrl(uint16_t row, uint16_t col, lv_table_cell_ctrl_t ctrl) {
+			inline bool HasCellCtrl(uint16_t row, uint16_t col, lv_table_cell_ctrl_t ctrl) {
 				return lv_table_has_cell_ctrl(_obj, row, col, ctrl);
 			}
 
@@ -176,7 +175,7 @@ namespace lvgl {
 			 * @param row       pointer to variable to store the selected row (LV_TABLE_CELL_NONE: if no cell selected)
 			 * @param col       pointer to variable to store the selected column  (LV_TABLE_CELL_NONE: if no cell selected)
 			 */
-			inline Table *getSelectedCell(uint16_t * row, uint16_t * col) {
+			inline Table *GetSelectedCell(uint16_t * row, uint16_t * col) {
 				lv_table_get_selected_cell(_obj, row, col);
 				return this;
 			}

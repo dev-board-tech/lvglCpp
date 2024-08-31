@@ -1,8 +1,7 @@
 /*
  * Label.h
  *
- *  Created on: Nov 27, 2023
- *      Author: morgoth
+ *      Author: Iulian Gheorghiu
  */
 
 #ifndef LVGLCPP_SRC_LABEL_H_
@@ -39,8 +38,8 @@ namespace lvgl {
 			 * @return          pointer to the created button matrix
 			 */
 			Label(Object *parent) {
-				if(parent && parent->getObj()) {
-					_obj = lv_label_create(parent->getObj());
+				if(parent && parent->GetObj()) {
+					_obj = lv_label_create(parent->GetObj());
 				} else {
 					_obj = lv_label_create(lv_scr_act());
 				}
@@ -54,8 +53,8 @@ namespace lvgl {
 			 * @return          pointer to the created button matrix
 			 */
 			/*Label(Object parent) {
-				if(parent && parent.getObj()) {
-					_obj = lv_label_create(parent.getObj());
+				if(parent && parent.GetObj()) {
+					_obj = lv_label_create(parent.GetObj());
 				} else {
 					_obj = lv_label_create(lv_scr_act());
 				}
@@ -83,8 +82,8 @@ namespace lvgl {
 			}
 
 			Label(Object *parent, char *fmt, ...) {
-				if(parent && parent->getObj()) {
-					_obj = lv_label_create(parent->getObj());
+				if(parent && parent->GetObj()) {
+					_obj = lv_label_create(parent->GetObj());
 				} else {
 					_obj = lv_label_create(lv_scr_act());
 				}
@@ -102,8 +101,8 @@ namespace lvgl {
 			}
 
 			/*Label(Object parent, char *fmt, ...) {
-				if(parent && parent.getObj()) {
-					_obj = lv_label_create(parent.getObj());
+				if(parent && parent.GetObj()) {
+					_obj = lv_label_create(parent.GetObj());
 				} else {
 					_obj = lv_label_create(lv_scr_act());
 				}
@@ -135,12 +134,12 @@ namespace lvgl {
 			/**
 			 * Set the object pointer when used as a child.
 			 */
-			inline Label *setObj(lv_obj_t *obj) {
+			inline Label *SetObj(lv_obj_t *obj) {
 				_obj = obj;
 				return this;
 			}
 
-			inline lv_obj_t *getObj() {
+			inline lv_obj_t *GetObj() {
 				return _obj;
 			}
 
@@ -154,7 +153,7 @@ namespace lvgl {
 			 * @param obj           pointer to a Label object
 			 * @param text          '\0' terminated character string. NULL to refresh with the current text.
 			 */
-			inline Label *setText(const char * text) {
+			inline Label *SetText(const char * text) {
 				lv_label_set_text(_obj, text);
 				return this;
 			}
@@ -165,7 +164,7 @@ namespace lvgl {
 			 * @param fmt           `printf`-like format
 			 * @example lv_label_set_text_fmt(label1, "%d user", user_num);
 			 */
-			inline Label *setText(const char * fmt, ...) {
+			inline Label *SetText(const char * fmt, ...) {
 				va_list args;
 				va_start(args, fmt);
 				int size = vsnprintf(NULL, 0, fmt, args);
@@ -184,7 +183,7 @@ namespace lvgl {
 			 * @param obj           pointer to a Label object
 			 * @param text          pointer to a text. NULL to refresh with the current text.
 			 */
-			inline Label *setTextStatic(const char * text) {
+			inline Label *SetTextStatic(const char * text) {
 				lv_label_set_text_static(_obj, text);
 				return this;
 			}
@@ -195,7 +194,7 @@ namespace lvgl {
 			 * @param long_mode     the new mode from 'lv_label_long_mode' enum.
 			 *                      In LV_LONG_WRAP/DOT/SCROLL/SCROLL_CIRC the size of the Label should be set AFTER this function
 			 */
-			inline Label *setLongMode(lv_label_long_mode_t long_mode) {
+			inline Label *SetLongMode(lv_label_long_mode_t long_mode) {
 				lv_label_set_long_mode(_obj, long_mode);
 				return this;
 			}
@@ -206,7 +205,7 @@ namespace lvgl {
 			 * @param en            true: enable recoloring, false: disable
 			 * @example "This is a #ff0000 red# word"
 			 */
-			inline Label *setReColor(bool en) {
+			inline Label *SetReColor(bool en) {
 				lv_label_set_recolor(_obj, en);
 				return this;
 			}
@@ -216,7 +215,7 @@ namespace lvgl {
 			 * @param obj       pointer to a Label object
 			 * @param index     character index from where selection should start. `LV_LABEL_TEXT_SELECTION_OFF` for no selection
 			 */
-			inline Label *setTextSelkStart(uint32_t index) {
+			inline Label *SetTextSelkStart(uint32_t index) {
 				lv_label_set_text_sel_start(_obj, index);
 				return this;
 			}
@@ -226,7 +225,7 @@ namespace lvgl {
 			 * @param obj       pointer to a Label object
 			 * @param index     character index where selection should end. `LV_LABEL_TEXT_SELECTION_OFF` for no selection
 			 */
-			inline Label *setTextSelEnd(uint32_t index) {
+			inline Label *SetTextSelEnd(uint32_t index) {
 				lv_label_set_text_sel_end(_obj, index);
 				return this;
 			}
@@ -240,7 +239,7 @@ namespace lvgl {
 			 * @param obj       pointer to a Label object
 			 * @return          the text of the Label
 			 */
-			inline char *getText() {
+			inline char *GetText() {
 				return lv_label_get_text(_obj);
 			}
 
@@ -249,7 +248,7 @@ namespace lvgl {
 			 * @param obj       pointer to a Label object
 			 * @return          the current long mode
 			 */
-			inline lv_label_long_mode_t getLongMode() {
+			inline lv_label_long_mode_t GetLongMode() {
 				return lv_label_get_long_mode(_obj);
 			}
 
@@ -258,7 +257,7 @@ namespace lvgl {
 			 * @param obj       pointer to a Label object
 			 * @return          true: recoloring is enabled, false: disable
 			 */
-			inline bool getReColor() {
+			inline bool GetReColor() {
 				return lv_label_get_recolor(_obj);
 			}
 
@@ -269,7 +268,7 @@ namespace lvgl {
 			 *                  Expressed in character index, not byte index (different in UTF-8)
 			 * @param pos       store the result here (E.g. index = 0 gives 0;0 coordinates if the text if aligned to the left)
 			 */
-			inline Label *getLetter(uint32_t char_id, lv_point_t * pos) {
+			inline Label *GetLetter(uint32_t char_id, lv_point_t * pos) {
 				lv_label_get_letter_pos(_obj, char_id, pos);
 				return this;
 			}
@@ -281,7 +280,7 @@ namespace lvgl {
 			 * @return          The index of the letter on the 'pos_p' point (E.g. on 0;0 is the 0. letter if aligned to the left)
 			 *                  Expressed in character index and not byte index (different in UTF-8)
 			 */
-			inline uint32_t getLetterOn(lv_point_t * pos_in) {
+			inline uint32_t GetLetterOn(lv_point_t * pos_in) {
 				return lv_label_get_letter_on(_obj, pos_in);
 			}
 
@@ -291,7 +290,7 @@ namespace lvgl {
 			 * @param pos       Point to check for character under
 			 * @return          whether a character is drawn under the point
 			 */
-			inline bool isCharUnderPos(lv_point_t * pos) {
+			inline bool IsCharUnderPos(lv_point_t * pos) {
 				return lv_label_is_char_under_pos(_obj, pos);
 			}
 
@@ -300,7 +299,7 @@ namespace lvgl {
 			 * @param obj       pointer to a Label object.
 			 * @return          selection start index. `LV_LABEL_TEXT_SELECTION_OFF` if nothing is selected.
 			 */
-			inline uint32_t getTextSelectionStart() {
+			inline uint32_t GetTextSelectionStart() {
 				return lv_label_get_text_selection_start(_obj);
 			}
 
@@ -309,7 +308,7 @@ namespace lvgl {
 			 * @param obj       pointer to a Label object.
 			 * @return          selection end index. `LV_LABEL_TXT_SEL_OFF` if nothing is selected.
 			 */
-			inline uint32_t getTextSelectionEnd() {
+			inline uint32_t GetTextSelectionEnd() {
 				return lv_label_get_text_selection_end(_obj);
 			}
 

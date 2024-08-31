@@ -1,8 +1,7 @@
 /*
- * btnMatrix.h
+ * ButtonMatrix.h
  *
- *  Created on: Nov 26, 2023
- *      Author: morgoth
+ *      Author: Iulian Gheorghiu
  */
 
 #ifndef LVGLCPP_SRC_BUTTONMATRIX_H_
@@ -44,12 +43,12 @@ namespace lvgl {
 			/**
 			 * Set the object pointer when used as a child.
 			 */
-			ButtonMatrix *setObj(lv_obj_t *obj) {
+			ButtonMatrix *SetObj(lv_obj_t *obj) {
 				_obj = obj;
 				return this;
 			}
 
-			lv_obj_t *getObj() {
+			lv_obj_t *GetObj() {
 				return _obj;
 			}
 
@@ -64,7 +63,7 @@ namespace lvgl {
 			 * @param map       pointer a string array. The last string has to be: "". Use "\n" to make a line break.
 			 * @return          object pointer
 			 */
-			inline ButtonMatrix *setMap(const char * map[]) {
+			inline ButtonMatrix *SetMap(const char * map[]) {
 				lv_btnmatrix_set_map(_obj, map);
 				return this;
 			}
@@ -81,7 +80,7 @@ namespace lvgl {
 			 *                 `ctrl_map[0] = width | LV_BTNMATRIX_CTRL_NO_REPEAT |  LV_BTNMATRIX_CTRL_TGL_ENABLE`
 			 * @return          object pointer
 			 */
-			inline ButtonMatrix *setCtrlMap(const lv_btnmatrix_ctrl_t ctrl_map[]) {
+			inline ButtonMatrix *SetCtrlMap(const lv_btnmatrix_ctrl_t ctrl_map[]) {
 				lv_btnmatrix_set_ctrl_map(_obj, ctrl_map);
 				return this;
 			}
@@ -90,7 +89,7 @@ namespace lvgl {
 			 * @param btn_id         0 based index of the button to modify. (Not counting new lines)
 			 * @return          object pointer
 			 */
-			inline ButtonMatrix *setSelectedBtn(uint16_t btn_id) {
+			inline ButtonMatrix *SetSelectedBtn(uint16_t btn_id) {
 				lv_btnmatrix_set_selected_btn(_obj, btn_id);
 				return this;
 			}
@@ -100,7 +99,7 @@ namespace lvgl {
 			 * @param ctrl      OR-ed attributs. E.g. `LV_BTNMATRIX_CTRL_NO_REPEAT | LV_BTNMATRIX_CTRL_CHECKABLE`
 			 * @return          object pointer
 			 */
-			inline ButtonMatrix *setBtnCtrl(uint16_t btn_id, lv_btnmatrix_ctrl_t ctrl) {
+			inline ButtonMatrix *SetBtnCtrl(uint16_t btn_id, lv_btnmatrix_ctrl_t ctrl) {
 				lv_btnmatrix_set_btn_ctrl(_obj, btn_id, ctrl);
 				return this;
 			}
@@ -119,7 +118,7 @@ namespace lvgl {
 			 * @param ctrl      attribute(s) to set from `lv_btnmatrix_ctrl_t`. Values can be ORed.
 			 * @return          object pointer
 			 */
-			inline ButtonMatrix *setBtnCtrlAll(lv_btnmatrix_ctrl_t ctrl) {
+			inline ButtonMatrix *SetBtnCtrlAll(lv_btnmatrix_ctrl_t ctrl) {
 				lv_btnmatrix_set_btn_ctrl_all(_obj, ctrl);
 				return this;
 			}
@@ -142,7 +141,7 @@ namespace lvgl {
 			 * @param width     relative width compared to the buttons in the same row. [1..7]
 			 * @return          object pointer
 			 */
-			inline ButtonMatrix *setBtnWidth(uint16_t btn_id, uint8_t width) {
+			inline ButtonMatrix *SetBtnWidth(uint16_t btn_id, uint8_t width) {
 				lv_btnmatrix_set_btn_width(_obj, btn_id, width);
 				return this;
 			}
@@ -153,7 +152,7 @@ namespace lvgl {
 			 * @param en        whether "one check" mode is enabled
 			 * @return          object pointer
 			 */
-			inline ButtonMatrix *setOneChildren(bool en) {
+			inline ButtonMatrix *SetOneChildren(bool en) {
 				lv_btnmatrix_set_one_checked(_obj, en);
 				return this;
 			}
@@ -165,7 +164,7 @@ namespace lvgl {
 			 * Get the current map of a button matrix
 			 * @return          the current map
 			 */
-			inline const char ** getMap() {
+			inline const char ** GetMap() {
 				return lv_btnmatrix_get_map(_obj);
 			}
 
@@ -174,7 +173,7 @@ namespace lvgl {
 			 * Useful in the `event_cb` to get the text of the button, check if hidden etc.
 			 * @return          index of the last released button (LV_BTNMATRIX_BTN_NONE: if unset)
 			 */
-			inline uint16_t getSelectedBtn() {
+			inline uint16_t GetSelectedBtn() {
 				return lv_btnmatrix_get_selected_btn(_obj);
 			}
 
@@ -183,7 +182,7 @@ namespace lvgl {
 			 * @param btn_id    the index a button not counting new line characters.
 			 * @return          text of btn_index` button
 			 */
-			inline const char *getBtnText(uint16_t btn_id) {
+			inline const char *GetBtnText(uint16_t btn_id) {
 				return lv_btnmatrix_get_btn_text(_obj, btn_id);
 			}
 
@@ -193,7 +192,7 @@ namespace lvgl {
 			 * @param ctrl      control values to check (ORed value can be used)
 			 * @return          true: the control attribute is enabled false: disabled
 			 */
-			inline bool hesBtnCtrl(uint16_t btn_id, lv_btnmatrix_ctrl_t ctrl) {
+			inline bool HasBtnCtrl(uint16_t btn_id, lv_btnmatrix_ctrl_t ctrl) {
 				return lv_btnmatrix_has_btn_ctrl(_obj, btn_id, ctrl);
 			}
 
@@ -201,7 +200,7 @@ namespace lvgl {
 			 * Tell whether "one check" mode is enabled or not.
 			 * @return          true: "one check" mode is enabled; false: disabled
 			 */
-			inline bool getOneChecked() {
+			inline bool GetOneChecked() {
 				return lv_btnmatrix_get_one_checked(_obj);
 			}
 

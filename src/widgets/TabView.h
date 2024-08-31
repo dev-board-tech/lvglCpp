@@ -1,8 +1,7 @@
 /*
- * tabView.h
+ * TabView.h
  *
- *  Created on: Nov 25, 2023
- *      Author: morgoth
+ *      Author: Iulian Gheorghiu
  */
 
 #ifndef LVGLCPP_SRC_TABVIEW_H_
@@ -24,7 +23,7 @@ namespace lvgl {
 					_obj = lv_tabview_create(lv_scr_act(), tabPos, tabSize);
 				}
 				_btns = new ButtonMatrix();
-				_btns->setObj(lv_tabview_get_tab_btns(_obj));
+				_btns->SetObj(lv_tabview_get_tab_btns(_obj));
 				_child = NULL;
 				_childs = (lv_obj_t **)calloc(1, sizeof(lv_obj_t *));
 			}
@@ -33,15 +32,15 @@ namespace lvgl {
 				// TODO Auto-generated destructor stub
 			}
 
-			inline lv_obj_t *getObj() {
+			inline lv_obj_t *GetObj() {
 				return _obj;
 			}
 
-			inline 	ButtonMatrix *getBtns() {
+			inline 	ButtonMatrix *GetBtns() {
 				return _btns;
 			}
 
-			inline TabView *addTab(const char *name) {
+			inline TabView *AddTab(const char *name) {
 				uint32_t i = 0;
 				for(; i < (uint32_t)-1; i++) {
 					if(!_childs[i])
@@ -53,7 +52,7 @@ namespace lvgl {
 				return this;
 			}
 
-			inline lv_obj_t *getTabObj(uint32_t id) {
+			inline lv_obj_t *GetTabObj(uint32_t id) {
 				int i = 0;
 				for(; _childs[i] != NULL; i++);
 				if(id < i) {
@@ -62,11 +61,11 @@ namespace lvgl {
 				return NULL;
 			}
 
-			inline lv_obj_t *getTabObj(const char *name) {
+			inline lv_obj_t *GetTabObj(const char *name) {
 				int i = 0;
 				for(; _childs[i] != NULL; i++);
 				for(int j = 0; j < i; j++) {
-					const char *txt = lv_btnmatrix_get_btn_text((const lv_obj_t *)_btns->getObj(), j);
+					const char *txt = lv_btnmatrix_get_btn_text((const lv_obj_t *)_btns->GetObj(), j);
 					if(!strcmp(txt, name))
 						return _childs[j];
 				}
@@ -75,21 +74,21 @@ namespace lvgl {
 
 
 
-			inline TabView *renameTab(uint32_t tab_id, const char * new_name) {
+			inline TabView *RenameTab(uint32_t tab_id, const char * new_name) {
 				lv_tabview_rename_tab(_obj, tab_id, new_name);
 				return this;
 			}
-			inline lv_obj_t *getContent() {
+			inline lv_obj_t *GetContent() {
 				return lv_tabview_get_content(_obj);
 			}
-			inline lv_obj_t *getTabBtns() {
+			inline lv_obj_t *GetTabBtns() {
 				return lv_tabview_get_tab_btns(_obj);
 			}
-			inline TabView *setAct(uint32_t id, lv_anim_enable_t anim_en) {
+			inline TabView *SetActiveTab(uint32_t id, lv_anim_enable_t anim_en) {
 				lv_tabview_set_act(_obj, id, anim_en);
 				return this;
 			}
-			inline uint16_t getTabAct() {
+			inline uint16_t GetActiveTab() {
 				return lv_tabview_get_tab_act(_obj);
 			}
 		};

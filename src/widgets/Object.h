@@ -1,8 +1,7 @@
 /*
  * Object.h
  *
- *  Created on: Nov 25, 2023
- *      Author: morgoth
+ *      Author: Iulian Gheorghiu
  */
 
 #ifndef LVCPP_LVOBJ_H_
@@ -33,20 +32,20 @@ namespace lvgl {
 			 * Set the object pointer when used as a child.
 			 */
 			Object(Object *obj) {
-				_obj = lv_obj_create(obj->getObj());
+				_obj = lv_obj_create(obj->GetObj());
 			}
 
 			/**
 			 * Set the object pointer when used as a child.
 			 */
 			/*Object(const Object& obj) {
-				_obj = lv_obj_create(obj.getObj());
+				_obj = lv_obj_create(obj.GetObj());
 			}*/
 
 			/**
 			 * Set the object pointer when used as a child.
 			 */
-			inline Object *setObj(lv_obj_t *obj) {
+			inline Object *SetObj(lv_obj_t *obj) {
 				_obj = obj;
 				return this;
 			}
@@ -54,24 +53,24 @@ namespace lvgl {
 			/**
 			 * Set the object pointer when used as a child.
 			 */
-			inline Object *setObj(Object *obj) {
-				_obj = obj->getObj();
+			inline Object *SetObj(Object *obj) {
+				_obj = obj->GetObj();
 				return this;
 			}
 
 			/**
 			 * Set the object pointer when used as a child.
 			 */
-			inline Object *setObj(Object obj) {
-				_obj = obj.getObj();
+			inline Object *SetObj(Object obj) {
+				_obj = obj.GetObj();
 				return this;
 			}
 
-			inline lv_obj_t *getObj() {
+			inline lv_obj_t *GetObj() {
 				return _obj;
 			}
 
-			void setEnabled(bool enable) {
+			void SetEnabled(bool enable) {
 				if (enable) {
 					lv_obj_clear_state(_obj, LV_STATE_DISABLED);
 				}
@@ -80,11 +79,11 @@ namespace lvgl {
 				}
 			}
 
-			inline bool getEnabled() {
+			inline bool GetEnabled() {
 				return lv_obj_has_state(_obj, LV_STATE_DISABLED);
 			}
 
-			void setChecked(bool checked) {
+			void SetChecked(bool checked) {
 				if (checked) {
 					lv_obj_add_state(_obj, LV_STATE_CHECKED);
 				}
@@ -93,11 +92,11 @@ namespace lvgl {
 				}
 			}
 
-			inline bool getChecked() {
+			inline bool GetChecked() {
 				return lv_obj_has_state(_obj, LV_STATE_CHECKED);
 			}
 
-			void setVisible(bool visible) {
+			void SetVisible(bool visible) {
 				if (visible) {
 					lv_obj_clear_flag(_obj, LV_OBJ_FLAG_HIDDEN);
 				}
@@ -106,16 +105,16 @@ namespace lvgl {
 				}
 			}
 
-			inline bool getVisible() {
+			inline bool GetVisible() {
 				return _obj->flags & LV_STATE_CHECKED ? false : true;
 			}
 			
-			inline Object *addFlag(lv_obj_flag_t f) {
+			inline Object *AddFlag(lv_obj_flag_t f) {
 				lv_obj_add_flag(_obj, f);
 				return this;
 			}
 
-			inline Object *clearFlag(lv_obj_flag_t f) {
+			inline Object *ClearFlag(lv_obj_flag_t f) {
 				lv_obj_clear_flag(_obj, f);
 				return this;
 			}
@@ -130,7 +129,7 @@ namespace lvgl {
 			 * @note            The position is interpreted on the content area of the parent
 			 * @note            The values can be set in pixel or in percentage of parent size with `lv_pct(v)`
 			 */
-			inline Object *setPos(lv_coord_t x, lv_coord_t y) {
+			inline Object *SetPos(lv_coord_t x, lv_coord_t y) {
 				lv_obj_set_pos(_obj, x, y);
 			return this;
 			}
@@ -145,7 +144,7 @@ namespace lvgl {
 			 * @note            The values can be set in pixel or in percentage of parent size with `lv_pct(v)`
 			 */
 
-			inline Object *setPosX(lv_coord_t x) {
+			inline Object *SetPosX(lv_coord_t x) {
 				lv_obj_set_x(_obj, x);
 			return this;
 			}
@@ -159,7 +158,7 @@ namespace lvgl {
 			 * @note            The position is interpreted on the content area of the parent
 			 * @note            The values can be set in pixel or in percentage of parent size with `lv_pct(v)`
 			 */
-			inline Object *setPosY(lv_coord_t y) {
+			inline Object *SetPosY(lv_coord_t y) {
 				lv_obj_set_y(_obj, y);
 			return this;
 			}
@@ -175,7 +174,7 @@ namespace lvgl {
 			 *                  LV_SIZE_PCT(x)     to set size in percentage of the parent's content area size (the size without paddings).
 			 *                                      x should be in [0..1000]% range
 			 */
-			inline Object *setSize(lv_coord_t w, lv_coord_t h) {
+			inline Object *SetSize(lv_coord_t w, lv_coord_t h) {
 				lv_obj_set_size(_obj, w, h);
 			return this;
 			}
@@ -186,7 +185,7 @@ namespace lvgl {
 			 * @param Object       pointer to an object
 			 * @return          true: the size has been changed
 			 */
-			inline Object *setRefrSize() {
+			inline Object *SetRefrSize() {
 				lv_obj_refr_size(_obj);
 			return this;
 			}
@@ -202,7 +201,7 @@ namespace lvgl {
 			 *                  lv_pct(x)           to set size in percentage of the parent's content area size (the size without paddings).
 			 *                                      x should be in [0..1000]% range
 			 */
-			inline Object *setWidth(lv_coord_t w) {
+			inline Object *SetWidth(lv_coord_t w) {
 				lv_obj_set_width(_obj, w);
 			return this;
 			}
@@ -218,7 +217,7 @@ namespace lvgl {
 			 *                  lv_pct(x)           to set size in percentage of the parent's content area size (the size without paddings).
 			 *                                      x should be in [0..1000]% range
 			 */
-			inline Object *setHeight(lv_coord_t h) {
+			inline Object *SetHeight(lv_coord_t h) {
 				lv_obj_set_height(_obj, h);
 			return this;
 			}
@@ -229,7 +228,7 @@ namespace lvgl {
 			 * @param Object       pointer to an object
 			 * @param w         the width without paddings in pixels
 			 */
-			inline Object *setContentWidth(lv_coord_t w) {
+			inline Object *SetContentWidth(lv_coord_t w) {
 				lv_obj_set_content_width(_obj, w);
 			return this;
 			}
@@ -240,7 +239,7 @@ namespace lvgl {
 			 * @param Object       pointer to an object
 			 * @param h         the height without paddings in pixels
 			 */
-			inline Object *setContentHeight(lv_coord_t h) {
+			inline Object *SetContentHeight(lv_coord_t h) {
 				lv_obj_set_content_height(_obj, h);
 			return this;
 			}
@@ -251,7 +250,7 @@ namespace lvgl {
 			 * @param Object       pointer to an object
 			 * @param layout    pointer to a layout descriptor to set
 			 */
-			inline Object *setLayout(uint32_t layout) {
+			inline Object *SetLayout(uint32_t layout) {
 				lv_obj_set_layout(_obj, layout);
 				return this;
 			}
@@ -261,7 +260,7 @@ namespace lvgl {
 			 * @param Object       pointer to an object to test
 			 * @return true:    positioned by a layout; false: not positioned by a layout
 			 */
-			inline bool isLayoutPositioned() {
+			inline bool IsLayoutPositioned() {
 				return lv_obj_is_layout_positioned(_obj);
 			}
 
@@ -269,7 +268,7 @@ namespace lvgl {
 			 * Mark the object for layout update.
 			 * @param Object      pointer to an object whose children needs to be updated
 			 */
-			inline Object *markLayoutAsDirty() {
+			inline Object *MarkLayoutAsDirty() {
 				lv_obj_mark_layout_as_dirty(_obj);
 				return this;
 			}
@@ -278,7 +277,7 @@ namespace lvgl {
 			 * Update the layout of an object.
 			 * @param Object      pointer to an object whose children needs to be updated
 			 */
-			inline Object *updateLayout() {
+			inline Object *UpdateLayout() {
 				lv_obj_update_layout(_obj);
 				return this;
 			}
@@ -289,7 +288,7 @@ namespace lvgl {
 			 * @param user_data custom data that will be passed to `cb`
 			 * @return          the ID of the new layout
 			 */
-			inline uint32_t layoutRegister(lv_layout_update_cb_t cb, void * user_data) {
+			inline uint32_t LayoutRegister(lv_layout_update_cb_t cb, void * user_data) {
 				return lv_layout_register(cb, user_data);
 			}
 
@@ -298,7 +297,7 @@ namespace lvgl {
 			 * @param Object       pointer to an object to align
 			 * @param align     type of alignment (see 'lv_align_t' enum) `LV_ALIGN_OUT_...` can't be used.
 			 */
-			inline Object *setAlign(lv_align_t align) {
+			inline Object *SetAlign(lv_align_t align) {
 				lv_obj_set_align(_obj,  align);
 				return this;
 			}
@@ -313,7 +312,7 @@ namespace lvgl {
 			 * @param x_ofs     x coordinate offset after alignment
 			 * @param y_ofs     y coordinate offset after alignment
 			 */
-			inline Object *setAlign(lv_align_t align, lv_coord_t x_ofs, lv_coord_t y_ofs) {
+			inline Object *SetAlign(lv_align_t align, lv_coord_t x_ofs, lv_coord_t y_ofs) {
 				lv_obj_align(_obj,  align,  x_ofs,  y_ofs);
 				return this;
 			}
@@ -327,7 +326,7 @@ namespace lvgl {
 			 * @param y_ofs     y coordinate offset after alignment
 			 * @note            if the position or size of `base` changes `Object` needs to be aligned manually again
 			 */
-			inline Object *setAlignTo(const lv_obj_t * _base, lv_align_t align, lv_coord_t x_ofs, lv_coord_t y_ofs) {
+			inline Object *SetAlignTo(const lv_obj_t * _base, lv_align_t align, lv_coord_t x_ofs, lv_coord_t y_ofs) {
 				lv_obj_align_to(_obj, _base, align, x_ofs, y_ofs);
 				return this;
 			}
@@ -338,7 +337,7 @@ namespace lvgl {
 			 * @param Object       pointer to an object to align
 			 * @note            if the parent size changes `Object` needs to be aligned manually again
 			 */
-			inline void setCenter() {
+			inline void SetCenter() {
 				lv_obj_center(_obj);
 			}
 
@@ -348,7 +347,7 @@ namespace lvgl {
 			 * @param Object       pointer to an object
 			 * @param coords    pointer to an area to store the coordinates
 			 */
-			inline Object *getCoords(lv_area_t * coords) {
+			inline Object *GetCoords(lv_area_t * coords) {
 				lv_obj_get_coords(_obj, coords);
 				return this;
 			}
@@ -363,7 +362,7 @@ namespace lvgl {
 			 * @note            Scrolling of the parent doesn't change the returned value.
 			 * @note            The returned value is always the distance from the parent even if `Object` is positioned by a layout.
 			 */
-			inline lv_coord_t getX() {
+			inline lv_coord_t GetX() {
 				return lv_obj_get_x(_obj);
 			}
 
@@ -377,7 +376,7 @@ namespace lvgl {
 			 * @note            Scrolling of the parent doesn't change the returned value.
 			 * @note            The returned value is always the distance from the parent even if `Object` is positioned by a layout.
 			 */
-			inline lv_coord_t getX2() {
+			inline lv_coord_t GetX2() {
 				return lv_obj_get_x2(_obj);
 			}
 
@@ -391,7 +390,7 @@ namespace lvgl {
 			 * @note            Scrolling of the parent doesn't change the returned value.
 			 * @note            The returned value is always the distance from the parent even if `Object` is positioned by a layout.
 			 */
-			inline lv_coord_t getY() {
+			inline lv_coord_t GetY() {
 				return lv_obj_get_y(_obj);
 			}
 
@@ -405,7 +404,7 @@ namespace lvgl {
 			 * @note            Scrolling of the parent doesn't change the returned value.
 			 * @note            The returned value is always the distance from the parent even if `Object` is positioned by a layout.
 			 */
-			inline lv_coord_t getY2() {
+			inline lv_coord_t GetY2() {
 				return lv_obj_get_y2(_obj);
 			}
 
@@ -414,7 +413,7 @@ namespace lvgl {
 			 * @param Object       pointer to an object
 			 * @return          the set x coordinate
 			 */
-			inline lv_coord_t getXAligned() {
+			inline lv_coord_t GetXAligned() {
 				return lv_obj_get_x_aligned(_obj);
 			}
 
@@ -423,7 +422,7 @@ namespace lvgl {
 			 * @param Object       pointer to an object
 			 * @return          the set y coordinate
 			 */
-			inline lv_coord_t getYAligned() {
+			inline lv_coord_t GetYAligned() {
 				return lv_obj_get_y_aligned(_obj);
 			}
 
@@ -434,7 +433,7 @@ namespace lvgl {
 			 *                  call `lv_obj_update_layout(Object)`.
 			 * @return          the width in pixels
 			 */
-			inline lv_coord_t getWidth() {
+			inline lv_coord_t GetWidth() {
 				return lv_obj_get_width(_obj);
 			}
 
@@ -445,7 +444,7 @@ namespace lvgl {
 			 *                  call `lv_obj_update_layout(Object)`.
 			 * @return          the height in pixels
 			 */
-			inline lv_coord_t getHeight() {
+			inline lv_coord_t GetHeight() {
 				return lv_obj_get_height(_obj);
 			}
 
@@ -456,7 +455,7 @@ namespace lvgl {
 			 *                  call `lv_obj_update_layout(Object)`.
 			 * @return          the width which still fits into its parent without causing overflow (making the parent scrollable)
 			 */
-			inline lv_coord_t getConstantWidth() {
+			inline lv_coord_t GetConstantWidth() {
 				return lv_obj_get_content_width(_obj);
 			}
 
@@ -467,7 +466,7 @@ namespace lvgl {
 			 *                  call `lv_obj_update_layout(Object)`.
 			 * @return          the height which still fits into the parent without causing overflow (making the parent scrollable)
 			 */
-			inline lv_coord_t getConstantHeight() {
+			inline lv_coord_t GetConstantHeight() {
 				return lv_obj_get_content_height(_obj);
 			}
 
@@ -478,7 +477,7 @@ namespace lvgl {
 			 *                  call `lv_obj_update_layout(Object)`.
 			 * @param area      the area which still fits into the parent without causing overflow (making the parent scrollable)
 			 */
-			inline Object *getContentCoords(lv_area_t * area) {
+			inline Object *GetContentCoords(lv_area_t * area) {
 				lv_obj_get_content_coords(_obj, area);
 				return this;
 			}
@@ -490,7 +489,7 @@ namespace lvgl {
 			 * @note            This size independent from the real size of the widget.
 			 *                  It just tells how large the internal ("virtual") content is.
 			 */
-			inline lv_coord_t getSelfWidth() {
+			inline lv_coord_t GetSelfWidth() {
 				return lv_obj_get_self_width(_obj);
 			}
 
@@ -501,7 +500,7 @@ namespace lvgl {
 			 * @note            This size independent from the real size of the widget.
 			 *                  It just tells how large the internal ("virtual") content is.
 			 */
-			inline lv_coord_t getSelfHeight() {
+			inline lv_coord_t GetSelfHeight() {
 				return lv_obj_get_self_height(_obj);
 			}
 
@@ -510,27 +509,27 @@ namespace lvgl {
 			 * @param Object       pointer to an object
 			 * @return          false: nothing happened; true: refresh happened
 			 */
-			inline bool refreshSelfSize() {
+			inline bool RefreshSelfSize() {
 				return lv_obj_refresh_self_size(_obj);
 			}
 
-			inline Object *refrPos() {
+			inline Object *RefreshPos() {
 				lv_obj_refr_pos(_obj);
 				return this;
 			}
 
-			inline Object *moveTo(lv_coord_t x, lv_coord_t y) {
+			inline Object *MoveTo(lv_coord_t x, lv_coord_t y) {
 				lv_obj_move_to(_obj, x, y);
 				return this;
 			}
 
 
-			inline Object *mobeChildrenBy(lv_coord_t x_diff, lv_coord_t y_diff, bool ignore_floating) {
+			inline Object *MoveChildrenBy(lv_coord_t x_diff, lv_coord_t y_diff, bool ignore_floating) {
 				lv_obj_move_children_by(_obj, x_diff, y_diff, ignore_floating);
 				return this;
 			}
 
-			inline Object *clean() {
+			inline Object *Clean() {
 				lv_obj_clean(_obj);
 				return this;
 			}
@@ -542,7 +541,7 @@ namespace lvgl {
 			 * @param recursive     consider the transformation properties of the parents too
 			 * @param inv           do the inverse of the transformation (-angle and 1/zoom)
 			 */
-			inline Object *transformPoint(lv_point_t * p, bool recursive, bool inv) {
+			inline Object *TransformPoint(lv_point_t * p, bool recursive, bool inv) {
 				lv_obj_transform_point(_obj, p, recursive, inv);
 				return this;
 			}
@@ -554,7 +553,7 @@ namespace lvgl {
 			 * @param recursive     consider the transformation properties of the parents too
 			 * @param inv           do the inverse of the transformation (-angle and 1/zoom)
 			 */
-			inline Object *getTransformedArea(lv_area_t * area, bool recursive, bool inv) {
+			inline Object *GetTransformedArea(lv_area_t * area, bool recursive, bool inv) {
 				lv_obj_get_transformed_area(_obj, area, recursive, inv);
 				return this;
 			}
@@ -565,7 +564,7 @@ namespace lvgl {
 			 * @param Object       pointer to an object
 			 * @param           area the area to redraw
 			 */
-			inline Object *invalidateArea(const lv_area_t * area) {
+			inline Object *InvalidateArea(const lv_area_t * area) {
 				lv_obj_invalidate_area(_obj, area);
 				return this;
 			}
@@ -574,7 +573,7 @@ namespace lvgl {
 			 * Mark the object as invalid to redrawn its area
 			 * @param Object       pointer to an object
 			 */
-			inline Object *invalidate() {
+			inline Object *Invalidate() {
 				lv_obj_invalidate(_obj);
 				return this;
 			}
@@ -585,7 +584,7 @@ namespace lvgl {
 			 * @param area      the are to check. The visible part of the area will be written back here.
 			 * @return true     visible; false not visible (hidden, out of parent, on other screen, etc)
 			 */
-			inline bool areaIsVisible(lv_area_t * area) {
+			inline bool AreaIsVisible(lv_area_t * area) {
 				return lv_obj_area_is_visible(_obj, area);
 			}
 
@@ -594,7 +593,7 @@ namespace lvgl {
 			 * @param Object       pointer to an object
 			 * @return      true: visible; false not visible (hidden, out of parent, on other screen, etc)
 			 */
-			inline bool isVisible() {
+			inline bool IsVisible() {
 				return lv_obj_is_visible(_obj);
 			}
 
@@ -603,7 +602,7 @@ namespace lvgl {
 			 * @param Object       pointer to an object
 			 * @param size      extended clickable area in all 4 directions [px]
 			 */
-			inline Object *setExtClickArea(lv_coord_t size) {
+			inline Object *SetExtClickArea(lv_coord_t size) {
 				lv_obj_set_ext_click_area(_obj, size);
 				return this;
 			}
@@ -614,7 +613,7 @@ namespace lvgl {
 			 * @param Object       pointer to an object
 			 * @param area      store the result area here
 			 */
-			inline Object *getClickArea(lv_area_t * area) {
+			inline Object *GetClickArea(lv_area_t * area) {
 				lv_obj_get_click_area(_obj, area);
 				return this;
 			}
@@ -625,7 +624,7 @@ namespace lvgl {
 			 * @param point     screen-space point (absolute coordinate)
 			 * @return          true: if the object is considered under the point
 			 */
-			inline bool hitTest(const lv_point_t * point) {
+			inline bool HitTest(const lv_point_t * point) {
 				return lv_obj_hit_test(_obj, point);
 			}
 
@@ -637,7 +636,7 @@ namespace lvgl {
 			 * @param ref_width     the reference width used when min/max width is in percentage
 			 * @return              the clamped width
 			 */
-			inline lv_coord_t clampWidth(lv_coord_t width, lv_coord_t min_width, lv_coord_t max_width, lv_coord_t ref_width) {
+			inline lv_coord_t ClampWidth(lv_coord_t width, lv_coord_t min_width, lv_coord_t max_width, lv_coord_t ref_width) {
 				return lv_clamp_width(width, min_width, max_width, ref_width);
 			}
 
@@ -649,488 +648,488 @@ namespace lvgl {
 			 * @param ref_height     the reference height used when min/max height is in percentage
 			 * @return              the clamped height
 			 */
-			inline lv_coord_t champHeight(lv_coord_t height, lv_coord_t min_height, lv_coord_t max_height, lv_coord_t ref_height) {
+			inline lv_coord_t ChampHeight(lv_coord_t height, lv_coord_t min_height, lv_coord_t max_height, lv_coord_t ref_height) {
 				return lv_clamp_height(height, min_height, max_height, ref_height);
 			}
 
 
 
 
-			inline Object *setStyleWidth(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *sSetStyleWidth(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_width(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleMinWidth(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleMinWidth(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_min_width(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleMaxWidth(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleMaxWidth(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_max_width(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleHeight(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleHeight(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_height(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleMinHeight(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleMinHeight(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_min_height(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleMaxHeight(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleMaxHeight(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_max_height(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleX(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleX(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_x(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleY(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleY(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_y(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleAlign(lv_align_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleAlign(lv_align_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_align(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleTransformWidth(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTransformWidth(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_transform_width(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleTransformHeight(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTransformHeight(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_transform_height(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleTransformX(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTransformX(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_translate_x(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleTransformY(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTransformY(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_translate_y(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleTransformZoom(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTransformZoom(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_transform_zoom(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleTranbsformAngle(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTranbsformAngle(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_transform_angle(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleTransformPivotX(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTransformPivotX(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_transform_pivot_x(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleTransformPivotY(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTransformPivotY(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_transform_pivot_y(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleTransformPadTop(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTransformPadTop(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_pad_top(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleTransformPadBottom(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTransformPadBottom(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_pad_bottom(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleTransformPadLeft(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTransformPadLeft(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_pad_left(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleTransformPadRight(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTransformPadRight(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_pad_right(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStylePadRow(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStylePadRow(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_pad_row(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStylePadCollumn(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStylePadCollumn(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_pad_column(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleBgColor(lv_color_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBgColor(lv_color_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_bg_color(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleBgOpa(lv_opa_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBgOpa(lv_opa_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_bg_opa(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleBgGradColor(lv_color_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBgGradColor(lv_color_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_bg_grad_color(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleBgGradDir(lv_grad_dir_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBgGradDir(lv_grad_dir_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_bg_grad_dir(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleBgMainStop(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBgMainStop(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_bg_main_stop(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleBgGradStop(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBgGradStop(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_bg_grad_stop(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleBgGrad(const lv_grad_dsc_t * value, lv_style_selector_t selector) {
+			inline Object *SetStyleBgGrad(const lv_grad_dsc_t * value, lv_style_selector_t selector) {
 				lv_obj_set_style_bg_grad(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleBgDitherMode(lv_dither_mode_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBgDitherMode(lv_dither_mode_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_bg_dither_mode(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleBgImgSrc(const void * value, lv_style_selector_t selector) {
+			inline Object *SetStyleBgImgSrc(const void * value, lv_style_selector_t selector) {
 				lv_obj_set_style_bg_img_src(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleBgImgOpa(lv_opa_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBgImgOpa(lv_opa_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_bg_img_opa(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleBgImgRecolor(lv_color_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBgImgRecolor(lv_color_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_bg_img_recolor(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleBgImgRecolorOpa(lv_opa_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBgImgRecolorOpa(lv_opa_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_bg_img_recolor_opa(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleBgImgTiled(bool value, lv_style_selector_t selector) {
+			inline Object *SetStyleBgImgTiled(bool value, lv_style_selector_t selector) {
 				lv_obj_set_style_bg_img_tiled(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleBorderColor(lv_color_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBorderColor(lv_color_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_border_color(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleBorderOpa(lv_opa_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBorderOpa(lv_opa_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_border_opa(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleBorderWidth(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBorderWidth(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_border_width(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleBorderSide(lv_border_side_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBorderSide(lv_border_side_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_border_side(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleBorderPost(bool value, lv_style_selector_t selector) {
+			inline Object *SetStyleBorderPost(bool value, lv_style_selector_t selector) {
 				lv_obj_set_style_border_post(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleOutlineWidth(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleOutlineWidth(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_outline_width(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleOutlineColor(lv_color_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleOutlineColor(lv_color_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_outline_color(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleOutlineOpa(lv_opa_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleOutlineOpa(lv_opa_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_outline_opa(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleOutlinePad(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleOutlinePad(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_outline_pad(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleShadowWidth(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleShadowWidth(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_shadow_width(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleShadowOfsX(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleShadowOfsX(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_shadow_ofs_x(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleShadowOfsY(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleShadowOfsY(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_shadow_ofs_y(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleShadowSpread(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleShadowSpread(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_shadow_spread(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleShadowColor(lv_color_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleShadowColor(lv_color_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_shadow_color(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleShadowOpa(lv_opa_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleShadowOpa(lv_opa_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_shadow_opa(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleImgOpa(lv_opa_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleImgOpa(lv_opa_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_img_opa(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleImgRecolor(lv_color_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleImgRecolor(lv_color_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_img_recolor(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleImgRecolorOpa(lv_opa_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleImgRecolorOpa(lv_opa_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_img_recolor_opa(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleLineWidth(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleLineWidth(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_line_width(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleLineDashWidth(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleLineDashWidth(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_line_dash_width(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleLineDashGap(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleLineDashGap(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_line_dash_gap(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleLineRounded(bool value, lv_style_selector_t selector) {
+			inline Object *SetStyleLineRounded(bool value, lv_style_selector_t selector) {
 				lv_obj_set_style_line_rounded(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleLineColor(lv_color_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleLineColor(lv_color_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_line_color(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleLineOpa(lv_opa_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleLineOpa(lv_opa_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_line_opa(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleArcWidth(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleArcWidth(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_arc_width(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleArcRounded(bool value, lv_style_selector_t selector) {
+			inline Object *SetStyleArcRounded(bool value, lv_style_selector_t selector) {
 				lv_obj_set_style_arc_rounded(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleArcColor(lv_color_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleArcColor(lv_color_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_arc_color(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleArcOpa(lv_opa_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleArcOpa(lv_opa_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_arc_opa(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleArcImgSrc(const void * value, lv_style_selector_t selector) {
+			inline Object *SetStyleArcImgSrc(const void * value, lv_style_selector_t selector) {
 				lv_obj_set_style_arc_img_src(_obj,value, selector);
 				return this;
 			}
-			inline Object *setStyleTextColor(lv_color_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTextColor(lv_color_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_text_color(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleTextOpa(lv_opa_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTextOpa(lv_opa_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_text_opa(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleTextFont(const lv_font_t * value, lv_style_selector_t selector) {
+			inline Object *SetStyleTextFont(const lv_font_t * value, lv_style_selector_t selector) {
 				lv_obj_set_style_text_font(_obj,value, selector);
 				return this;
 			}
-			inline Object *setStyleTextLetterSpace(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTextLetterSpace(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_text_letter_space(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleTextLineSpace(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTextLineSpace(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_text_line_space(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleTextDecor(lv_text_decor_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTextDecor(lv_text_decor_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_text_decor(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleTextAlign(lv_text_align_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTextAlign(lv_text_align_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_text_align(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStylePadAll(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStylePadAll(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_pad_all(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleRadius(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleRadius(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_radius(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleClipCorner(bool value, lv_style_selector_t selector) {
+			inline Object *SetStyleClipCorner(bool value, lv_style_selector_t selector) {
 				lv_obj_set_style_clip_corner(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleOpa(lv_opa_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleOpa(lv_opa_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_opa(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleOpaLayered(lv_opa_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleOpaLayered(lv_opa_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_opa_layered(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleColorFilterDsc(const lv_color_filter_dsc_t * value, lv_style_selector_t selector) {
+			inline Object *SetStyleColorFilterDsc(const lv_color_filter_dsc_t * value, lv_style_selector_t selector) {
 				lv_obj_set_style_color_filter_dsc(_obj,value, selector);
 				return this;
 			}
-			inline Object *setStyleColorFilterOpa(lv_opa_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleColorFilterOpa(lv_opa_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_color_filter_opa(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleAnim(const lv_anim_t * value, lv_style_selector_t selector) {
+			inline Object *SetStyleAnim(const lv_anim_t * value, lv_style_selector_t selector) {
 				lv_obj_set_style_anim(_obj,value, selector);
 				return this;
 			}
-			inline Object *setStyleAnimTime(uint32_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleAnimTime(uint32_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_anim_time(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleAnimSpeed(uint32_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleAnimSpeed(uint32_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_anim_speed(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleTransition(const lv_style_transition_dsc_t * value, lv_style_selector_t selector) {
+			inline Object *SetStyleTransition(const lv_style_transition_dsc_t * value, lv_style_selector_t selector) {
 				lv_obj_set_style_transition(_obj,value, selector);
 				return this;
 			}
-			inline Object *setStyleBlendMode(lv_blend_mode_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBlendMode(lv_blend_mode_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_blend_mode(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleLayout(uint16_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleLayout(uint16_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_layout(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleBaseDir(lv_base_dir_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBaseDir(lv_base_dir_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_base_dir(_obj, value, selector);
 				return this;
 			}
-			inline Object *addEventCbValueChanged(lv_event_cb_t event_cb, void * user_data = NULL) {
+			inline Object *AddEventCbValueChanged(lv_event_cb_t event_cb, void * user_data = NULL) {
 				lv_obj_add_event_cb(_obj, event_cb, LV_EVENT_VALUE_CHANGED, user_data);
 				return this;
 			}
-			inline Object *addEventCbClicked(lv_event_cb_t event_cb, void * user_data = NULL) {
+			inline Object *AddEventCbClicked(lv_event_cb_t event_cb, void * user_data = NULL) {
 				lv_obj_add_event_cb(_obj, event_cb, LV_EVENT_CLICKED, user_data);
 				return this;
 			}
 			
-			inline Object *addStyle(lv_style_t * style, lv_style_selector_t selector) {
+			inline Object *AddStyle(lv_style_t * style, lv_style_selector_t selector) {
 				lv_obj_add_style(_obj, style, selector);
 				return this;
 			}
 			
-			inline Object *addStyle(lvgl::Style * style, lv_style_selector_t selector) {
-				lv_obj_add_style(_obj, style->get(), selector);
+			inline Object *AddStyle(lvgl::Style * style, lv_style_selector_t selector) {
+				lv_obj_add_style(_obj, style->Get(), selector);
 				return this;
 			}
 			
-			/*inline Object *addStyle(lvgl::Style style, lv_style_selector_t selector) {
-				lv_obj_add_style(_obj, style.get(), selector);
+			/*inline Object *AddStyle(lvgl::Style style, lv_style_selector_t selector) {
+				lv_obj_add_style(_obj, style.Get(), selector);
 				return this;
 			}*/
 			
-			inline Object *removeStyle(lv_style_t * style, lv_style_selector_t selector) {
+			inline Object *RemoveStyle(lv_style_t * style, lv_style_selector_t selector) {
 				lv_obj_remove_style(_obj, style, selector);
 				return this;
 			}
 			
-			inline Object *removeStyleAll() {
+			inline Object *RemoveStyleAll() {
 				lv_obj_remove_style(_obj, NULL, (lv_style_selector_t)LV_PART_ANY | (lv_style_selector_t)LV_STATE_ANY);
 				return this;
 			}
 			
-			inline Object *reportStyleChanged(lv_style_t * style) {
+			inline Object *ReportStyleChanged(lv_style_t * style) {
 				lv_obj_report_style_change(style);
 				return this;
 			}
 			
-			inline Object *refreshStyle(lv_part_t part, lv_style_prop_t prop) {
+			inline Object *RefreshStyle(lv_part_t part, lv_style_prop_t prop) {
 				lv_obj_refresh_style(_obj, part, prop);
 				return this;
 			}
 			
-			inline Object *enableStyleRefresh(bool en) {
+			inline Object *EnableStyleRefresh(bool en) {
 				lv_obj_enable_style_refresh(en);
 				return this;
 			}
 			
-			inline lv_style_value_t getStyleProp(lv_part_t part, lv_style_prop_t prop) {
+			inline lv_style_value_t GetStyleProp(lv_part_t part, lv_style_prop_t prop) {
 				return lv_obj_get_style_prop(_obj, part, prop);
 			}
 			
-			inline Object *setLocalStyleProp(lv_style_prop_t prop, lv_style_value_t value, lv_style_selector_t selector) {
+			inline Object *SetLocalStyleProp(lv_style_prop_t prop, lv_style_value_t value, lv_style_selector_t selector) {
 				lv_obj_set_local_style_prop(_obj, prop, value, selector);
 				return this;
 			}
 			
-			inline Object *setLocalStylePropMeta(lv_style_prop_t prop, uint16_t meta, lv_style_selector_t selector) {
+			inline Object *SetLocalStylePropMeta(lv_style_prop_t prop, uint16_t meta, lv_style_selector_t selector) {
 				lv_obj_set_local_style_prop_meta(_obj, prop, meta, selector);
 				return this;
 			}
 			
-			inline lv_style_res_t getLocalStyleProp(lv_style_prop_t prop, lv_style_value_t * value, lv_style_selector_t selector) {
+			inline lv_style_res_t GetLocalStyleProp(lv_style_prop_t prop, lv_style_value_t * value, lv_style_selector_t selector) {
 				return lv_obj_get_local_style_prop(_obj, prop, value, selector);
 			}
 			
-			inline bool removeLocalStyleProp(lv_style_prop_t prop, lv_style_selector_t selector) {
+			inline bool RemoveLocalStyleProp(lv_style_prop_t prop, lv_style_selector_t selector) {
 				return lv_obj_remove_local_style_prop(_obj, prop, selector);
 			}
 			
-			inline lv_style_value_t styleApplyColorFilter(uint32_t part, lv_style_value_t v) {
+			inline lv_style_value_t StyleApplyColorFilter(uint32_t part, lv_style_value_t v) {
 				return _lv_obj_style_apply_color_filter(_obj, part, v);
 			}
 			
-			inline Object *styleCreateTransition(lv_part_t part, lv_state_t prev_state, lv_state_t new_state, const _lv_obj_style_transition_dsc_t * tr) {
+			inline Object *StyleCreateTransition(lv_part_t part, lv_state_t prev_state, lv_state_t new_state, const _lv_obj_style_transition_dsc_t * tr) {
 				_lv_obj_style_create_transition(_obj, part, prev_state, new_state, tr);
 				return this;
 			}
 			
-			inline _lv_style_state_cmp_t styleStateCompare(lv_state_t state1, lv_state_t state2) {
+			inline _lv_style_state_cmp_t StyleStateCompare(lv_state_t state1, lv_state_t state2) {
 				return _lv_obj_style_state_compare(_obj, state1, state2);
 			}
 			
-			inline Object *fadeIn(uint32_t time, uint32_t delay) {
+			inline Object *FadeIn(uint32_t time, uint32_t delay) {
 				lv_obj_fade_in(_obj, time, delay);
 				return this;
 			}
 			
-			inline Object *fadeOut(uint32_t time, uint32_t delay) {
+			inline Object *FadeOut(uint32_t time, uint32_t delay) {
 				lv_obj_fade_out(_obj, time, delay);
 				return this;
 			}
 			
-			inline lv_state_t styleGetSelectorState(lv_style_selector_t selector) {
+			inline lv_state_t StyleGetSelectorState(lv_style_selector_t selector) {
 				return lv_obj_style_get_selector_state(selector);
 			}
 			
-			inline lv_part_t styleGetSelectorPart(lv_style_selector_t selector) {
+			inline lv_part_t StyleGetSelectorPart(lv_style_selector_t selector) {
 				return lv_obj_style_get_selector_part(selector);
 			}
 			
-			inline Object *setStylePadHor(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStylePadHor(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_pad_hor(_obj, value, selector);
 				return this;
 			}
 			
-			inline Object *setStylePadVer(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStylePadVer(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_pad_ver(_obj, value, selector);
 				return this;
 			}
 			
-			inline Object *setStylePadGap(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStylePadGap(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_pad_gap(_obj, value, selector);
 				return this;
 			}
 			
-			inline Object *setStyleSize(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleSize(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_size(_obj, value, selector);
 				return this;
 			}
 			
-			inline lv_text_align_t calculateTextAlign(lv_part_t part, const char * txt) {
+			inline lv_text_align_t CalculateTextAlign(lv_part_t part, const char * txt) {
 				return lv_obj_calculate_style_text_align(_obj, part, txt);
 			}
 			
-			inline lv_text_align_t getStyleTransformZoomSafe(uint32_t part) {
+			inline lv_text_align_t GetStyleTransformZoomSafe(uint32_t part) {
 				return lv_obj_get_style_transform_zoom_safe(_obj, part);
 			}
 			
-			inline lv_opa_t getStyleOpaRecursive(lv_part_t part) {
+			inline lv_opa_t GetStyleOpaRecursive(lv_part_t part) {
 				return lv_obj_get_style_opa_recursive(_obj, part);
 			}
 			
@@ -1142,7 +1141,7 @@ namespace lvgl {
 		 * @param obj       pointer to an object
 		 * @param mode      LV_SCROLL_MODE_ON/OFF/AUTO/ACTIVE
 		 */
-			inline Object *setScrollbarMode(lv_scrollbar_mode_t mode) {
+			inline Object *SetScrollbarMode(lv_scrollbar_mode_t mode) {
 				lv_obj_set_scrollbar_mode(_obj, mode);
 				return this;
 			}
@@ -1152,7 +1151,7 @@ namespace lvgl {
 		 * @param obj       pointer to an object
 		 * @param dir       the allow scroll directions. An element or OR-ed values of `lv_dir_t`
 		 */
-			inline Object *setScrollDirection(lv_dir_t dir) {
+			inline Object *SetScrollDirection(lv_dir_t dir) {
 				lv_obj_set_scroll_dir(_obj, dir);
 				return this;
 			}
@@ -1162,7 +1161,7 @@ namespace lvgl {
 		 * @param obj       pointer to an object
 		 * @param align     the snap align to set from `lv_scroll_snap_t`
 		 */
-			inline Object *setScrollSnapX(lv_scroll_snap_t align) {
+			inline Object *SetScrollSnapX(lv_scroll_snap_t align) {
 				lv_obj_set_scroll_snap_x(_obj, align);
 				return this;
 			}
@@ -1172,7 +1171,7 @@ namespace lvgl {
 		 * @param obj       pointer to an object
 		 * @param align     the snap align to set from `lv_scroll_snap_t`
 		 */
-			inline Object *setScrollSnapY(lv_scroll_snap_t align) {
+			inline Object *SetScrollSnapY(lv_scroll_snap_t align) {
 				lv_obj_set_scroll_snap_y(_obj, align);
 				return this;
 			}
@@ -1186,7 +1185,7 @@ namespace lvgl {
 		 * @param obj       pointer to an object
 		 * @return          the current scroll mode from `lv_scrollbar_mode_t`
 		 */
-			lv_scrollbar_mode_t getScrollbarMode() {
+			lv_scrollbar_mode_t GetScrollbarMode() {
 				return lv_obj_get_scrollbar_mode(_obj);
 			}
 
@@ -1195,7 +1194,7 @@ namespace lvgl {
 		 * @param obj       pointer to an object
 		 * @param dir       the allow scroll directions. An element or OR-ed values of `lv_dir_t`
 		 */
-			lv_dir_t getScrollDirection() {
+			lv_dir_t GetScrollDirection() {
 				return lv_obj_get_scroll_dir(_obj);
 			}
 
@@ -1204,7 +1203,7 @@ namespace lvgl {
 		 * @param obj       pointer to an object
 		 * @return          the current snap align from `lv_scroll_snap_t`
 		 */
-			lv_scroll_snap_t getScrollSnapX() {
+			lv_scroll_snap_t GetScrollSnapX() {
 				return lv_obj_get_scroll_snap_x(_obj);
 			}
 
@@ -1213,7 +1212,7 @@ namespace lvgl {
 		 * @param  obj      pointer to an object
 		 * @return          the current snap align from `lv_scroll_snap_t`
 		 */
-			lv_scroll_snap_t getScrollSnapY() {
+			lv_scroll_snap_t GetScrollSnapY() {
 				return lv_obj_get_scroll_snap_y(_obj);
 			}
 
@@ -1225,7 +1224,7 @@ namespace lvgl {
 		 *                  If scrolled return > 0
 		 *                  If scrolled in (elastic scroll) return < 0
 		 */
-			lv_coord_t getScrollX() {
+			lv_coord_t GetScrollX() {
 				return lv_obj_get_scroll_x(_obj);
 			}
 
@@ -1237,7 +1236,7 @@ namespace lvgl {
 		 *                  If scrolled return > 0
 		 *                  If scrolled inside return < 0
 		 */
-			lv_coord_t getScrollY() {
+			lv_coord_t GetScrollY() {
 				return lv_obj_get_scroll_y(_obj);
 			}
 
@@ -1248,7 +1247,7 @@ namespace lvgl {
 		 * @param obj       pointer to an object
 		 * @return          the scrollable area above the object in pixels
 		 */
-			lv_coord_t getScrollTop() {
+			lv_coord_t GetScrollTop() {
 				return lv_obj_get_scroll_top(_obj);
 			}
 
@@ -1259,7 +1258,7 @@ namespace lvgl {
 		 * @param obj       pointer to an object
 		 * @return          the scrollable area below the object in pixels
 		 */
-			lv_coord_t getScrollBottom() {
+			lv_coord_t GetScrollBottom() {
 				return lv_obj_get_scroll_bottom(_obj);
 			}
 
@@ -1270,7 +1269,7 @@ namespace lvgl {
 		 * @param obj       pointer to an object
 		 * @return          the scrollable area on the left the object in pixels
 		 */
-			lv_coord_t getScrollLeft() {
+			lv_coord_t GetScrollLeft() {
 				return lv_obj_get_scroll_left(_obj);
 			}
 
@@ -1281,7 +1280,7 @@ namespace lvgl {
 		 * @param obj       pointer to an object
 		 * @return          the scrollable area on the right the object in pixels
 		 */
-			lv_coord_t getScrollRight() {
+			lv_coord_t GetScrollRight() {
 				return lv_obj_get_scroll_right(_obj);
 			}
 
@@ -1291,7 +1290,7 @@ namespace lvgl {
 		 * @param obj       pointer to an object
 		 * @param end       pointer to store the result
 		 */
-			inline Object *getScrollEnd(lv_point_t * end) {
+			inline Object *GetScrollEnd(lv_point_t * end) {
 				lv_obj_get_scroll_end(_obj, end);
 				return this;
 			}
@@ -1309,7 +1308,7 @@ namespace lvgl {
 		 * @note            > 0 value means scroll right/bottom (show the more content on the right/bottom)
 		 * @note            e.g. dy = -20 means scroll down 20 px
 		 */
-			inline Object *scrollBy(lv_coord_t x, lv_coord_t y, lv_anim_enable_t anim_en) {
+			inline Object *ScrollBy(lv_coord_t x, lv_coord_t y, lv_anim_enable_t anim_en) {
 				lv_obj_scroll_by(_obj, x, y, anim_en);
 				return this;
 			}
@@ -1323,7 +1322,7 @@ namespace lvgl {
 		 * @param anim_en   LV_ANIM_ON: scroll with animation; LV_ANIM_OFF: scroll immediately
 		 * @note            e.g. dy = -20 means scroll down 20 px
 		 */
-			inline Object *scrollByBounded(lv_coord_t dx, lv_coord_t dy, lv_anim_enable_t anim_en) {
+			inline Object *ScrollByBounded(lv_coord_t dx, lv_coord_t dy, lv_anim_enable_t anim_en) {
 				lv_obj_scroll_by_bounded(_obj, dx, dy, anim_en);
 				return this;
 			}
@@ -1336,7 +1335,7 @@ namespace lvgl {
 		 * @param y         pixels to scroll vertically
 		 * @param anim_en   LV_ANIM_ON: scroll with animation; LV_ANIM_OFF: scroll immediately
 		 */
-			inline Object *scrollTo(lv_coord_t x, lv_coord_t y, lv_anim_enable_t anim_en) {
+			inline Object *ScrollTo(lv_coord_t x, lv_coord_t y, lv_anim_enable_t anim_en) {
 				lv_obj_scroll_to(_obj, x, y, anim_en);
 				return this;
 			}
@@ -1348,7 +1347,7 @@ namespace lvgl {
 		 * @param x         pixels to scroll horizontally
 		 * @param anim_en   LV_ANIM_ON: scroll with animation; LV_ANIM_OFF: scroll immediately
 		 */
-			inline Object *scrollToX(lv_coord_t x, lv_anim_enable_t anim_en) {
+			inline Object *ScrollToX(lv_coord_t x, lv_anim_enable_t anim_en) {
 				lv_obj_scroll_to_x(_obj, x, anim_en);
 				return this;
 			}
@@ -1360,7 +1359,7 @@ namespace lvgl {
 		 * @param y         pixels to scroll vertically
 		 * @param anim_en   LV_ANIM_ON: scroll with animation; LV_ANIM_OFF: scroll immediately
 		 */
-			inline Object *scrollToY(lv_coord_t y, lv_anim_enable_t anim_en) {
+			inline Object *ScrollToY(lv_coord_t y, lv_anim_enable_t anim_en) {
 				lv_obj_scroll_to_y(_obj, y, anim_en);
 				return this;
 			}
@@ -1370,7 +1369,7 @@ namespace lvgl {
 		 * @param obj       pointer to an object to scroll into view
 		 * @param anim_en   LV_ANIM_ON: scroll with animation; LV_ANIM_OFF: scroll immediately
 		 */
-			inline Object *scrollToView(lv_anim_enable_t anim_en) {
+			inline Object *ScrollToView(lv_anim_enable_t anim_en) {
 				lv_obj_scroll_to_view(_obj, anim_en);
 				return this;
 			}
@@ -1382,7 +1381,7 @@ namespace lvgl {
 		 * @param obj       pointer to an object to scroll into view
 		 * @param anim_en   LV_ANIM_ON: scroll with animation; LV_ANIM_OFF: scroll immediately
 		 */
-			inline Object *scrollToViewRecursive(lv_anim_enable_t anim_en) {
+			inline Object *ScrollToViewRecursive(lv_anim_enable_t anim_en) {
 				lv_obj_scroll_to_view_recursive(_obj, anim_en);
 				return this;
 			}
@@ -1396,7 +1395,7 @@ namespace lvgl {
 		 * @return          `LV_RES_INV`: to object was deleted in `LV_EVENT_SCROLL`;
 		 *                  `LV_RES_OK`: if the object is still valid
 		 */
-			lv_res_t scrollByRaw(lv_coord_t x, lv_coord_t y) {
+			lv_res_t ScrollByRaw(lv_coord_t x, lv_coord_t y) {
 				_lv_obj_scroll_by_raw(_obj, x, y);
 			}
 
@@ -1405,7 +1404,7 @@ namespace lvgl {
 		 * @param obj   pointer to an object
 		 * @return      true: `obj` is being scrolled
 		 */
-			bool isScrolling() {
+			bool IsScrolling() {
 				return lv_obj_is_scrolling(_obj);
 			}
 
@@ -1414,7 +1413,7 @@ namespace lvgl {
 		 * @param obj       an object whose children needs to checked and snapped
 		 * @param anim_en   LV_ANIM_ON/OFF
 		 */
-			inline Object *updateSnap(lv_anim_enable_t anim_en) {
+			inline Object *UpdateSnap(lv_anim_enable_t anim_en) {
 				lv_obj_update_snap(_obj, anim_en);
 				return this;
 			}
@@ -1425,7 +1424,7 @@ namespace lvgl {
 		 * @param hor   pointer to store the area of the horizontal scrollbar
 		 * @param ver   pointer to store the area of the vertical  scrollbar
 		 */
-			inline Object *getScrollbarArea(lv_area_t * hor, lv_area_t * ver) {
+			inline Object *GetScrollbarArea(lv_area_t * hor, lv_area_t * ver) {
 				lv_obj_get_scrollbar_area(_obj, hor, ver);
 				return this;
 			}
@@ -1434,7 +1433,7 @@ namespace lvgl {
 		 * Invalidate the area of the scrollbars
 		 * @param obj       pointer to an object
 		 */
-			inline Object *scrollbarInvalidate() {
+			inline Object *ScrollbarInvalidate() {
 				lv_obj_scrollbar_invalidate(_obj);
 				return this;
 			}
@@ -1444,7 +1443,7 @@ namespace lvgl {
 		 * @param obj       pointer to an object
 		 * @param anim_en   LV_ANIM_ON/OFF
 		 */
-			inline Object *readjustScroll(lv_anim_enable_t anim_en) {
+			inline Object *ReadjustScroll(lv_anim_enable_t anim_en) {
 				lv_obj_readjust_scroll(_obj, anim_en);
 				return this;
 			}
@@ -1459,7 +1458,7 @@ namespace lvgl {
 		 * @param flex pointer to a flex layout descriptor
 		 * @param flow an element of `lv_flex_flow_t`.
 		 */
-			inline Object *setFlexFlow(lv_flex_flow_t flow) {
+			inline Object *SetFlexFlow(lv_flex_flow_t flow) {
 				lv_obj_set_flex_flow(_obj, flow);
 				return this;
 			}
@@ -1471,7 +1470,7 @@ namespace lvgl {
 		 * @param cross_place where to place the item in their track on the cross axis. `LV_FLEX_ALIGN_START/END/CENTER`
 		 * @param track_place where to place the tracks in the cross direction. Any value of `lv_flex_align_t`.
 		 */
-			inline Object *setFlexAlign(lv_flex_align_t main_place, lv_flex_align_t cross_place,
+			inline Object *SetFlexAlign(lv_flex_align_t main_place, lv_flex_align_t cross_place,
 						               lv_flex_align_t track_cross_place) {
 				lv_obj_set_flex_align(_obj, main_place, cross_place, track_cross_place);
 				return this;
@@ -1482,28 +1481,28 @@ namespace lvgl {
 		 * @param obj pointer to an object. The parent must have flex layout else nothing will happen.
 		 * @param grow a value to set how much free space to take proportionally to other growing items.
 		 */
-			inline Object *setFlexGrow(uint8_t grow) {
+			inline Object *SetFlexGrow(uint8_t grow) {
 				lv_obj_set_flex_grow(_obj, grow);
 				return this;
 			}
 
-			inline Object *setStyleFlexFlow(lv_flex_flow_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleFlexFlow(lv_flex_flow_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_flex_flow(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleFlexMainPlace(lv_flex_align_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleFlexMainPlace(lv_flex_align_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_flex_main_place(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleFlexCrossPlace(lv_flex_align_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleFlexCrossPlace(lv_flex_align_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_flex_cross_place(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleFlexTrackPlace(lv_flex_align_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleFlexTrackPlace(lv_flex_align_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_flex_track_place(_obj, value, selector);
 				return this;
 			}
-			inline Object *setStyleFlexGrow(uint8_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleFlexGrow(uint8_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_flex_grow(_obj, value, selector);
 				return this;
 			}
@@ -1520,7 +1519,7 @@ namespace lvgl {
 		 * @param param         arbitrary data depending on the widget type and the event. (Usually `NULL`)
 		 * @return LV_RES_OK: `obj` was not deleted in the event; LV_RES_INV: `obj` was deleted in the event_code
 		 */
-			lv_res_t eventSend(lv_event_code_t event_code, void * param) {
+			lv_res_t EventSend(lv_event_code_t event_code, void * param) {
 				return lv_event_send(_obj, event_code, param);
 			}
 
@@ -1530,7 +1529,7 @@ namespace lvgl {
 		 * @param e         pointer to the event descriptor
 		 * @return          LV_RES_OK: the target object was not deleted in the event; LV_RES_INV: it was deleted in the event_code
 		 */
-			static lv_res_t eventBase(const lv_obj_class_t *class_p, lv_event_t *e) {
+			static lv_res_t EventBase(const lv_obj_class_t *class_p, lv_event_t *e) {
 				lv_obj_event_base(class_p, e);
 			}
 
@@ -1539,7 +1538,7 @@ namespace lvgl {
 		 * @param e     pointer to the event descriptor
 		 * @return      the target of the event_code
 		 */
-			static struct _lv_obj_t *eventGetTarget(lv_event_t *e) {
+			static struct _lv_obj_t *EventGetTarget(lv_event_t *e) {
 				return lv_event_get_target(e);
 			}
 
@@ -1549,7 +1548,7 @@ namespace lvgl {
 		 * @param e     pointer to the event descriptor
 		 * @return      pointer to the current target of the event_code
 		 */
-			static struct _lv_obj_t *eventGetCurrentTarget(lv_event_t *e) {
+			static struct _lv_obj_t *EventGetCurrentTarget(lv_event_t *e) {
 				return lv_event_get_current_target(e);
 			}
 
@@ -1558,7 +1557,7 @@ namespace lvgl {
 		 * @param e     pointer to the event descriptor
 		 * @return      the event code. (E.g. `LV_EVENT_CLICKED`, `LV_EVENT_FOCUSED`, etc)
 		 */
-			static lv_event_code_t eventGetCode(lv_event_t *e) {
+			static lv_event_code_t EventGetCode(lv_event_t *e) {
 				return lv_event_get_code(e);
 			}
 
@@ -1567,7 +1566,7 @@ namespace lvgl {
 		 * @param e     pointer to the event descriptor
 		 * @return      pointer to the parameter
 		 */
-			static void *eventGetParam(lv_event_t *e) {
+			static void *EventGetParam(lv_event_t *e) {
 				return lv_event_get_param(e);
 			}
 
@@ -1576,7 +1575,7 @@ namespace lvgl {
 		 * @param e     pointer to the event descriptor
 		 * @return      pointer to the user_data
 		 */
-			static void *eventGetUserData(lv_event_t *e) {
+			static void *EventGetUserData(lv_event_t *e) {
 				return lv_event_get_user_data(e);
 			}
 
@@ -1585,7 +1584,7 @@ namespace lvgl {
 		 * This is only valid when called in the middle of an event processing chain.
 		 * @param e     pointer to the event descriptor
 		 */
-			static void eventStopBubbling(lv_event_t *e) {
+			static void EventStopBubbling(lv_event_t *e) {
 				lv_event_stop_bubbling(e);
 			}
 
@@ -1594,7 +1593,7 @@ namespace lvgl {
 		 * This is only valid when called in the middle of an event processing chain.
 		 * @param e     pointer to the event descriptor
 		 */
-			static void eventStopProcessing(lv_event_t *e) {
+			static void EventStopProcessing(lv_event_t *e) {
 				lv_event_stop_processing(e);
 			}
 
@@ -1609,7 +1608,7 @@ namespace lvgl {
 		 * ...
 		 * lv_event_send(obj, LV_EVENT_MINE, &some_data);
 		 */
-			static uint32_t eventRegisterId() {
+			static uint32_t EventRegisterId() {
 				return lv_event_register_id();
 			}
 
@@ -1618,7 +1617,7 @@ namespace lvgl {
 		 * Mark this object's `event_temp_data` deleted to know that its `lv_event_send` should return `LV_RES_INV`
 		 * @param obj pointer to an object to mark as deleted
 		 */
-			void eventMarkDeleted() {
+			void EventMarkDeleted() {
 				_lv_event_mark_deleted(_obj);
 			}
 
@@ -1632,7 +1631,7 @@ namespace lvgl {
 		 * @param           user_data custom data data will be available in `event_cb`
 		 * @return          a pointer the event descriptor. Can be used in ::lv_obj_remove_event_dsc
 		 */
-			struct _lv_event_dsc_t * addEventCb(lv_event_cb_t event_cb, lv_event_code_t filter,
+			struct _lv_event_dsc_t * AddEventCb(lv_event_cb_t event_cb, lv_event_code_t filter,
 						                                 void * user_data) {
 				return lv_obj_add_event_cb(_obj, event_cb, filter, user_data);
 			}
@@ -1643,7 +1642,7 @@ namespace lvgl {
 		 * @param event_cb  the event function to remove, or `NULL` to remove the firstly added event callback
 		 * @return          true if any event handlers were removed
 		 */
-			bool removeEventCb(lv_event_cb_t event_cb) {
+			bool RemoveEventCb(lv_event_cb_t event_cb) {
 				return lv_obj_remove_event_cb(_obj, event_cb);
 			}
 
@@ -1654,7 +1653,7 @@ namespace lvgl {
 		 * @param event_user_data   the user_data specified in ::lv_obj_add_event_cb
 		 * @return                  true if any event handlers were removed
 		 */
-			bool removeEventCbWithUserData(lv_event_cb_t event_cb, const void * event_user_data) {
+			bool RemoveEventCbWithUserData(lv_event_cb_t event_cb, const void * event_user_data) {
 				return lv_obj_remove_event_cb_with_user_data(_obj, event_cb, event_user_data);
 			}
 
@@ -1665,7 +1664,7 @@ namespace lvgl {
 		 * @param event_dsc pointer to an event descriptor to remove (returned by ::lv_obj_add_event_cb)
 		 * @return          true if any event handlers were removed
 		 */
-			bool removeEventDsc(struct _lv_event_dsc_t * event_dsc) {
+			bool RemoveEventDsc(struct _lv_event_dsc_t * event_dsc) {
 				return lv_obj_remove_event_dsc(_obj, event_dsc);
 			}
 
@@ -1675,7 +1674,7 @@ namespace lvgl {
 		 * @param event_cb          the event function
 		 * @return                  the user_data
 		 */
-			void *getEventUserData(lv_event_cb_t event_cb) {
+			void *GetEventUserData(lv_event_cb_t event_cb) {
 				return lv_obj_get_event_user_data(_obj, event_cb);
 			}
 
@@ -1684,7 +1683,7 @@ namespace lvgl {
 		 * @param e     pointer to an event
 		 * @return      the indev that triggered the event or NULL if called on a not indev related event
 		 */
-			static lv_indev_t * eventGetIndev(lv_event_t *e) {
+			static lv_indev_t * EventGetIndev(lv_event_t *e) {
 				return lv_event_get_indev(e);
 			}
 
@@ -1693,7 +1692,7 @@ namespace lvgl {
 		 * @param e     pointer to an event
 		 * @return      the part draw descriptor to hook the drawing or NULL if called on an unrelated event
 		 */
-			static lv_obj_draw_part_dsc_t *eventGetDrawPartRescriptor(lv_event_t *e) {
+			static lv_obj_draw_part_dsc_t *EventGetDrawPartRescriptor(lv_event_t *e) {
 				return lv_event_get_draw_part_dsc(e);
 			}
 
@@ -1703,7 +1702,7 @@ namespace lvgl {
 		 * @param e     pointer to an event
 		 * @return      pointer to a draw context or NULL if called on an unrelated event
 		 */
-			static lv_draw_ctx_t *eventGetDrawContext(lv_event_t *e) {
+			static lv_draw_ctx_t *EventGetDrawContext(lv_event_t *e) {
 				return lv_event_get_draw_ctx(e);
 			}
 
@@ -1712,7 +1711,7 @@ namespace lvgl {
 		 * @param e     pointer to an event
 		 * @return      the old absolute area of the object or NULL if called on an unrelated event
 		 */
-			static const lv_area_t *eventGetOldSize(lv_event_t *e) {
+			static const lv_area_t *EventGetOldSize(lv_event_t *e) {
 				return lv_event_get_old_size(e);
 			}
 
@@ -1721,7 +1720,7 @@ namespace lvgl {
 		 * @param e     pointer to an event
 		 * @return      the triggering key or NULL if called on an unrelated event
 		 */
-			static uint32_t eventGetKey(lv_event_t *e) {
+			static uint32_t EventGetKey(lv_event_t *e) {
 				return lv_event_get_key(e);
 			}
 
@@ -1730,7 +1729,7 @@ namespace lvgl {
 		 * @param e     pointer to an event
 		 * @return      the animation that will scroll the object. (can be modified as required)
 		 */
-			static lv_anim_t *eventGetScrollAnim(lv_event_t *e) {
+			static lv_anim_t *EventGetScrollAnim(lv_event_t *e) {
 				return lv_event_get_scroll_anim(e);
 			}
 
@@ -1739,7 +1738,7 @@ namespace lvgl {
 		 * @param e     pointer to an event
 		 * @param size  The new extra draw size
 		 */
-			static void eventSetExtraDrawSize(lv_event_t *e, lv_coord_t size) {
+			static void EventSetExtraDrawSize(lv_event_t *e, lv_coord_t size) {
 				lv_event_set_ext_draw_size(e, size);
 			}
 
@@ -1749,7 +1748,7 @@ namespace lvgl {
 		 * @param e     pointer to an event
 		 * @return      pointer to `lv_point_t` or NULL if called on an unrelated event
 		 */
-			static lv_point_t *eventGetSelfSizeInfo(lv_event_t *e) {
+			static lv_point_t *EventGetSelfSizeInfo(lv_event_t *e) {
 				return lv_event_get_self_size_info(e);
 			}
 
@@ -1758,7 +1757,7 @@ namespace lvgl {
 		 * @param e     pointer to an event
 		 * @return      pointer to `lv_hit_test_info_t` or NULL if called on an unrelated event
 		 */
-			static lv_hit_test_info_t *eventGetHitTestInfo(lv_event_t *e) {
+			static lv_hit_test_info_t *EventGetHitTestInfo(lv_event_t *e) {
 				return lv_event_get_hit_test_info(e);
 			}
 
@@ -1768,7 +1767,7 @@ namespace lvgl {
 		 * @param e     pointer to an event
 		 * @return      an area with absolute coordinates to check
 		 */
-			static const lv_area_t *eventGetCoverArea(lv_event_t *e) {
+			static const lv_area_t *EventGetCoverArea(lv_event_t *e) {
 				return lv_event_get_cover_area(e);
 			}
 
@@ -1777,7 +1776,7 @@ namespace lvgl {
 		 * @param e     pointer to an event
 		 * @param res   an element of ::lv_cover_check_info_t
 		 */
-			static void eventSetCoverRes(lv_event_t *e, lv_cover_res_t res) {
+			static void EventSetCoverRes(lv_event_t *e, lv_cover_res_t res) {
 				lv_event_set_cover_res(e, res);
 			}
 

@@ -1,8 +1,7 @@
 /*
  * CheckBox.h
  *
- *  Created on: Nov 27, 2023
- *      Author: morgoth
+ *      Author: Iulian Gheorghiu
  */
 
 #ifndef LVGLCPP_SRC_CHECKBOX_H_
@@ -27,7 +26,7 @@ namespace lvgl {
 
 			}
 
-			inline lv_obj_t *getObj() {
+			inline lv_obj_t *GetObj() {
 				return _obj;
 			}
 
@@ -41,7 +40,7 @@ namespace lvgl {
 			 * @param cb    pointer to a check box
 			 * @param txt   the text of the check box. NULL to refresh with the current text.
 			 */
-			inline CheckBox *setText(const char * txt) {
+			inline CheckBox *SetText(const char * txt) {
 				lv_checkbox_set_text(_obj, txt);
 				return this;
 			}
@@ -52,7 +51,7 @@ namespace lvgl {
 			 * @param cb    pointer to a check box
 			 * @param txt   the text of the check box.
 			 */
-			inline CheckBox *setTextStatic(const char * txt) {
+			inline CheckBox *SetTextStatic(const char * txt) {
 				lv_checkbox_set_text_static(_obj, txt);
 				return this;
 			}
