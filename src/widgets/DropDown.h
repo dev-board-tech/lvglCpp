@@ -1,8 +1,7 @@
 /*
  * DropDown.h
  *
- *  Created on: Nov 27, 2023
- *      Author: morgoth
+ *      Author: Iulian Gheorghiu
  */
 
 #ifndef LVGLCPP_SRC_DROPDOWN_H_
@@ -40,10 +39,10 @@ namespace lvgl {
 			}
 			DropDown(Object *parent, const char *options) {
 				if(options == NULL) {
-					_obj = parent->getObj();
+					_obj = parent->GetObj();
 				} else {
-					if(parent && parent->getObj()) {
-						_obj = lv_dropdown_create(parent->getObj());
+					if(parent && parent->GetObj()) {
+						_obj = lv_dropdown_create(parent->GetObj());
 					} else {
 						_obj = lv_dropdown_create(lv_scr_act());
 					}
@@ -56,7 +55,7 @@ namespace lvgl {
 
 			}
 
-			inline lv_obj_t *getObj() {
+			inline lv_obj_t *GetObj() {
 				return _obj;
 			}
 
@@ -71,7 +70,7 @@ namespace lvgl {
 			 * @param obj       pointer to a drop-down list object
 			 * @param txt       the text as a string (Only its pointer is saved)
 			 */
-			inline DropDown *setText(const char * txt) {
+			inline DropDown *SetText(const char * txt) {
 				lv_dropdown_set_text(_obj, txt);
 				return this;
 			}
@@ -82,7 +81,7 @@ namespace lvgl {
 			 * @param obj       pointer to drop-down list object
 			 * @param options   a string with '\n' separated options. E.g. "One\nTwo\nThree"
 			 */
-			inline DropDown *setOptions(const char * options) {
+			inline DropDown *SetOptions(const char * options) {
 				lv_dropdown_set_options(_obj, options);
 				return this;
 			}
@@ -93,7 +92,7 @@ namespace lvgl {
 			 * @param obj       pointer to drop-down list object
 			 * @param options   a static string with '\n' separated options. E.g. "One\nTwo\nThree"
 			 */
-			inline DropDown *setOptionsStatic(const char * options) {
+			inline DropDown *SetOptionsStatic(const char * options) {
 				lv_dropdown_set_options_static(_obj, options);
 				return this;
 			}
@@ -104,7 +103,7 @@ namespace lvgl {
 			 * @param option    a string without '\n'. E.g. "Four"
 			 * @param pos       the insert position, indexed from 0, LV_DROPDOWN_POS_LAST = end of string
 			 */
-			inline DropDown *addOptions(const char * option, uint32_t pos) {
+			inline DropDown *AddOptions(const char * option, uint32_t pos) {
 				lv_dropdown_add_option(_obj, option, pos);
 				return this;
 			}
@@ -113,7 +112,7 @@ namespace lvgl {
 			 * Clear all options in a drop-down list.  Works with both static and dynamic options.
 			 * @param obj       pointer to drop-down list object
 			 */
-			inline DropDown *clearOptions() {
+			inline DropDown *ClearOptions() {
 				lv_dropdown_clear_options(_obj);
 				return this;
 			}
@@ -123,7 +122,7 @@ namespace lvgl {
 			 * @param obj       pointer to drop-down list object
 			 * @param sel_opt   id of the selected option (0 ... number of option - 1);
 			 */
-			inline DropDown *setSelected(uint16_t sel_opt) {
+			inline DropDown *SetSelected(uint16_t sel_opt) {
 				lv_dropdown_set_selected(_obj, sel_opt);
 				return this;
 			}
@@ -133,7 +132,7 @@ namespace lvgl {
 			 * @param obj       pointer to a drop-down list object
 			 * @param dir       LV_DIR_LEFT/RIGHT/TOP/BOTTOM
 			 */
-			inline DropDown *setDirection(lv_dir_t dir) {
+			inline DropDown *SetDirection(lv_dir_t dir) {
 				lv_dropdown_set_dir(_obj, dir);
 				return this;
 			}
@@ -145,7 +144,7 @@ namespace lvgl {
 			 * @note angle and zoom transformation can be applied if the symbol is an image.
 			 * E.g. when drop down is checked (opened) rotate the symbol by 180 degree
 			 */
-			inline DropDown *setSymbol(const void * symbol) {
+			inline DropDown *SetSymbol(const void * symbol) {
 				lv_dropdown_set_symbol(_obj, symbol);
 				return this;
 			}
@@ -155,7 +154,7 @@ namespace lvgl {
 			 * @param obj       pointer to drop-down list object
 			 * @param en        true: highlight enabled; false: disabled
 			 */
-			inline DropDown *setSelectedHighlight(bool en) {
+			inline DropDown *SetSelectedHighlight(bool en) {
 				lv_dropdown_set_selected_highlight(_obj, en);
 				return this;
 			}
@@ -169,7 +168,7 @@ namespace lvgl {
 			 * @param obj       pointer to a drop-down list object
 			 * @return          pointer to the list of the drop-down
 			 */
-			inline lv_obj_t *getList() {
+			inline lv_obj_t *GetList() {
 				return lv_dropdown_get_list(_obj);
 			}
 
@@ -178,7 +177,7 @@ namespace lvgl {
 			 * @param obj   pointer to a drop-down list object
 			 * @return      the text as string, `NULL` if no text
 			 */
-			inline const char *getText() {
+			inline const char *GetText() {
 				return lv_dropdown_get_text(_obj);
 			}
 
@@ -187,7 +186,7 @@ namespace lvgl {
 			 * @param obj       pointer to drop-down list object
 			 * @return          the options separated by '\n'-s (E.g. "Option1\nOption2\nOption3")
 			 */
-			inline const char *getOptions() {
+			inline const char *GetOptions() {
 				return lv_dropdown_get_options(_obj);
 			}
 
@@ -196,11 +195,11 @@ namespace lvgl {
 			 * @param obj       pointer to drop-down list object
 			 * @return          index of the selected option (0 ... number of option - 1);
 			 */
-			inline uint16_t getSelected() {
+			inline uint16_t GetSelected() {
 				return lv_dropdown_get_selected(_obj);
 			}
 
-			static inline uint16_t getSelected(lv_obj_t *obj) {
+			static inline uint16_t GetSelected(lv_obj_t *obj) {
 				return lv_dropdown_get_selected(obj);
 			}
 
@@ -209,7 +208,7 @@ namespace lvgl {
 			 * @param obj       pointer to drop-down list object
 			 * @return          the total number of options in the list
 			 */
-			inline uint16_t getOptionCnt() {
+			inline uint16_t GetOptionCnt() {
 				return lv_dropdown_get_option_cnt(_obj);
 			}
 
@@ -219,12 +218,12 @@ namespace lvgl {
 			 * @param buf       pointer to an array to store the string
 			 * @param buf_size  size of `buf` in bytes. 0: to ignore it.
 			 */
-			inline DropDown *getSelectedStr( char * buf, uint32_t buf_size) {
+			inline DropDown *GetSelectedStr( char * buf, uint32_t buf_size) {
 				lv_dropdown_get_selected_str(_obj, buf, buf_size);
 				return this;
 			}
 
-			static inline void getSelectedStr(lv_obj_t *obj, char * buf, uint32_t buf_size) {
+			static inline void GetSelectedStr(lv_obj_t *obj, char * buf, uint32_t buf_size) {
 				lv_dropdown_get_selected_str(obj, buf, buf_size);
 			}
 
@@ -234,7 +233,7 @@ namespace lvgl {
 			 * @param option    an option as string
 			 * @return          index of `option` in the list of all options. -1 if not found.
 			 */
-			inline int32_t getOptionIndex(const char * option) {
+			inline int32_t GetOptionIndex(const char * option) {
 				return lv_dropdown_get_option_index(_obj, option);
 			}
 
@@ -243,7 +242,7 @@ namespace lvgl {
 			 * @param obj       pointer to drop-down list object
 			 * @return          the symbol or NULL if not enabled
 			 */
-			inline const char *getSymbol() {
+			inline const char *GetSymbol() {
 				return lv_dropdown_get_symbol(_obj);
 			}
 
@@ -252,7 +251,7 @@ namespace lvgl {
 			 * @param obj       pointer to drop-down list object
 			 * @return          true: highlight enabled; false: disabled
 			 */
-			inline bool getSelectedHighlight() {
+			inline bool GetSelectedHighlight() {
 				return lv_dropdown_get_selected_highlight(_obj);
 			}
 
@@ -261,7 +260,7 @@ namespace lvgl {
 			 * @param obj       pointer to a drop-down list object
 			 * @return          LV_DIR_LEF/RIGHT/TOP/BOTTOM
 			 */
-			inline lv_dir_t getDirection() {
+			inline lv_dir_t GetDirection() {
 				return lv_dropdown_get_dir(_obj);
 			}
 

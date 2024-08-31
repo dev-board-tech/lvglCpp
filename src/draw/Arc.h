@@ -1,8 +1,7 @@
 /*
  * Arc.h
  *
- *  Created on: Nov 27, 2023
- *      Author: morgoth
+ *      Author: Iulian Gheorghiu
  */
 
 #ifndef LVGLCPP_DRAW_SRC_ARC_H_
@@ -24,7 +23,7 @@ namespace lvgl {
 				}
 			}
 			
-			inline lv_draw_arc_dsc_t *get() {
+			inline lv_draw_arc_dsc_t *Get() {
 				return &arc;
 			}
 
@@ -34,67 +33,67 @@ namespace lvgl {
 				}
 			}
 
-			inline Arc *setColor(lv_color_t color) {
+			inline Arc *SetColor(lv_color_t color) {
 				arc.color = color;
 				return this;
 			}
-			inline lv_color_t getColor() {
+			inline lv_color_t GetColor() {
 				return arc.color;
 			}
 
-			inline Arc *setWidth(lv_coord_t width) {
+			inline Arc *SetWidth(lv_coord_t width) {
 				arc.width = width;
 				return this;
 			}
-			inline lv_coord_t getWidth() {
+			inline lv_coord_t GetWidth() {
 				return arc.width;
 			}
 
-			inline Arc *setStartAngle(uint16_t start_angle) {
+			inline Arc *SetStartAngle(uint16_t start_angle) {
 				arc.start_angle = start_angle;
 				return this;
 			}
-			inline uint16_t getStartAngle() {
+			inline uint16_t GetStartAngle() {
 				return arc.start_angle;
 			}
 
-			inline Arc *setEndAngle(uint16_t end_angle) {
+			inline Arc *SetEndAngle(uint16_t end_angle) {
 				arc.end_angle = end_angle;
 				return this;
 			}
-			inline uint16_t getEndAngle() {
+			inline uint16_t GetEndAngle() {
 				return arc.end_angle;
 			}
 
-			inline Arc *setImageSource(const void * img_src) {
+			inline Arc *SetImageSource(const void * img_src) {
 				arc.img_src = img_src;
 				return this;
 			}
-			inline const void * getImageSource() {
+			inline const void * GetImageSource() {
 				return arc.img_src;
 			}
 
-			inline Arc *setOpacity(lv_opa_t opa) {
+			inline Arc *SetOpacity(lv_opa_t opa) {
 				arc.opa = opa;
 				return this;
 			}
-			inline lv_opa_t getOpacity() {
+			inline lv_opa_t GetOpacity() {
 				return arc.opa;
 			}
 
-			inline Arc *setBlendMode(lv_blend_mode_t blend_mode) {
+			inline Arc *SetBlendMode(lv_blend_mode_t blend_mode) {
 				arc.blend_mode = blend_mode;
 				return this;
 			}
-			inline lv_blend_mode_t getBlendMode() {
+			inline lv_blend_mode_t GetBlendMode() {
 				return arc.blend_mode;
 			}
 
-			inline Arc *setRounded(uint8_t rounded) {
+			inline Arc *SetRounded(uint8_t rounded) {
 				arc.rounded = rounded;
 				return this;
 			}
-			inline uint8_t getRounded() {
+			inline uint8_t GetRounded() {
 				return arc.rounded;
 			}
 
@@ -112,6 +111,11 @@ namespace lvgl {
 			static inline void drawArc(struct _lv_draw_ctx_t * draw_ctx, const lv_draw_arc_dsc_t * dsc, const lv_point_t * center,
 								 uint16_t radius,  uint16_t start_angle, uint16_t end_angle) {
 				lv_draw_arc(draw_ctx, dsc, center, radius, start_angle, end_angle);
+			}
+
+			static inline void drawArc(struct _lv_draw_ctx_t * draw_ctx, lvgl::draw::Arc * dsc, const lv_point_t * center,
+								 uint16_t radius,  uint16_t start_angle, uint16_t end_angle) {
+				lv_draw_arc(draw_ctx, dsc->Get(), center, radius, start_angle, end_angle);
 			}
 
 /**

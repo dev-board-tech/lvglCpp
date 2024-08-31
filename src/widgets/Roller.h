@@ -1,8 +1,7 @@
 /*
  * Roller.h
  *
- *  Created on: Nov 27, 2023
- *      Author: morgoth
+ *      Author: Iulian Gheorghiu
  */
 
 #ifndef LVGLCPP_SRC_ROLLER_H_
@@ -27,7 +26,7 @@ namespace lvgl {
 
 			}
 
-			inline lv_obj_t *getObj() {
+			inline lv_obj_t *GetObj() {
 				return _obj;
 			}
 
@@ -41,15 +40,15 @@ namespace lvgl {
 			 * @param options   a string with '\n' separated options. E.g. "One\nTwo\nThree"
 			 * @param mode      `LV_ROLLER_MODE_NORMAL` or `LV_ROLLER_MODE_INFINITE`
 			 */
-			inline Roller *setOptions(const char * options, lv_roller_mode_t mode) {
+			inline Roller *SetOptions(const char * options, lv_roller_mode_t mode) {
 				lv_roller_set_options(_obj, options, mode);
 				return this;
 			}
-			inline Roller *setOptionsInfinite(const char * options) {
+			inline Roller *SetOptionsInfinite(const char * options) {
 				lv_roller_set_options(_obj, options, LV_ROLLER_MODE_INFINITE);
 				return this;
 			}
-			inline Roller *setOptionsNormal(const char * options) {
+			inline Roller *SetOptionsNormal(const char * options) {
 				lv_roller_set_options(_obj, options, LV_ROLLER_MODE_NORMAL);
 				return this;
 			}
@@ -60,7 +59,7 @@ namespace lvgl {
 			 * @param sel_opt   index of the selected option (0 ... number of option - 1);
 			 * @param anim_en   LV_ANIM_ON: set with animation; LV_ANOM_OFF set immediately
 			 */
-			inline Roller *setSelected(uint16_t sel_opt, lv_anim_enable_t anim) {
+			inline Roller *SetSelected(uint16_t sel_opt, lv_anim_enable_t anim) {
 				lv_roller_set_selected(_obj, sel_opt, anim);
 				return this;
 			}
@@ -70,7 +69,7 @@ namespace lvgl {
 			 * @param obj       pointer to a roller object
 			 * @param row_cnt   number of desired visible rows
 			 */
-			inline Roller *setVisibleRowCount(uint8_t row_cnt) {
+			inline Roller *SetVisibleRowCount(uint8_t row_cnt) {
 				lv_roller_set_visible_row_count(_obj, row_cnt);
 				return this;
 			}
@@ -84,7 +83,7 @@ namespace lvgl {
 			 * @param obj       pointer to a roller object
 			 * @return          index of the selected option (0 ... number of option - 1);
 			 */
-			inline uint16_t getSelected() {
+			inline uint16_t GetSelected() {
 				return lv_roller_get_selected((const lv_obj_t *)_obj);
 			}
 
@@ -94,7 +93,7 @@ namespace lvgl {
 			 * @param buf       pointer to an array to store the string
 			 * @param buf_size  size of `buf` in bytes. 0: to ignore it.
 			 */
-			inline Roller *getSelectedStr(char * buf, uint32_t buf_size) {
+			inline Roller *GetSelectedStr(char * buf, uint32_t buf_size) {
 				lv_roller_get_selected_str((const lv_obj_t *)_obj, buf, buf_size);
 				return this;
 			}
@@ -105,7 +104,7 @@ namespace lvgl {
 			 * @param obj       pointer to roller object
 			 * @return          the options separated by '\n'-s (E.g. "Option1\nOption2\nOption3")
 			 */
-			inline const char *getOptions() {
+			inline const char *GetOptions() {
 				return lv_roller_get_options((const lv_obj_t *)_obj);
 			}
 
@@ -114,7 +113,7 @@ namespace lvgl {
 			 * @param obj   pointer to a roller object
 			 * @return      the total number of options
 			 */
-			inline uint16_t getOptionCnt() {
+			inline uint16_t GetOptionCnt() {
 				return lv_roller_get_option_cnt((const lv_obj_t *)_obj);
 			}
 

@@ -1,3 +1,8 @@
+/*
+ * List.h
+ *
+ *      Author: Iulian Gheorghiu
+ */
 #ifndef LVGLCPP_SRC_LIST_H_
 #define LVGLCPP_SRC_LIST_H_
 
@@ -37,12 +42,12 @@ namespace lvgl {
 			/**
 			 * Set the object pointer when used as a child.
 			 */
-			inline List *setObj(lv_obj_t *obj) {
+			inline List *SetObj(lv_obj_t *obj) {
 				_obj = obj;
 				return this;
 			}
 
-			inline lv_obj_t *getObj() {
+			inline lv_obj_t *GetObj() {
 				return _obj;
 			}
 
@@ -80,7 +85,7 @@ namespace lvgl {
 				vsnprintf(buffer, size + 1, fmt, args);
 				va_end(args);
 				Label label;
-				label.setObj(lv_list_add_text(_obj, buffer));
+				label.SetObj(lv_list_add_text(_obj, buffer));
 				return label;
 			}
 
@@ -108,30 +113,30 @@ namespace lvgl {
 				vsnprintf(buffer, size + 1, fmt, args);
 				va_end(args);
 				Button btn;
-				btn.setObj(lv_list_add_btn(_obj, icon, buffer));
+				btn.SetObj(lv_list_add_btn(_obj, icon, buffer));
 				return btn;
 			}
 			
-			inline List *setBtnText(Button * btn, const char * text) {
-				if(!btn || !btn->getObj() || !text)
+			inline List *SetBtnText(Button * btn, const char * text) {
+				if(!btn || !btn->GetObj() || !text)
 					return this;
 				uint32_t i;
-				for(i = 0; i < lv_obj_get_child_cnt(btn->getObj()); i++) {
-					lv_obj_t * child = lv_obj_get_child(btn->getObj(), i);
+				for(i = 0; i < lv_obj_get_child_cnt(btn->GetObj()); i++) {
+					lv_obj_t * child = lv_obj_get_child(btn->GetObj(), i);
 					if(lv_obj_check_type(child, &lv_label_class)) {
 						lv_label_set_text(child, text);
 						return this;
 					}
 				}
-				lv_obj_t * label = lv_label_create(btn->getObj());
+				lv_obj_t * label = lv_label_create(btn->GetObj());
 				lv_label_set_text(label, text);
 				lv_label_set_long_mode(label, LV_LABEL_LONG_SCROLL_CIRCULAR);
 				lv_obj_set_flex_grow(label, 1);
 				return this;
 			}
 
-			void setBtnText(Button * btn, const char *fmt, ...) {
-				if(!btn || !btn->getObj() || !fmt)
+			void SetBtnText(Button * btn, const char *fmt, ...) {
+				if(!btn || !btn->GetObj() || !fmt)
 					return;
 				va_list args;
 				va_start(args, fmt);
@@ -143,56 +148,56 @@ namespace lvgl {
 				va_end(args);
 
 				uint32_t i;
-				for(i = 0; i < lv_obj_get_child_cnt(btn->getObj()); i++) {
-					lv_obj_t * child = lv_obj_get_child(btn->getObj(), i);
+				for(i = 0; i < lv_obj_get_child_cnt(btn->GetObj()); i++) {
+					lv_obj_t * child = lv_obj_get_child(btn->GetObj(), i);
 					if(lv_obj_check_type(child, &lv_label_class)) {
 						lv_label_set_text(child, buffer);
 						return;
 					}
 				}
-				lv_obj_t * label = lv_label_create(btn->getObj());
+				lv_obj_t * label = lv_label_create(btn->GetObj());
 				lv_label_set_text(label, buffer);
 				lv_label_set_long_mode(label, LV_LABEL_LONG_SCROLL_CIRCULAR);
 				lv_obj_set_flex_grow(label, 1);
 			}
 
-			void setBtnImg(Button * btn, const void * icon) {
-				if(!btn || !btn->getObj() || !icon)
+			void SetBtnImg(Button * btn, const void * icon) {
+				if(!btn || !btn->GetObj() || !icon)
 					return;
 				uint32_t i;
-				for(i = 0; i < lv_obj_get_child_cnt(btn->getObj()); i++) {
-					lv_obj_t * child = lv_obj_get_child(btn->getObj(), i);
+				for(i = 0; i < lv_obj_get_child_cnt(btn->GetObj()); i++) {
+					lv_obj_t * child = lv_obj_get_child(btn->GetObj(), i);
 					if(lv_obj_check_type(child, &lv_img_class)) {
 						lv_img_set_src(child, icon);
 						return;
 					}
 				}
-				lv_obj_t * img = lv_img_create(btn->getObj());
+				lv_obj_t * img = lv_img_create(btn->GetObj());
 				lv_img_set_src(img, icon);
 			}
 
-			void setBtnImgText(Button * btn, const void * icon, const char *text) {
-				if(!btn || !btn->getObj() || !icon || !text)
+			void SetBtnImgText(Button * btn, const void * icon, const char *text) {
+				if(!btn || !btn->GetObj() || !icon || !text)
 					return;
-				setBtnImg(btn, icon);
+				SetBtnImg(btn, icon);
 				uint32_t i;
-				for(i = 0; i < lv_obj_get_child_cnt(btn->getObj()); i++) {
-					lv_obj_t * child = lv_obj_get_child(btn->getObj(), i);
+				for(i = 0; i < lv_obj_get_child_cnt(btn->GetObj()); i++) {
+					lv_obj_t * child = lv_obj_get_child(btn->GetObj(), i);
 					if(lv_obj_check_type(child, &lv_label_class)) {
 						lv_label_set_text(child, text);
 						return;
 					}
 				}
-				lv_obj_t * label = lv_label_create(btn->getObj());
+				lv_obj_t * label = lv_label_create(btn->GetObj());
 				lv_label_set_text(label, text);
 				lv_label_set_long_mode(label, LV_LABEL_LONG_SCROLL_CIRCULAR);
 				lv_obj_set_flex_grow(label, 1);
 			}
 
-			void setBtnImgText(Button * btn, const void * icon, const char *fmt, ...) {
-				if(!btn || !btn->getObj() || !icon || !fmt)
+			void SetBtnImgText(Button * btn, const void * icon, const char *fmt, ...) {
+				if(!btn || !btn->GetObj() || !icon || !fmt)
 					return;
-				setBtnImg(btn, icon);
+				SetBtnImg(btn, icon);
 				va_list args;
 				va_start(args, fmt);
 				int size = vsnprintf(NULL, 0, fmt, args);
@@ -203,14 +208,14 @@ namespace lvgl {
 				va_end(args);
 
 				uint32_t i;
-				for(i = 0; i < lv_obj_get_child_cnt(btn->getObj()); i++) {
-					lv_obj_t * child = lv_obj_get_child(btn->getObj(), i);
+				for(i = 0; i < lv_obj_get_child_cnt(btn->GetObj()); i++) {
+					lv_obj_t * child = lv_obj_get_child(btn->GetObj(), i);
 					if(lv_obj_check_type(child, &lv_label_class)) {
 						lv_label_set_text(child, buffer);
 						return;
 					}
 				}
-				lv_obj_t * label = lv_label_create(btn->getObj());
+				lv_obj_t * label = lv_label_create(btn->GetObj());
 				lv_label_set_text(label, buffer);
 				lv_label_set_long_mode(label, LV_LABEL_LONG_SCROLL_CIRCULAR);
 				lv_obj_set_flex_grow(label, 1);
@@ -225,8 +230,8 @@ namespace lvgl {
 			 * @param obj       pointer to a Label object
 			 * @return          the text of the Label
 			 */
-			inline const char *getBtnText(Button * btn) {
-				return lv_list_get_btn_text(_obj, btn->getObj());
+			inline const char *GetBtnText(Button * btn) {
+				return lv_list_get_btn_text(_obj, btn->GetObj());
 			}
 
 		};

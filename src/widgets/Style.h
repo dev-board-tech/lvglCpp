@@ -1,3 +1,8 @@
+/*
+ * Style.h
+ *
+ *      Author: Iulian Gheorghiu
+ */
 #ifndef LVGLCPP_SRC_H_
 #define LVGLCPP_SRC_H_
 
@@ -10,7 +15,7 @@ namespace lvgl {
 			Prop() {
 				memset(prop, LV_STYLE_PROP_INV, sizeof(prop));
 			}
-			lvgl::style::Prop *add(lv_style_prop_t p) {
+			Prop *Add(lv_style_prop_t p) {
 				int i = 0;
 				for(; i < sizeof(prop) - 1; i++) {
 					if(prop[i] == p) {
@@ -24,7 +29,7 @@ namespace lvgl {
 				}
 				return this;
 			}
-			lvgl::style::Prop *remove(lv_style_prop_t p) {
+			Prop *Remove(lv_style_prop_t p) {
 				int i = 0;
 				bool found = false;
 				for(; i < sizeof(prop) - 1; i++) {
@@ -38,7 +43,7 @@ namespace lvgl {
 				}
 				return this;
 			}
-			lvgl::style::Prop *remove(int idx) {
+			Prop *Remove(int idx) {
 				int i = 0;
 				bool found = false;
 				for(; i < sizeof(prop) - 1; i++) {
@@ -52,7 +57,7 @@ namespace lvgl {
 				}
 				return this;
 			}
-			const lv_style_prop_t *get() {
+			const lv_style_prop_t *Get() {
 				return prop;
 			}
 		private:
@@ -61,48 +66,48 @@ namespace lvgl {
 //------------------------------------------
 		class Transition {
 		public:
-			Transition(lvgl::style::Prop *prop, lv_anim_path_cb_t path_cb, uint32_t time = 250, uint32_t delay = 0, void * user_data = NULL) {
-				lv_style_transition_dsc_init(&transitionDef, prop->get(), path_cb, time, delay, user_data);
+			Transition(Prop *prop, lv_anim_path_cb_t path_cb, uint32_t time = 250, uint32_t delay = 0, void * user_data = NULL) {
+				lv_style_transition_dsc_init(&transitionDef, prop->Get(), path_cb, time, delay, user_data);
 			}
-			Transition(lvgl::style::Prop prop, lv_anim_path_cb_t path_cb, uint32_t time = 250, uint32_t delay = 0, void * user_data = NULL) {
-				lv_style_transition_dsc_init(&transitionDef, prop.get(), path_cb, time, delay, user_data);
+			Transition(Prop prop, lv_anim_path_cb_t path_cb, uint32_t time = 250, uint32_t delay = 0, void * user_data = NULL) {
+				lv_style_transition_dsc_init(&transitionDef, prop.Get(), path_cb, time, delay, user_data);
 			}
 			Transition(const lv_style_prop_t *prop, lv_anim_path_cb_t path_cb, uint32_t time = 250, uint32_t delay = 0, void * user_data = NULL) {
 				lv_style_transition_dsc_init(&transitionDef, prop, path_cb, time, delay, user_data);
 			}
-			lvgl::style::Transition *setCb(lv_anim_path_cb_t path_cb) {
+			Transition *SetCb(lv_anim_path_cb_t path_cb) {
 				pathCb = path_cb;
 				return this;
 			}
-			lv_anim_path_cb_t getCb() {
+			lv_anim_path_cb_t GetCb() {
 				return pathCb;
 			}
-			lvgl::style::Transition *setTime(uint32_t time) {
+			Transition *SetTime(uint32_t time) {
 				this->time = time;
 				return this;
 			}
 			uint32_t getTime() {
 				return time;
 			}
-			lvgl::style::Transition *setDelay(uint32_t delay) {
+			Transition *SetDelay(uint32_t delay) {
 				this->delay = delay;
 				return this;
 			}
 			uint32_t getDelay() {
 				return delay;
 			}
-			lvgl::style::Transition *setUserData(void * userData) {
+			Transition *SetUserData(void * userData) {
 				this->userData = userData;
 				return this;
 			}
-			void *getUserData() {
+			void *GetUserData() {
 				return userData;
 			}
-			lvgl::style::Transition *setTransitionDef(lv_style_transition_dsc_t transitionDef) {
+			Transition *SetTransitionDef(lv_style_transition_dsc_t transitionDef) {
 				this->transitionDef = transitionDef;
 				return this;
 			}
-			lv_style_transition_dsc_t *get() {
+			lv_style_transition_dsc_t *Get() {
 				return &transitionDef;
 			}
 		private:
@@ -119,377 +124,377 @@ namespace lvgl {
 		Style() {
 			lv_style_init(&style);
 		}
-		lv_style_t *get() {
+		lv_style_t *Get() {
 			return &style;
 		}
 		
 		
-		lvgl::Style *setWidth(lv_coord_t value) {
+		Style *SetWidth(lv_coord_t value) {
 			lv_style_set_width(&style, value);
 			return this;
 		}
-		lvgl::Style *setMinWidth(lv_coord_t value) {
+		Style *SetMinWidth(lv_coord_t value) {
 			lv_style_set_min_width(&style, value);
 			return this;
 		}
-		lvgl::Style *setMaxWidth(lv_coord_t value) {
+		Style *SetMaxWidth(lv_coord_t value) {
 			lv_style_set_max_width(&style, value);
 			return this;
 		}
-		lvgl::Style *setHeight(lv_coord_t value) {
+		Style *SetHeight(lv_coord_t value) {
 			lv_style_set_height(&style, value);
 			return this;
 		}
-		lvgl::Style *setMinHeight(lv_coord_t value) {
+		Style *SetMinHeight(lv_coord_t value) {
 			lv_style_set_min_height(&style, value);
 			return this;
 		}
-		lvgl::Style *setMaxHeight(lv_coord_t value) {
+		Style *SetMaxHeight(lv_coord_t value) {
 			lv_style_set_max_height(&style, value);
 			return this;
 		}
-		lvgl::Style *setX(lv_coord_t value) {
+		Style *SetX(lv_coord_t value) {
 			lv_style_set_x(&style, value);
 			return this;
 		}
-		lvgl::Style *setY(lv_coord_t value) {
+		Style *SetY(lv_coord_t value) {
 			lv_style_set_y(&style, value);
 			return this;
 		}
-		lvgl::Style *setAlign(lv_align_t value) {
+		Style *SetAlign(lv_align_t value) {
 			lv_style_set_align(&style, value);
 			return this;
 		}
-		lvgl::Style *setTransformWidth(lv_coord_t value) {
+		Style *SetTransformWidth(lv_coord_t value) {
 			lv_style_set_transform_width(&style, value);
 			return this;
 		}
-		lvgl::Style *setTransformHeight(lv_coord_t value) {
+		Style *SetTransformHeight(lv_coord_t value) {
 			lv_style_set_transform_height(&style, value);
 			return this;
 		}
-		lvgl::Style *setTranslateX(lv_coord_t value) {
+		Style *SetTranslateX(lv_coord_t value) {
 			lv_style_set_translate_x(&style, value);
 			return this;
 		}
-		lvgl::Style *setTranslateY(lv_coord_t value) {
+		Style *SetTranslateY(lv_coord_t value) {
 			lv_style_set_translate_y(&style, value);
 			return this;
 		}
-		lvgl::Style *setTransformZoom(lv_coord_t value) {
+		Style *SetTransformZoom(lv_coord_t value) {
 			lv_style_set_transform_zoom(&style, value);
 			return this;
 		}
-		lvgl::Style *setTransformAngle(lv_coord_t value) {
+		Style *SetTransformAngle(lv_coord_t value) {
 			lv_style_set_transform_angle(&style, value);
 			return this;
 		}
-		lvgl::Style *setTransformPivotX(lv_coord_t value) {
+		Style *SetTransformPivotX(lv_coord_t value) {
 			lv_style_set_transform_pivot_x(&style, value);
 			return this;
 		}
-		lvgl::Style *setTransformPivotY(lv_coord_t value) {
+		Style *SetTransformPivotY(lv_coord_t value) {
 			lv_style_set_transform_pivot_y(&style, value);
 			return this;
 		}
-		lvgl::Style *setPadTop(lv_coord_t value) {
+		Style *SetPadTop(lv_coord_t value) {
 			lv_style_set_pad_top(&style, value);
 			return this;
 		}
-		lvgl::Style *setPadBottom(lv_coord_t value) {
+		Style *SetPadBottom(lv_coord_t value) {
 			lv_style_set_pad_bottom(&style, value);
 			return this;
 		}
-		lvgl::Style *setPadLeft(lv_coord_t value) {
+		Style *SetPadLeft(lv_coord_t value) {
 			lv_style_set_pad_left(&style, value);
 			return this;
 		}
-		lvgl::Style *setPadRight(lv_coord_t value) {
+		Style *SetPadRight(lv_coord_t value) {
 			lv_style_set_pad_right(&style, value);
 			return this;
 		}
-		lvgl::Style *setPadRow(lv_coord_t value) {
+		Style *SetPadRow(lv_coord_t value) {
 			lv_style_set_pad_row(&style, value);
 			return this;
 		}
-		lvgl::Style *setPadColumn(lv_coord_t value) {
+		Style *SetPadColumn(lv_coord_t value) {
 			lv_style_set_pad_column(&style, value);
 			return this;
 		}
-		lvgl::Style *setBgColor(lv_color_t value) {
+		Style *SetBgColor(lv_color_t value) {
 			lv_style_set_bg_color(&style, value);
 			return this;
 		}
-		lvgl::Style *setBgOpacity(lv_opa_t value) {
+		Style *SetBgOpacity(lv_opa_t value) {
 			lv_style_set_bg_opa(&style, value);
 			return this;
 		}
-		lvgl::Style *setBgGradientColor(lv_color_t value) {
+		Style *SetBgGradientColor(lv_color_t value) {
 			lv_style_set_bg_grad_color(&style, value);
 			return this;
 		}
-		lvgl::Style *setBgGradientDirection(lv_grad_dir_t value) {
+		Style *SetBgGradientDirection(lv_grad_dir_t value) {
 			lv_style_set_bg_grad_dir(&style, value);
 			return this;
 		}
-		lvgl::Style *setBgMainStop(lv_coord_t value) {
+		Style *SetBgMainStop(lv_coord_t value) {
 			lv_style_set_bg_main_stop(&style, value);
 			return this;
 		}
-		lvgl::Style *setBgGradientStop(lv_coord_t value) {
+		Style *SetBgGradientStop(lv_coord_t value) {
 			lv_style_set_bg_grad_stop(&style, value);
 			return this;
 		}
-		lvgl::Style *setBgGradient(const lv_grad_dsc_t * value) {
+		Style *SetBgGradient(const lv_grad_dsc_t * value) {
 			lv_style_set_bg_grad(&style,value);
 			return this;
 		}
-		lvgl::Style *setBgDitherMode(lv_dither_mode_t value) {
+		Style *SetBgDitherMode(lv_dither_mode_t value) {
 			lv_style_set_bg_dither_mode(&style, value);
 			return this;
 		}
-		lvgl::Style *setBgImageSource(const lvgl::Style ** value) {
+		Style *SetBgImageSource(const Style ** value) {
 			lv_style_set_bg_img_src(&style, value);
 			return this;
 		}
-		lvgl::Style *setBgImageOpacity(lv_opa_t value) {
+		Style *SetBgImageOpacity(lv_opa_t value) {
 			lv_style_set_bg_img_opa(&style, value);
 			return this;
 		}
-		lvgl::Style *setBgImageReColor(lv_color_t value) {
+		Style *SetBgImageReColor(lv_color_t value) {
 			lv_style_set_bg_img_recolor(&style, value);
 			return this;
 		}
-		lvgl::Style *setImageBgReColorOpacity(lv_opa_t value) {
+		Style *SetImageBgReColorOpacity(lv_opa_t value) {
 			lv_style_set_bg_img_recolor_opa(&style, value);
 			return this;
 		}
-		lvgl::Style *setBgImageTiled(bool value) {
+		Style *SetBgImageTiled(bool value) {
 			lv_style_set_bg_img_tiled(&style, value);
 			return this;
 		}
-		lvgl::Style *setBorderColor(lv_color_t value) {
+		Style *SetBorderColor(lv_color_t value) {
 			lv_style_set_border_color(&style, value);
 			return this;
 		}
-		lvgl::Style *setBorderOpacity(lv_opa_t value) {
+		Style *SetBorderOpacity(lv_opa_t value) {
 			lv_style_set_border_opa(&style, value);
 			return this;
 		}
-		lvgl::Style *setBorderWidth(lv_coord_t value) {
+		Style *SetBorderWidth(lv_coord_t value) {
 			lv_style_set_border_width(&style, value);
 			return this;
 		}
-		lvgl::Style *setBorderSide(lv_border_side_t value) {
+		Style *SetBorderSide(lv_border_side_t value) {
 			lv_style_set_border_side(&style, value);
 			return this;
 		}
-		lvgl::Style *setBorderPost(bool value) {
+		Style *SetBorderPost(bool value) {
 			lv_style_set_border_post(&style, value);
 			return this;
 		}
-		lvgl::Style *setOutlineWidth(lv_coord_t value) {
+		Style *SetOutlineWidth(lv_coord_t value) {
 			lv_style_set_outline_width(&style, value);
 			return this;
 		}
-		lvgl::Style *setOutlineColor(lv_color_t value) {
+		Style *SetOutlineColor(lv_color_t value) {
 			lv_style_set_outline_color(&style, value);
 			return this;
 		}
-		lvgl::Style *setOutlineOpacity(lv_opa_t value) {
+		Style *SetOutlineOpacity(lv_opa_t value) {
 			lv_style_set_outline_opa(&style, value);
 			return this;
 		}
-		lvgl::Style *setOutlinePad(lv_coord_t value) {
+		Style *SetOutlinePad(lv_coord_t value) {
 			lv_style_set_outline_pad(&style, value);
 			return this;
 		}
-		lvgl::Style *setShadowWidth(lv_coord_t value) {
+		Style *SetShadowWidth(lv_coord_t value) {
 			lv_style_set_shadow_width(&style, value);
 			return this;
 		}
-		lvgl::Style *setShadowOffsetX(lv_coord_t value) {
+		Style *SetShadowOffsetX(lv_coord_t value) {
 			lv_style_set_shadow_ofs_x(&style, value);
 			return this;
 		}
-		lvgl::Style *setShadowOffsetY(lv_coord_t value) {
+		Style *SetShadowOffsetY(lv_coord_t value) {
 			lv_style_set_shadow_ofs_y(&style, value);
 			return this;
 		}
-		lvgl::Style *setShadowSpread(lv_coord_t value) {
+		Style *SetShadowSpread(lv_coord_t value) {
 			lv_style_set_shadow_spread(&style, value);
 			return this;
 		}
-		lvgl::Style *setShadowColor(lv_color_t value) {
+		Style *SetShadowColor(lv_color_t value) {
 			lv_style_set_shadow_color(&style, value);
 			return this;
 		}
-		lvgl::Style *setShadowOpacity(lv_opa_t value) {
+		Style *SetShadowOpacity(lv_opa_t value) {
 			lv_style_set_shadow_opa(&style, value);
 			return this;
 		}
-		lvgl::Style *setImageOpacity(lv_opa_t value) {
+		Style *SetImageOpacity(lv_opa_t value) {
 			lv_style_set_img_opa(&style, value);
 			return this;
 		}
-		lvgl::Style *setImageReColor(lv_color_t value) {
+		Style *SetImageReColor(lv_color_t value) {
 			lv_style_set_img_recolor(&style, value);
 			return this;
 		}
-		lvgl::Style *setImageReColorOpacity(lv_opa_t value) {
+		Style *SetImageReColorOpacity(lv_opa_t value) {
 			lv_style_set_img_recolor_opa(&style, value);
 			return this;
 		}
-		lvgl::Style *setLineWidth(lv_coord_t value) {
+		Style *SetLineWidth(lv_coord_t value) {
 			lv_style_set_line_width(&style, value);
 			return this;
 		}
-		lvgl::Style *setLineDashWidth(lv_coord_t value) {
+		Style *SetLineDashWidth(lv_coord_t value) {
 			lv_style_set_line_dash_width(&style, value);
 			return this;
 		}
-		lvgl::Style *setLineDashGap(lv_coord_t value) {
+		Style *SetLineDashGap(lv_coord_t value) {
 			lv_style_set_line_dash_gap(&style, value);
 			return this;
 		}
-		lvgl::Style *setLineRounded(bool value) {
+		Style *SetLineRounded(bool value) {
 			lv_style_set_line_rounded(&style, value);
 			return this;
 		}
-		lvgl::Style *setLineColor(lv_color_t value) {
+		Style *SetLineColor(lv_color_t value) {
 			lv_style_set_line_color(&style, value);
 			return this;
 		}
-		lvgl::Style *setLineOpacity(lv_opa_t value) {
+		Style *SetLineOpacity(lv_opa_t value) {
 			lv_style_set_line_opa(&style, value);
 			return this;
 		}
-		lvgl::Style *setArcWidth(lv_coord_t value) {
+		Style *SetArcWidth(lv_coord_t value) {
 			lv_style_set_arc_width(&style, value);
 			return this;
 		}
-		lvgl::Style *setArcRounded(bool value) {
+		Style *SetArcRounded(bool value) {
 			lv_style_set_arc_rounded(&style, value);
 			return this;
 		}
-		lvgl::Style *setArcColor(lv_color_t value) {
+		Style *SetArcColor(lv_color_t value) {
 			lv_style_set_arc_color(&style, value);
 			return this;
 		}
-		lvgl::Style *setArcOpacity(lv_opa_t value) {
+		Style *SetArcOpacity(lv_opa_t value) {
 			lv_style_set_arc_opa(&style, value);
 			return this;
 		}
-		lvgl::Style *setArcImageSource(const lvgl::Style ** value) {
+		Style *SetArcImageSource(const Style ** value) {
 			lv_style_set_arc_img_src(&style, value);
 			return this;
 		}
-		lvgl::Style *setTextColor(lv_color_t value) {
+		Style *SetTextColor(lv_color_t value) {
 			lv_style_set_text_color(&style, value);
 			return this;
 		}
-		lvgl::Style *setTextOpacity(lv_opa_t value) {
+		Style *SetTextOpacity(lv_opa_t value) {
 			lv_style_set_text_opa(&style, value);
 			return this;
 		}
-		lvgl::Style *setTextFont(const lv_font_t * value) {
+		Style *SetTextFont(const lv_font_t * value) {
 			lv_style_set_text_font(&style, value);
 			return this;
 		}
-		lvgl::Style *setTextLetterSpace(lv_coord_t value) {
+		Style *SetTextLetterSpace(lv_coord_t value) {
 			lv_style_set_text_letter_space(&style, value);
 			return this;
 		}
-		lvgl::Style *setTextLineSpace(lv_coord_t value) {
+		Style *SetTextLineSpace(lv_coord_t value) {
 			lv_style_set_text_line_space(&style, value);
 			return this;
 		}
-		lvgl::Style *setTextDecor(lv_text_decor_t value) {
+		Style *SetTextDecor(lv_text_decor_t value) {
 			lv_style_set_text_decor(&style, value);
 			return this;
 		}
-		lvgl::Style *setTextAlign(lv_coord_t value) {
+		Style *SetTextAlign(lv_coord_t value) {
 			lv_style_set_text_align(&style, value);
 			return this;
 		}
-		lvgl::Style *setRadius(lv_coord_t value) {
+		Style *SetRadius(lv_coord_t value) {
 			lv_style_set_radius(&style, value);
 			return this;
 		}
-		lvgl::Style *setClipCorner(bool value) {
+		Style *SetClipCorner(bool value) {
 			lv_style_set_clip_corner(&style, value);
 			return this;
 		}
-		lvgl::Style *setOpacity(lv_opa_t value) {
+		Style *SetOpacity(lv_opa_t value) {
 			lv_style_set_opa(&style, value);
 			return this;
 		}
-		lvgl::Style *setOpacityLayered(lv_opa_t value) {
+		Style *SetOpacityLayered(lv_opa_t value) {
 			lv_style_set_opa_layered(&style, value);
 			return this;
 		}
-		lvgl::Style *setColorFilterDsc(const lv_color_filter_dsc_t * value) {
+		Style *SetColorFilterDsc(const lv_color_filter_dsc_t * value) {
 			lv_style_set_color_filter_dsc(&style, value);
 			return this;
 		}
-		lvgl::Style *setColorFilterOpacity(lv_opa_t value) {
+		Style *SetColorFilterOpacity(lv_opa_t value) {
 			lv_style_set_color_filter_opa(&style, value);
 			return this;
 		}
-		lvgl::Style *setAnimation(const lv_anim_t * value) {
+		Style *SetAnimation(const lv_anim_t * value) {
 			lv_style_set_anim(&style, value);
 			return this;
 		}
-		lvgl::Style *setAnimationTime(uint32_t value) {
+		Style *SetAnimationTime(uint32_t value) {
 			lv_style_set_anim_time(&style, value);
 			return this;
 		}
-		lvgl::Style *setAnimationSpeed(uint32_t value) {
+		Style *SetAnimationSpeed(uint32_t value) {
 			lv_style_set_anim_speed(&style, value);
 			return this;
 		}
-		lvgl::Style *setTransition(const lv_style_transition_dsc_t * value) {
+		Style *SetTransition(const lv_style_transition_dsc_t *value) {
 			lv_style_set_transition(&style, value);
 			return this;
 		}
-		lvgl::Style *setTransition(lvgl::style::Transition *value) {
-			lv_style_set_transition(&style, value->get());
+		Style *SetTransition(lvgl::style::Transition *value) {
+			lv_style_set_transition(&style, value->Get());
 			return this;
 		}
-		lvgl::Style *setTransition(lvgl::style::Transition value) {
-			lv_style_set_transition(&style, value.get());
+		Style *SetTransition(lvgl::style::Transition value) {
+			lv_style_set_transition(&style, value.Get());
 			return this;
 		}
-		lvgl::Style *setBlendMode(lv_blend_mode_t value) {
+		Style *SetBlendMode(lv_blend_mode_t value) {
 			lv_style_set_blend_mode(&style, value);
 			return this;
 		}
-		lvgl::Style *setLayout(uint16_t value) {
+		Style *SetLayout(uint16_t value) {
 			lv_style_set_layout(&style, value);
 			return this;
 		}
-		lvgl::Style *setBaseDirection(lv_base_dir_t value) {
+		Style *SetBaseDirection(lv_base_dir_t value) {
 			lv_style_set_base_dir(&style, value);
 			return this;
 		}
 		
-		lvgl::Style *setFlexFlow(lv_flex_flow_t value) {
+		Style *SetFlexFlow(lv_flex_flow_t value) {
 			lv_style_set_flex_flow(&style, value);
 			return this;
 		}
-		lvgl::Style *setFlexMainPlace(lv_flex_align_t value) {
+		Style *SetFlexMainPlace(lv_flex_align_t value) {
 			lv_style_set_flex_main_place(&style, value);
 			return this;
 		}
-		lvgl::Style *setFlexCrossPlace(lv_flex_align_t value) {
+		Style *SetFlexCrossPlace(lv_flex_align_t value) {
 			lv_style_set_flex_cross_place(&style, value);
 			return this;
 		}
-		lvgl::Style *setFlexTrackPlace(lv_flex_align_t value) {
+		Style *SetFlexTrackPlace(lv_flex_align_t value) {
 			lv_style_set_flex_track_place(&style, value);
 			return this;
 		}
-		lvgl::Style *setFlexGrow(uint8_t value) {
+		Style *SetFlexGrow(uint8_t value) {
 			lv_style_set_flex_grow(&style, value);
 			return this;
 		}

@@ -1,8 +1,7 @@
 /*
- * lv.h
+ * lvglCpp.h
  *
- *  Created on: Nov 26, 2023
- *      Author: morgoth
+ *      Author: Iulian Gheorghiu
  */
 
 #ifndef LVGLCPP_SRC_LVGLCPP_H_
@@ -14,6 +13,7 @@
 #endif
 
 #include "draw/Arc.h"
+#include "draw/Label.h"
 #include "draw/Line.h"
 #include "draw/Rectangle.h"
 

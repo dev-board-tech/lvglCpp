@@ -1,3 +1,8 @@
+/*
+ * MsgBox.h
+ *
+ *      Author: Iulian Gheorghiu
+ */
 #ifndef LVGLCPP_SRC_MSGBOX_H_
 #define LVGLCPP_SRC_MSGBOX_H_
 
@@ -35,12 +40,12 @@ namespace lvgl {
 			/**
 			 * Set the object pointer when used as a child.
 			 */
-			inline MsgBox *setObj(lv_obj_t *obj) {
+			inline MsgBox *SetObj(lv_obj_t *obj) {
 				_obj = obj;
 				return this;
 			}
 
-			inline lv_obj_t *getObj() {
+			inline lv_obj_t *GetObj() {
 				return _obj;
 			}
 
@@ -56,35 +61,35 @@ namespace lvgl {
 			 * Getter functions
 			 *====================*/
 			 
-			 inline Label getTitle() {
+			 inline Label GetTitle() {
 				Label label;
-				label.setObj(lv_msgbox_get_title(_obj));
+				label.SetObj(lv_msgbox_get_title(_obj));
 				return label;
 			 }
 
-			 inline Button getCloseBtn() {
+			 inline Button GetCloseBtn() {
 				Button button;
-				button.setObj(lv_msgbox_get_close_btn(_obj));
+				button.SetObj(lv_msgbox_get_close_btn(_obj));
 				return button;
 			 }
 
-			 inline Label getText() {
+			 inline Label GetText() {
 				Label label;
-				label.setObj(lv_msgbox_get_text(_obj));
+				label.SetObj(lv_msgbox_get_text(_obj));
 				return label;
 			 }
 
-			 inline ButtonMatrix getBtns() {
+			 inline ButtonMatrix GetBtns() {
 				ButtonMatrix btns;
-				btns.setObj(lv_msgbox_get_btns(_obj));
+				btns.SetObj(lv_msgbox_get_btns(_obj));
 				return btns;
 			 }
 			 
-			 inline uint16_t getActiveBtn() {
+			 inline uint16_t GetActiveBtn() {
 			 	return lv_msgbox_get_active_btn(_obj);
 			 }
 			 
-			 inline const char * getActiveBtnText() {
+			 inline const char * GetActiveBtnText() {
 			 	 return lv_msgbox_get_active_btn_text(_obj);
 			 }
 			 

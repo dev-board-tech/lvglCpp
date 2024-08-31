@@ -1,8 +1,7 @@
 /*
  * Canvas.h
  *
- *  Created on: Nov 27, 2023
- *      Author: morgoth
+ *      Author: Iulian Gheorghiu
  */
 
 #ifndef LVGLCPP_SRC_CANVAS_H_
@@ -29,7 +28,7 @@ namespace lvgl {
 
 			}
 
-			inline lv_obj_t *getObj() {
+			inline lv_obj_t *GetObj() {
 				return _obj;
 			}
 
@@ -49,7 +48,7 @@ namespace lvgl {
 			 * @param h height of the canvas
 			 * @param cf color format. `LV_IMG_CF_...`
 			 */
-			inline Canvas *setBuffer(void * buf, lv_coord_t w, lv_coord_t h, lv_img_cf_t cf) {
+			inline Canvas *SetBuffer(void * buf, lv_coord_t w, lv_coord_t h, lv_img_cf_t cf) {
 				lv_canvas_set_buffer(_obj, buf, w, h, cf);
 				return this;
 			}
@@ -61,7 +60,7 @@ namespace lvgl {
 			 * @param y x coordinate of the point to set
 			 * @param c color of the pixel
 			 */
-			inline Canvas *setPixelColor(lv_coord_t x, lv_coord_t y, lv_color_t c) {
+			inline Canvas *SetPixelColor(lv_coord_t x, lv_coord_t y, lv_color_t c) {
 				lv_canvas_set_px_color(_obj, x, y, c);
 				return this;
 			}
@@ -69,7 +68,7 @@ namespace lvgl {
 			/**
 			 * DEPRECATED: added only for backward compatibility
 			 */
-			static inline void setPixel(Canvas *inst, lv_coord_t x, lv_coord_t y, lv_color_t c) {
+			static inline void SetPixel(Canvas *inst, lv_coord_t x, lv_coord_t y, lv_color_t c) {
 				lv_canvas_set_px_color(inst->_obj, x, y, c);
 			}
 
@@ -80,7 +79,7 @@ namespace lvgl {
 			 * @param y x coordinate of the point to set
 			 * @param opa opacity of the pixel (0..255)
 			 */
-			inline Canvas *setPixelOpacity(lv_coord_t x, lv_coord_t y, lv_opa_t opa) {
+			inline Canvas *SetPixelOpacity(lv_coord_t x, lv_coord_t y, lv_opa_t opa) {
 				lv_canvas_set_px_opa(_obj, x, y, opa);
 				return this;
 			}
@@ -96,7 +95,7 @@ namespace lvgl {
 			 *   - for `LV_IMG_CF_INDEXED8`: 0..255
 			 * @param c the color to set
 			 */
-			inline Canvas *setPallette(uint8_t id, lv_color_t c) {
+			inline Canvas *SetPallette(uint8_t id, lv_color_t c) {
 				lv_canvas_set_palette(_obj, id, c);
 				return this;
 			}
@@ -112,7 +111,7 @@ namespace lvgl {
 			 * @param y x coordinate of the point to set
 			 * @return color of the point
 			 */
-			inline lv_color_t getPixel(lv_coord_t x, lv_coord_t y) {
+			inline lv_color_t GetPixel(lv_coord_t x, lv_coord_t y) {
 				return lv_canvas_get_px(_obj, x, y);
 			}
 
@@ -121,7 +120,7 @@ namespace lvgl {
 			 * @param canvas pointer to a canvas object
 			 * @return pointer to the image descriptor.
 			 */
-			inline lv_img_dsc_t * getImage() {
+			inline lv_img_dsc_t * GetImage() {
 				return lv_canvas_get_img(_obj);
 			}
 
@@ -139,7 +138,7 @@ namespace lvgl {
 			 * @param w width of the buffer to copy
 			 * @param h height of the buffer to copy
 			 */
-			inline Canvas *copyBuffer(const void * to_copy, lv_coord_t x, lv_coord_t y, lv_coord_t w, lv_coord_t h) {
+			inline Canvas *CopyBuffer(const void * to_copy, lv_coord_t x, lv_coord_t y, lv_coord_t w, lv_coord_t h) {
 				lv_canvas_copy_buf(_obj, to_copy, x, y, w, h);
 				return this;
 			}
@@ -159,7 +158,7 @@ namespace lvgl {
 			 *                Set to `source height / 2` to rotate around the center
 			 * @param antialias apply anti-aliasing during the transformation. Looks better but slower.
 			 */
-			inline Canvas *transform(lv_img_dsc_t * img, int16_t angle, uint16_t zoom, lv_coord_t offset_x,
+			inline Canvas *Transform(lv_img_dsc_t * img, int16_t angle, uint16_t zoom, lv_coord_t offset_x,
 				    lv_coord_t offset_y,
 				    int32_t pivot_x, int32_t pivot_y, bool antialias) {
 				lv_canvas_transform(_obj, img, angle, zoom, offset_x, offset_y, pivot_x, pivot_y, antialias);
@@ -172,7 +171,7 @@ namespace lvgl {
 			 * @param area the area to blur. If `NULL` the whole canvas will be blurred.
 			 * @param r radius of the blur
 			 */
-			inline Canvas *blurHorizontal(const lv_area_t * area, uint16_t r) {
+			inline Canvas *BlurHorizontal(const lv_area_t * area, uint16_t r) {
 				lv_canvas_blur_hor(_obj, area, r);
 				return this;
 			}
@@ -183,7 +182,7 @@ namespace lvgl {
 			 * @param area the area to blur. If `NULL` the whole canvas will be blurred.
 			 * @param r radius of the blur
 			 */
-			inline Canvas *blurVertical(const lv_area_t * area, uint16_t r) {
+			inline Canvas *BlurVertical(const lv_area_t * area, uint16_t r) {
 				lv_canvas_blur_ver(_obj, area, r);
 				return this;
 			}
@@ -194,7 +193,7 @@ namespace lvgl {
 			 * @param color the background color
 			 * @param opa the desired opacity
 			 */
-			inline Canvas *fillBackground(lv_color_t color, lv_opa_t opa) {
+			inline Canvas *FillBackground(lv_color_t color, lv_opa_t opa) {
 				lv_canvas_fill_bg(_obj, color, opa);
 				return this;
 			}
@@ -208,15 +207,13 @@ namespace lvgl {
 			 * @param h        height of the rectangle
 			 * @param draw_dsc descriptor of the rectangle
 			 */
-			inline Canvas *drawRectangle(lv_coord_t x, lv_coord_t y, lv_coord_t w, lv_coord_t h,
-				    const lv_draw_rect_dsc_t * draw_dsc) {
+			inline Canvas *DrawRectangle(lv_coord_t x, lv_coord_t y, lv_coord_t w, lv_coord_t h, const lv_draw_rect_dsc_t * draw_dsc) {
 				lv_canvas_draw_rect(_obj, x, y, w, h, draw_dsc);
 				return this;
 			}
 
-			inline Canvas *drawRectangle(lv_coord_t x, lv_coord_t y, lv_coord_t w, lv_coord_t h,
-				    lvgl::draw::Rectangle *rectangle) {
-				lv_canvas_draw_rect(_obj, x, y, w, h, rectangle->get());
+			inline Canvas *DrawRectangle(lv_coord_t x, lv_coord_t y, lv_coord_t w, lv_coord_t h, lvgl::draw::Rectangle *rectangle) {
+				lv_canvas_draw_rect(_obj, x, y, w, h, rectangle->Get());
 				return this;
 			}
 
@@ -229,7 +226,7 @@ namespace lvgl {
 			 * @param draw_dsc pointer to a valid label descriptor `lv_draw_label_dsc_t`
 			 * @param txt      text to display
 			 */
-			inline Canvas *drawText(lv_coord_t x, lv_coord_t y, lv_coord_t max_w,
+			inline Canvas *DrawText(lv_coord_t x, lv_coord_t y, lv_coord_t max_w,
 				    lv_draw_label_dsc_t * draw_dsc, const char * txt) {
 				lv_canvas_draw_text(_obj, x, y, max_w, draw_dsc,  txt);
 				return this;
@@ -243,7 +240,7 @@ namespace lvgl {
 			 * @param src      image source. Can be a pointer an `lv_img_dsc_t` variable or a path an image.
 			 * @param draw_dsc pointer to a valid label descriptor `lv_draw_img_dsc_t`
 			 */
-			inline Canvas *drawImage(lv_coord_t x, lv_coord_t y, const void * src,
+			inline Canvas *DrawImage(lv_coord_t x, lv_coord_t y, const void * src,
 				    const lv_draw_img_dsc_t * draw_dsc) {
 				lv_canvas_draw_img(_obj, x, y, src, draw_dsc);
 				return this;
@@ -256,7 +253,7 @@ namespace lvgl {
 			 * @param point_cnt  number of points
 			 * @param draw_dsc   pointer to an initialized `lv_draw_line_dsc_t` variable
 			 */
-			inline Canvas *drawLine(const lv_point_t points[], uint32_t point_cnt,
+			inline Canvas *DrawLine(const lv_point_t points[], uint32_t point_cnt,
 				    const lv_draw_line_dsc_t * draw_dsc) {
 				lv_canvas_draw_line(_obj, points, point_cnt, draw_dsc);
 				return this;
@@ -269,7 +266,7 @@ namespace lvgl {
 			 * @param point_cnt number of points
 			 * @param draw_dsc  pointer to an initialized `lv_draw_rect_dsc_t` variable
 			 */
-			inline Canvas *drawPolygon(const lv_point_t points[], uint32_t point_cnt,
+			inline Canvas *DrawPolygon(const lv_point_t points[], uint32_t point_cnt,
 				    const lv_draw_rect_dsc_t * draw_dsc) {
 				lv_canvas_draw_polygon(_obj, points, point_cnt, draw_dsc);
 				return this;
@@ -285,7 +282,7 @@ namespace lvgl {
 			 * @param end_angle   end angle in degrees
 			 * @param draw_dsc    pointer to an initialized `lv_draw_line_dsc_t` variable
 			 */
-			inline Canvas *drawArc(lv_coord_t x, lv_coord_t y, lv_coord_t r, int32_t start_angle,
+			inline Canvas *DrawArc(lv_coord_t x, lv_coord_t y, lv_coord_t r, int32_t start_angle,
 				    int32_t end_angle, const lv_draw_arc_dsc_t * draw_dsc) {
 				lv_canvas_draw_arc(_obj, x, y, r, start_angle, end_angle, draw_dsc);
 				return this;

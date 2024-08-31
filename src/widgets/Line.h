@@ -1,8 +1,7 @@
 /*
- * line.h
+ * Line.h
  *
- *  Created on: Nov 27, 2023
- *      Author: morgoth
+ *      Author: Iulian Gheorghiu
  */
 
 #ifndef LVGLCPP_SRC_LINE_H_
@@ -28,7 +27,7 @@ namespace lvgl {
 
 			}
 
-			inline lv_obj_t *getObj() {
+			inline lv_obj_t *GetObj() {
 				return _obj;
 			}
 
@@ -42,7 +41,7 @@ namespace lvgl {
 			 * @param points        an array of points. Only the address is saved, so the array needs to be alive while the line exists
 			 * @param point_num     number of points in 'point_a'
 			 */
-			inline Line *setPoints(const lv_point_t points[], uint16_t point_num) {
+			inline Line *SetPoints(const lv_point_t points[], uint16_t point_num) {
 				lv_line_set_points(_obj, points, point_num);
 				return this;
 			}
@@ -54,7 +53,7 @@ namespace lvgl {
 			 * @param obj       pointer to a line object
 			 * @param en        true: enable the y inversion, false:disable the y inversion
 			 */
-			inline Line *setYInvert(bool en) {
+			inline Line *SetYInvert(bool en) {
 				lv_line_set_y_invert(_obj, en);
 				return this;
 			}
@@ -68,7 +67,7 @@ namespace lvgl {
 			 * @param obj       pointer to a line object
 			 * @return          true: y inversion is enabled, false: disabled
 			 */
-			inline bool getYInvert() {
+			inline bool GetYInvert() {
 				return lv_line_get_y_invert((const lv_obj_t *)_obj);
 			}
 
