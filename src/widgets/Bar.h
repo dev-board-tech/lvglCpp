@@ -13,18 +13,39 @@ namespace lvgl {
 	namespace widget {
 		class Bar : public Object {
 		public:
-			Bar(lv_obj_t *parent = NULL) {
-				if(parent) {
-					_obj = lv_bar_create(parent);
+			Bar(lv_obj_t *parent) {
+				_obj = lv_bar_create(parent);
+				_child = NULL;
+				_childs = NULL;
+			}
+			Bar(Object *parent) {
+				if(parent && parent->GetObj()) {
+					_obj = lv_bar_create(parent->GetObj());
 				} else {
-					_obj = lv_bar_create(lv_scr_act());
+					_obj = lv_bar_create(NULL);
 				}
 				_child = NULL;
 				_childs = NULL;
 			}
-			/**
-			 * Create an empty btnMatrix object, this is useful when used as a child.
-			 */
+			Bar(Object &parent) {
+				if(((Object)parent).GetObj()) {
+					_obj = lv_bar_create(((Object)parent).GetObj());
+				} else {
+					_obj = lv_bar_create(NULL);
+				}
+				_child = NULL;
+				_childs = NULL;
+			}
+			Bar(Object *parent, bool isNew) {
+				_obj = parent->GetObj();
+				_childs = parent->GetChilds();
+				_child = NULL;
+			}
+			Bar(Object &parent, bool isNew) {
+				_obj = ((Object)parent).GetObj();
+				_childs = ((Object)parent).GetChilds();
+				_child = NULL;
+			}
 			Bar() {
 				_obj = NULL;
 				_child = NULL;

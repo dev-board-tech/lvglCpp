@@ -13,16 +13,39 @@ namespace lvgl {
 	namespace widget {
 		class Line : public Object {
 		public:
-			Line(lv_obj_t *parent = NULL) {
-				if(parent) {
-					_obj = lv_line_create(parent);
+			Line(lv_obj_t *parent) {
+				_obj = lv_line_create(parent);
+				_child = NULL;
+				_childs = NULL;
+			}
+			Line(Object *parent) {
+				if(parent && parent->GetObj()) {
+					_obj = lv_line_create(parent->GetObj());
 				} else {
-					_obj = lv_line_create(lv_scr_act());
+					_obj = lv_line_create(NULL);
 				}
 				_child = NULL;
 				_childs = NULL;
 			}
-
+			Line(Object &parent) {
+				if(((Object)parent).GetObj()) {
+					_obj = lv_line_create(((Object)parent).GetObj());
+				} else {
+					_obj = lv_line_create(NULL);
+				}
+				_child = NULL;
+				_childs = NULL;
+			}
+			Line(Object *parent, bool isNew) {
+				_obj = parent->GetObj();
+				_childs = parent->GetChilds();
+				_child = NULL;
+			}
+			Line(Object &parent, bool isNew) {
+				_obj = ((Object)parent).GetObj();
+				_childs = ((Object)parent).GetChilds();
+				_child = NULL;
+			}
 			~Line() {
 
 			}

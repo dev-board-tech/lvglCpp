@@ -13,14 +13,38 @@ namespace lvgl {
 	namespace widget {
 		class CheckBox : public Object {
 		public:
-			CheckBox(lv_obj_t *parent = NULL) {
-				if(parent) {
-					_obj = lv_checkbox_create(parent);
+			CheckBox(lv_obj_t *parent) {
+				_obj = lv_checkbox_create(parent);
+				_child = NULL;
+				_childs = NULL;
+			}
+			CheckBox(Object *parent) {
+				if(parent && parent->GetObj()) {
+					_obj = lv_checkbox_create(parent->GetObj());
 				} else {
-					_obj = lv_checkbox_create(lv_scr_act());
+					_obj = lv_checkbox_create(NULL);
 				}
 				_child = NULL;
 				_childs = NULL;
+			}
+			CheckBox(Object &parent) {
+				if(((Object)parent).GetObj()) {
+					_obj = lv_checkbox_create(((Object)parent).GetObj());
+				} else {
+					_obj = lv_checkbox_create(NULL);
+				}
+				_child = NULL;
+				_childs = NULL;
+			}
+			CheckBox(Object *parent, bool isNew) {
+				_obj = parent->GetObj();
+				_childs = parent->GetChilds();
+				_child = NULL;
+			}
+			CheckBox(Object &parent, bool isNew) {
+				_obj = ((Object)parent).GetObj();
+				_childs = ((Object)parent).GetChilds();
+				_child = NULL;
 			}
 			virtual ~CheckBox() {
 

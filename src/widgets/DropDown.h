@@ -13,16 +13,39 @@ namespace lvgl {
 	namespace widget {
 		class DropDown : public Object {
 		public:
-			DropDown(lv_obj_t *parent = NULL) {
-				if(parent) {
-					_obj = lv_dropdown_create(parent);
+			DropDown(lv_obj_t *parent) {
+				_obj = lv_dropdown_create(parent);
+				_child = NULL;
+				_childs = NULL;
+			}
+			DropDown(Object *parent) {
+				if(parent && parent->GetObj()) {
+					_obj = lv_dropdown_create(parent->GetObj());
 				} else {
-					_obj = lv_dropdown_create(lv_scr_act());
+					_obj = lv_dropdown_create(NULL);
 				}
 				_child = NULL;
 				_childs = NULL;
 			}
-			/* If options is NULL, do not create a new object, store the passed object */
+			DropDown(Object &parent) {
+				if(((Object)parent).GetObj()) {
+					_obj = lv_dropdown_create(((Object)parent).GetObj());
+				} else {
+					_obj = lv_dropdown_create(NULL);
+				}
+				_child = NULL;
+				_childs = NULL;
+			}
+			DropDown(Object *parent, bool isNew) {
+				_obj = parent->GetObj();
+				_childs = parent->GetChilds();
+				_child = NULL;
+			}
+			DropDown(Object &parent, bool isNew) {
+				_obj = ((Object)parent).GetObj();
+				_childs = ((Object)parent).GetChilds();
+				_child = NULL;
+			}
 			DropDown(lv_obj_t *parent, const char *options) {
 				if(options == NULL) {
 					_obj = parent;
@@ -30,7 +53,7 @@ namespace lvgl {
 					if(parent) {
 						_obj = lv_dropdown_create(parent);
 					} else {
-						_obj = lv_dropdown_create(lv_scr_act());
+						_obj = lv_dropdown_create(NULL);
 					}
 					lv_dropdown_set_options(_obj, options);
 				}
@@ -44,7 +67,7 @@ namespace lvgl {
 					if(parent && parent->GetObj()) {
 						_obj = lv_dropdown_create(parent->GetObj());
 					} else {
-						_obj = lv_dropdown_create(lv_scr_act());
+						_obj = lv_dropdown_create(NULL);
 					}
 					lv_dropdown_set_options(_obj, options);
 				}

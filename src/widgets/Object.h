@@ -18,56 +18,77 @@ namespace lvgl {
 		protected:
 			lv_obj_t *_obj;
 			lv_obj_t *_child;
-			lv_obj_t **_childs;
+			Object **_childs;
 		public:
-
-			/**
-			 * Set the object pointer when used as a child.
-			 */
 			Object(lv_obj_t *obj = NULL) {
 				_obj = lv_obj_create(obj);
+				_child = NULL;
+				_childs = NULL;
 			}
-
-			/**
-			 * Set the object pointer when used as a child.
-			 */
 			Object(Object *obj) {
 				_obj = lv_obj_create(obj->GetObj());
+				_child = NULL;
+				_childs = NULL;
+			}
+			Object(lv_obj_t *parent, bool isNew) {
+				_obj = parent;
+				_child = NULL;
+				_childs = NULL;
+			}
+			Object(Object *parent, bool isNew) {
+				if(isNew) {
+					_obj = (lv_obj_t *)malloc(sizeof(lv_obj_t));
+					memcpy(_obj, parent->GetObj(), sizeof(lv_obj_t));
+				} else {
+					_obj = parent->GetObj();
+					_child = NULL;
+					_childs = NULL;
+				}
+			}
+			Object(Object &parent, bool isNew) {
+				if(isNew) {
+					_obj = (lv_obj_t *)malloc(sizeof(lv_obj_t));
+					memcpy(_obj, ((Object)parent).GetObj(), sizeof(lv_obj_t));
+				} else {
+					_obj = ((Object)parent).GetObj();
+					_child = NULL;
+					_childs = NULL;
+				}
+			}
+			~Object() {
+			
+			}
+			Object(const Object &parent, bool isNew) {
+					_obj = ((Object)parent).GetObj();
+					_child = NULL;
+					_childs = NULL;
 			}
 
-			/**
-			 * Set the object pointer when used as a child.
-			 */
-			/*Object(const Object& obj) {
-				_obj = lv_obj_create(obj.GetObj());
-			}*/
-
-			/**
-			 * Set the object pointer when used as a child.
-			 */
 			inline Object *SetObj(lv_obj_t *obj) {
 				_obj = obj;
 				return this;
 			}
 
-			/**
-			 * Set the object pointer when used as a child.
-			 */
 			inline Object *SetObj(Object *obj) {
 				_obj = obj->GetObj();
 				return this;
 			}
 
-			/**
-			 * Set the object pointer when used as a child.
-			 */
-			inline Object *SetObj(Object obj) {
-				_obj = obj.GetObj();
+			inline Object *SetObj(Object &obj) {
+				_obj = ((Object)obj).GetObj();
 				return this;
 			}
 
 			inline lv_obj_t *GetObj() {
 				return _obj;
+			}
+
+			inline lv_obj_t *GetChild() {
+				return _child;
+			}
+
+			inline Object **GetChilds() {
+				return _childs;
 			}
 
 			void SetEnabled(bool enable) {
@@ -77,6 +98,16 @@ namespace lvgl {
 				else {
 					lv_obj_add_state(_obj, LV_STATE_DISABLED);
 				}
+			}
+			
+			Object *AddState(lv_state_t state) {
+				lv_obj_add_state(_obj, state);
+				return this;
+			}
+
+			Object *ClearState(lv_state_t state) {
+				lv_obj_clear_state(_obj, state);
+				return this;
 			}
 
 			inline bool GetEnabled() {
@@ -723,19 +754,19 @@ namespace lvgl {
 				lv_obj_set_style_transform_pivot_y(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleTransformPadTop(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStylePadTop(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_pad_top(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleTransformPadBottom(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStylePadBottom(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_pad_bottom(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleTransformPadLeft(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStylePadLeft(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_pad_left(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleTransformPadRight(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStylePadRight(lv_coord_t value, lv_style_selector_t selector) {
 				lv_obj_set_style_pad_right(_obj, value, selector);
 				return this;
 			}
@@ -943,7 +974,7 @@ namespace lvgl {
 				lv_obj_set_style_text_align(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStylePadAll(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStylePadAll(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_pad_all(_obj, value, selector);
 				return this;
 			}
@@ -1007,18 +1038,22 @@ namespace lvgl {
 				lv_obj_add_event_cb(_obj, event_cb, LV_EVENT_CLICKED, user_data);
 				return this;
 			}
+			inline Object *AddEventCbAll(lv_event_cb_t event_cb, void * user_data = NULL) {
+				lv_obj_add_event_cb(_obj, event_cb, LV_EVENT_ALL, user_data);
+				return this;
+			}
 			
-			inline Object *AddStyle(lv_style_t * style, lv_style_selector_t selector) {
+			inline Object *AddStyle(lv_style_t * style, lv_style_selector_t selector = 0) {
 				lv_obj_add_style(_obj, style, selector);
 				return this;
 			}
 			
-			inline Object *AddStyle(lvgl::Style * style, lv_style_selector_t selector) {
+			inline Object *AddStyle(lvgl::Style * style, lv_style_selector_t selector = 0) {
 				lv_obj_add_style(_obj, style->Get(), selector);
 				return this;
 			}
 			
-			/*inline Object *AddStyle(lvgl::Style style, lv_style_selector_t selector) {
+			/*inline Object *AddStyle(lvgl::Style style, lv_style_selector_t selector = 0) {
 				lv_obj_add_style(_obj, style.Get(), selector);
 				return this;
 			}*/
@@ -1577,6 +1612,15 @@ namespace lvgl {
 		 */
 			static void *EventGetUserData(lv_event_t *e) {
 				return lv_event_get_user_data(e);
+			}
+		/*
+		 * Get the user_data passed when the event was registered on the object
+		 * @param e     pointer to the event descriptor
+		 * @return      pointer to the user_data
+		 */
+			Object *EventSetUserData(void * user_data) {
+				lv_obj_set_user_data(_obj, user_data);
+				return this;
 			}
 
 		/**

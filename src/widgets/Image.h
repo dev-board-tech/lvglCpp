@@ -13,15 +13,45 @@ namespace lvgl {
 	namespace widget {
 		class Image : public Object {
 		public:
-			Image(lv_obj_t *parent = NULL) {
-				if(parent) {
-					_obj = lv_img_create(parent);
+			Image(lv_obj_t *parent) {
+				_obj = lv_img_create(parent);
+				_child = NULL;
+				_childs = NULL;
+			}
+			Image(Object *parent) {
+				if(parent && parent->GetObj()) {
+					_obj = lv_img_create(parent->GetObj());
 				} else {
-					_obj = lv_img_create(lv_scr_act());
+					_obj = lv_img_create(NULL);
 				}
 				_child = NULL;
 				_childs = NULL;
 			}
+			Image(Object &parent) {
+				if(((Object)parent).GetObj()) {
+					_obj = lv_img_create(((Object)parent).GetObj());
+				} else {
+					_obj = lv_img_create(NULL);
+				}
+				_child = NULL;
+				_childs = NULL;
+			}
+			Image(lv_obj_t *parent, bool isNew) {
+				_obj = parent;
+				_childs = NULL;
+				_child = NULL;
+			}
+			Image(Object *parent, bool isNew) {
+				_obj = parent->GetObj();
+				_childs = parent->GetChilds();
+				_child = NULL;
+			}
+			Image(Object &parent, bool isNew) {
+				_obj = ((Object)parent).GetObj();
+				_childs = ((Object)parent).GetChilds();
+				_child = NULL;
+			}
+
 			~Image() {
 
 			}
@@ -41,7 +71,7 @@ namespace lvgl {
 			 *                  2) path to an image file (e.g. "S:/dir/img.bin")or
 			 *                  3) a SYMBOL (e.g. LV_SYMBOL_OK)
 			 */
-			inline Image *SetSource(const void *src) {
+			inline Image *SetImageSource(const void *src) {
 				lv_img_set_src(_obj, src);
 				return this;
 			}

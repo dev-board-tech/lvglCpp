@@ -13,14 +13,38 @@ namespace lvgl {
 	namespace widget {
 		class Arc : public Object {
 		public:
-			Arc(lv_obj_t *parent = NULL) {
-				if(parent) {
-					_obj = lv_arc_create(parent);
+			Arc(lv_obj_t *parent) {
+				_obj = lv_arc_create(parent);
+				_child = NULL;
+				_childs = NULL;
+			}
+			Arc(Object *parent) {
+				if(parent && parent->GetObj()) {
+					_obj = lv_arc_create(parent->GetObj());
 				} else {
-					_obj = lv_arc_create(lv_scr_act());
+					_obj = lv_arc_create(NULL);
 				}
 				_child = NULL;
 				_childs = NULL;
+			}
+			Arc(Object &parent) {
+				if(((Object)parent).GetObj()) {
+					_obj = lv_arc_create(((Object)parent).GetObj());
+				} else {
+					_obj = lv_arc_create(NULL);
+				}
+				_child = NULL;
+				_childs = NULL;
+			}
+			Arc(Object *parent, bool isNew) {
+				_obj = parent->GetObj();
+				_childs = parent->GetChilds();
+				_child = NULL;
+			}
+			Arc(Object &parent, bool isNew) {
+				_obj = ((Object)parent).GetObj();
+				_childs = ((Object)parent).GetChilds();
+				_child = NULL;
 			}
 			/**
 			 * Create an empty btnMatrix object, this is useful when used as a child.
