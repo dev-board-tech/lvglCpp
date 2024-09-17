@@ -37,6 +37,7 @@
 #include "widgets/Table.h"
 #include "widgets/TabView.h"
 #include "widgets/TextArea.h"
+#include "widgets/Window.h"
 
 
 

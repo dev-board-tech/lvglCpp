@@ -20,10 +20,24 @@ namespace lvgl {
 			 * @return          pointer to the created button matrix
 			 */
 			ButtonMatrix(lv_obj_t *parent) {
-				if(parent) {
-					_obj = lv_btnmatrix_create(parent);
+				_obj = lv_btnmatrix_create(parent);
+				_child = NULL;
+				_childs = NULL;
+			}
+			ButtonMatrix(Object *parent) {
+				if(parent && parent->GetObj()) {
+					_obj = lv_btnmatrix_create(parent->GetObj());
 				} else {
-					_obj = lv_btnmatrix_create(lv_scr_act());
+					_obj = lv_btnmatrix_create(NULL);
+				}
+				_child = NULL;
+				_childs = NULL;
+			}
+			ButtonMatrix(Object &parent) {
+				if(((Object)parent).GetObj()) {
+					_obj = lv_btnmatrix_create(((Object)parent).GetObj());
+				} else {
+					_obj = lv_btnmatrix_create(NULL);
 				}
 				_child = NULL;
 				_childs = NULL;
@@ -36,6 +50,24 @@ namespace lvgl {
 				_child = NULL;
 				_childs = NULL;
 			}
+			
+			ButtonMatrix(lv_obj_t *parent, bool isNew) {
+				_obj = parent;
+				_child = NULL;
+				_childs = NULL;
+			}
+
+			ButtonMatrix(Object *parent, bool isNew) {
+				_obj = parent->GetObj();
+				_child = NULL;
+				_childs = NULL;
+			}
+			ButtonMatrix(Object &parent, bool isNew) {
+				_obj = ((Object)parent).GetObj();
+				_child = NULL;
+				_childs = NULL;
+			}
+
 			~ButtonMatrix() {
 				// TODO Auto-generated destructor stub
 			}
@@ -183,6 +215,9 @@ namespace lvgl {
 			 * @return          text of btn_index` button
 			 */
 			inline const char *GetBtnText(uint16_t btn_id) {
+				if(!_obj) {
+					return "";
+				}
 				return lv_btnmatrix_get_btn_text(_obj, btn_id);
 			}
 

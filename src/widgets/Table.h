@@ -16,15 +16,45 @@ namespace lvgl {
 	namespace widget {
 		class Table : public Object {
 		public:
-			Table(lv_obj_t *parent = NULL) {
-				if(parent) {
-					_obj = lv_table_create(parent);
+			Table(lv_obj_t *parent) {
+				_obj = lv_table_create(parent);
+				_child = NULL;
+				_childs = NULL;
+			}
+			Table(Object *parent) {
+				if(parent && parent->GetObj()) {
+					_obj = lv_table_create(parent->GetObj());
 				} else {
-					_obj = lv_table_create(lv_scr_act());
+					_obj = lv_table_create(NULL);
 				}
 				_child = NULL;
 				_childs = NULL;
 			}
+			Table(Object &parent) {
+				if(((Object)parent).GetObj()) {
+					_obj = lv_table_create(((Object)parent).GetObj());
+				} else {
+					_obj = lv_table_create(NULL);
+				}
+				_child = NULL;
+				_childs = NULL;
+			}
+			Table(lv_obj_t *parent, bool isNew) {
+				_obj = parent;
+				_childs = NULL;
+				_child = NULL;
+			}
+			Table(Object *parent, bool isNew) {
+				_obj = parent->GetObj();
+				_childs = parent->GetChilds();
+				_child = NULL;
+			}
+			Table(Object &parent, bool isNew) {
+				_obj = ((Object)parent).GetObj();
+				_childs = ((Object)parent).GetChilds();
+				_child = NULL;
+			}
+
 			~Table() {
 
 			}
@@ -179,7 +209,40 @@ namespace lvgl {
 				lv_table_get_selected_cell(_obj, row, col);
 				return this;
 			}
-
+			
+			inline Table *SecondRowGrewish(lv_obj_t *tableObj, uint8_t opa, uint8_t *colAlignTable, bool topHeader) {
+				uint32_t *args = (uint32_t *)malloc(sizeof(uint32_t) * 3);
+				args[0] = opa;
+				args[1] = (uint32_t)colAlignTable;
+				args[2] = topHeader;
+				lv_obj_add_event_cb(tableObj, [](lv_event_t * e) {
+					uint32_t *args = (uint32_t *)e->user_data;
+					lv_obj_t * obj = lv_event_get_target(e);
+					lv_obj_draw_part_dsc_t * dsc = (lv_obj_draw_part_dsc_t *)lv_event_get_param(e);
+					/*If the cells are drawn...*/
+					if(dsc->part == LV_PART_ITEMS) {
+						uint32_t row = dsc->id /  lv_table_get_col_cnt(obj);
+						uint32_t col = dsc->id - row * lv_table_get_col_cnt(obj);
+						uint8_t *arr = (uint8_t *)args[1];
+						dsc->label_dsc->align = arr[col];
+						/*MAke every 2nd row grayish*/
+						if((row != 0 && row % 2) == 0) {
+							dsc->rect_dsc->bg_color = lv_color_mix(lv_palette_main(LV_PALETTE_GREY), dsc->rect_dsc->bg_color, (uint32_t)args[0]);
+							dsc->rect_dsc->bg_opa = LV_OPA_COVER;
+						}
+						/*Make the texts in the first cell center aligned*/
+						if(row == 0 && args[2]) {
+							dsc->label_dsc->align = LV_TEXT_ALIGN_CENTER;
+							dsc->rect_dsc->bg_color = lv_color_mix(lv_palette_main(LV_PALETTE_BLUE), dsc->rect_dsc->bg_color, LV_OPA_20);
+							dsc->rect_dsc->bg_opa = LV_OPA_COVER;
+						}
+					}
+				}, LV_EVENT_DRAW_PART_BEGIN, (void *)args);
+				return this;
+			}
+			inline Table *SecondRowGrewish(uint8_t opa, uint8_t *colAlignTable, bool topHeader) {
+				return SecondRowGrewish(_obj, opa, colAlignTable, topHeader);
+			}
 		};
 	} /* namespace widget */
 } /* namespace lvgl */

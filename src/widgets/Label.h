@@ -11,57 +11,48 @@
 #include <stdarg.h>
 
 #include "Object.h"
-#include "Button.h"
+#include "Window.h"
 
 namespace lvgl {
 	namespace widget {
 		class Label : public Object {
 		public:
-			/**
-			 * Create a button matrix object
-			 * @param parent    pointer to an object, it will be the parent of the new button matrix
-			 * @return          pointer to the created button matrix
-			 */
 			Label(lv_obj_t *parent) {
-				if(parent) {
-					_obj = lv_label_create(parent);
-				} else {
-					_obj = lv_label_create(lv_scr_act());
-				}
+				_obj = lv_label_create(parent);
 				_child = NULL;
 				_childs = NULL;
 			}
 
-			/**
-			 * Create a button matrix object
-			 * @param parent    pointer to an object, it will be the parent of the new button matrix
-			 * @return          pointer to the created button matrix
-			 */
 			Label(Object *parent) {
 				if(parent && parent->GetObj()) {
 					_obj = lv_label_create(parent->GetObj());
 				} else {
-					_obj = lv_label_create(lv_scr_act());
+					_obj = lv_label_create(NULL);
 				}
 				_child = NULL;
 				_childs = NULL;
 			}
 
-			/**
-			 * Create a button matrix object
-			 * @param parent    pointer to an object, it will be the parent of the new button matrix
-			 * @return          pointer to the created button matrix
-			 */
-			/*Label(Object parent) {
-				if(parent && parent.GetObj()) {
-					_obj = lv_label_create(parent.GetObj());
+			Label(Window *parent) {
+				if(parent && parent->GetObj()) {
+					_obj = lv_label_create(parent->GetObj());
 				} else {
-					_obj = lv_label_create(lv_scr_act());
+					_obj = lv_label_create(NULL);
 				}
 				_child = NULL;
 				_childs = NULL;
-			}*/
+			}
 
+			Label(Object &parent) {
+				if(((Object)parent).GetObj()) {
+					_obj = lv_label_create(((Object)parent).GetObj());
+				} else {
+					_obj = lv_label_create(NULL);
+				}
+				_child = NULL;
+				_childs = NULL;
+			}
+			
 			Label(lv_obj_t *parent, char *fmt, ...) {
 				if(parent) {
 					_obj = lv_label_create(parent);
@@ -100,9 +91,9 @@ namespace lvgl {
 				_childs = NULL;
 			}
 
-			/*Label(Object parent, char *fmt, ...) {
-				if(parent && parent.GetObj()) {
-					_obj = lv_label_create(parent.GetObj());
+			Label(Object parent, char *fmt, ...) {
+				if(((Object)parent).GetObj()) {
+					_obj = lv_label_create(((Object)parent).GetObj());
 				} else {
 					_obj = lv_label_create(lv_scr_act());
 				}
@@ -117,7 +108,7 @@ namespace lvgl {
 				lv_label_set_text(_obj, buffer);
 				_child = NULL;
 				_childs = NULL;
-			}*/
+			}
 		/**
 			 * Create an empty btnMatrix object, this is useful when used as a child.
 			 */
@@ -125,6 +116,23 @@ namespace lvgl {
 				_obj = NULL;
 				_child = NULL;
 				_childs = NULL;
+			}
+
+			Label(lv_obj_t *parent, bool isNew) {
+				_obj = parent;
+				_childs = NULL;
+				_child = NULL;
+			}
+			Label(Object *parent, bool isNew) {
+				_obj = parent->GetObj();
+				_childs = parent->GetChilds();
+				_child = NULL;
+			}
+
+			Label(Object &parent, bool isNew) {
+				_obj = ((Object)parent).GetObj();
+				_childs = ((Object)parent).GetChilds();
+				_child = NULL;
 			}
 
 			~Label() {

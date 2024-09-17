@@ -17,18 +17,39 @@ namespace lvgl {
 	namespace widget {
 		class List : public Object {
 		public:
-			List(lv_obj_t *parent = NULL) {
-				if(parent) {
-					_obj = lv_list_create(parent);
+			List(lv_obj_t *parent) {
+				_obj = lv_list_create(parent);
+				_child = NULL;
+				_childs = NULL;
+			}
+			List(Object *parent) {
+				if(parent && parent->GetObj()) {
+					_obj = lv_list_create(parent->GetObj());
 				} else {
-					_obj = lv_list_create(lv_scr_act());
+					_obj = lv_list_create(NULL);
 				}
 				_child = NULL;
 				_childs = NULL;
 			}
-			/**
-			 * Create an empty btnMatrix object, this is useful when used as a child.
-			 */
+			List(Object &parent) {
+				if(((Object)parent).GetObj()) {
+					_obj = lv_list_create(((Object)parent).GetObj());
+				} else {
+					_obj = lv_list_create(NULL);
+				}
+				_child = NULL;
+				_childs = NULL;
+			}
+			List(Object *parent, bool isNew) {
+				_obj = parent->GetObj();
+				_childs = parent->GetChilds();
+				_child = NULL;
+			}
+			List(Object &parent, bool isNew) {
+				_obj = ((Object)parent).GetObj();
+				_childs = ((Object)parent).GetChilds();
+				_child = NULL;
+			}
 			List() {
 				_obj = NULL;
 				_child = NULL;

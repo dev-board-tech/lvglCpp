@@ -16,10 +16,25 @@ namespace lvgl {
 		class MsgBox : public Object {
 		public:
 			MsgBox(lv_obj_t * parent, const char * title, const char * txt, const char * btn_txts[], bool add_close_btn = true) {
-				if(parent) {
-					_obj = lv_msgbox_create(parent, title, txt, btn_txts, add_close_btn);
+				_obj = lv_msgbox_create(parent, title, txt, btn_txts, add_close_btn);
+				_child = NULL;
+				_childs = NULL;
+			}
+			MsgBox(const char * title, const char * txt, const char * btn_txts[], bool add_close_btn = true) {
+				_obj = lv_msgbox_create(NULL, title, txt, btn_txts, add_close_btn);
+				_child = NULL;
+				_childs = NULL;
+			}
+			MsgBox(Object *parent, const char * title, const char * txt, const char * btn_txts[], bool add_close_btn = true) {
+				_obj = lv_msgbox_create(NULL, title, txt, btn_txts, add_close_btn);
+				_child = NULL;
+				_childs = NULL;
+			}
+			MsgBox(Object &parent, const char * title, const char * txt, const char * btn_txts[], bool add_close_btn = true) {
+				if(((Object)parent).GetObj()) {
+					_obj = lv_msgbox_create(((Object)parent).GetObj(), title, txt, btn_txts, add_close_btn);
 				} else {
-					_obj = lv_msgbox_create(lv_scr_act(), title, txt, btn_txts, add_close_btn);
+					_obj = lv_msgbox_create(NULL, title, txt, btn_txts, add_close_btn);
 				}
 				_child = NULL;
 				_childs = NULL;
@@ -31,6 +46,22 @@ namespace lvgl {
 				_obj = NULL;
 				_child = NULL;
 				_childs = NULL;
+			}
+
+			MsgBox(lv_obj_t *parent, bool isNew) {
+				_obj = parent;
+				_childs = NULL;
+				_child = NULL;
+			}
+			MsgBox(Object *parent, bool isNew) {
+				_obj = parent->GetObj();
+				_childs = parent->GetChilds();
+				_child = NULL;
+			}
+			MsgBox(Object &parent, bool isNew) {
+				_obj = ((Object)parent).GetObj();
+				_childs = ((Object)parent).GetChilds();
+				_child = NULL;
 			}
 
 			~MsgBox() {
@@ -80,8 +111,7 @@ namespace lvgl {
 			 }
 
 			 inline ButtonMatrix GetBtns() {
-				ButtonMatrix btns;
-				btns.SetObj(lv_msgbox_get_btns(_obj));
+				ButtonMatrix btns = ButtonMatrix(lv_msgbox_get_btns(_obj), false);
 				return btns;
 			 }
 			 
@@ -93,12 +123,12 @@ namespace lvgl {
 			 	 return lv_msgbox_get_active_btn_text(_obj);
 			 }
 			 
-			 inline MsgBox *close() {
+			 inline MsgBox *Close() {
 			 	 lv_msgbox_close(_obj);
 			 	 return this;
 			 }
 			 
-			 inline MsgBox *closeAsync() {
+			 inline MsgBox *CloseAsync() {
 			 	 lv_msgbox_close_async(_obj);
 			 	 return this;
 			 }

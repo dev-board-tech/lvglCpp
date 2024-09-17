@@ -16,16 +16,55 @@ namespace lvgl {
 		protected:
 			ButtonMatrix *_btns;
 		public:
-			TabView(lv_obj_t *parent = NULL, lv_dir_t tabPos = LV_DIR_TOP, lv_coord_t tabSize = 40) {
-				if(parent) {
-					_obj = lv_tabview_create(parent, tabPos, tabSize);
+			TabView(lv_obj_t *parent, lv_dir_t tabPos = LV_DIR_TOP, lv_coord_t tabSize = 40) {
+				_obj = lv_tabview_create(parent, tabPos, tabSize);
+				_btns = new ButtonMatrix();
+				_btns->SetObj(lv_tabview_get_tab_btns(_obj));
+				_child = NULL;
+				_childs = (Object **)calloc(1, sizeof(Object *));
+				_child = NULL;
+			}
+
+			TabView(Object *parent, lv_dir_t tabPos = LV_DIR_TOP, lv_coord_t tabSize = 40) {
+				if(parent && parent->GetObj()) {
+					_obj = lv_tabview_create(parent->GetObj(), tabPos, tabSize);
 				} else {
-					_obj = lv_tabview_create(lv_scr_act(), tabPos, tabSize);
+					_obj = lv_tabview_create(NULL, tabPos, tabSize);
 				}
 				_btns = new ButtonMatrix();
 				_btns->SetObj(lv_tabview_get_tab_btns(_obj));
 				_child = NULL;
-				_childs = (lv_obj_t **)calloc(1, sizeof(lv_obj_t *));
+				_childs = (Object **)calloc(1, sizeof(Object *));
+				_child = NULL;
+			}
+			
+			TabView(Object &parent, lv_dir_t tabPos = LV_DIR_TOP, lv_coord_t tabSize = 40) {
+				if(((Object)parent).GetObj()) {
+					_obj = lv_tabview_create(((Object)parent).GetObj(), tabPos, tabSize);
+				} else {
+					_obj = lv_tabview_create(NULL, tabPos, tabSize);
+				}
+				_btns = new ButtonMatrix();
+				_btns->SetObj(lv_tabview_get_tab_btns(_obj));
+				_child = NULL;
+				_childs = (Object **)calloc(1, sizeof(Object *));
+				_child = NULL;
+			}
+			
+			TabView(lv_obj_t *parent, bool isNew) {
+				_obj = parent;
+				_childs = NULL;
+				_child = NULL;
+			}
+			TabView(Object *parent, bool isNew) {
+				_obj = parent->GetObj();
+				_childs = parent->GetChilds();
+				_child = NULL;
+			}
+			TabView(Object &parent, bool isNew) {
+				_obj = ((Object)parent).GetObj();
+				_childs = ((Object)parent).GetChilds();
+				_child = NULL;
 			}
 
 			~TabView() {
@@ -40,19 +79,20 @@ namespace lvgl {
 				return _btns;
 			}
 
-			inline TabView *AddTab(const char *name) {
+			inline Object *AddTab(const char *name) {
 				uint32_t i = 0;
 				for(; i < (uint32_t)-1; i++) {
 					if(!_childs[i])
 						break;
 				}
-				_childs = (lv_obj_t **)realloc(_childs, sizeof(lv_obj_t *) * (i + 2));
+				_childs = (Object **)realloc(_childs, sizeof(Object *) * (i + 2));
 				_childs[i + 1] = NULL;
-				_childs[i] = lv_tabview_add_tab(_obj, name);
-				return this;
+				_childs[i] = new Object();
+				_childs[i]->SetObj(lv_tabview_add_tab(_obj, name));
+				return _childs[i];
 			}
 
-			inline lv_obj_t *GetTabObj(uint32_t id) {
+			inline Object *GetTabObj(uint32_t id) {
 				int i = 0;
 				for(; _childs[i] != NULL; i++);
 				if(id < i) {
@@ -61,7 +101,7 @@ namespace lvgl {
 				return NULL;
 			}
 
-			inline lv_obj_t *GetTabObj(const char *name) {
+			inline Object *GetTabObj(const char *name) {
 				int i = 0;
 				for(; _childs[i] != NULL; i++);
 				for(int j = 0; j < i; j++) {
@@ -78,11 +118,11 @@ namespace lvgl {
 				lv_tabview_rename_tab(_obj, tab_id, new_name);
 				return this;
 			}
-			inline lv_obj_t *GetContent() {
-				return lv_tabview_get_content(_obj);
+			inline Object GetContent() {
+				return Object(lv_tabview_get_content(_obj), false);
 			}
-			inline lv_obj_t *GetTabBtns() {
-				return lv_tabview_get_tab_btns(_obj);
+			inline ButtonMatrix GetTabBtns() {
+				return ButtonMatrix(lv_tabview_get_tab_btns(_obj), false);
 			}
 			inline TabView *SetActiveTab(uint32_t id, lv_anim_enable_t anim_en) {
 				lv_tabview_set_act(_obj, id, anim_en);
