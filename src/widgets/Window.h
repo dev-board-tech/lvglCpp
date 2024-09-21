@@ -21,8 +21,6 @@ namespace lvgl {
 			 */
 			Window(lv_obj_t *parent, lv_coord_t header_height) {
 				_obj = lv_win_create(parent, header_height);
-				_child = NULL;
-				_childs = NULL;
 			}
 			
 			Window(Object *parent, lv_coord_t header_height) {
@@ -31,36 +29,26 @@ namespace lvgl {
 				} else {
 					_obj = lv_win_create(NULL,header_height);
 				}
-				_child = NULL;
-				_childs = NULL;
 			}
 			
-			Window(Object &parent, lv_coord_t header_height) {
+			Window(Object parent, lv_coord_t header_height) {
 				if(((Object)parent).GetObj()) {
 					_obj = lv_win_create(((Object)parent).GetObj(), header_height);
 				} else {
 					_obj = lv_win_create(NULL, header_height);
 				}
-				_child = NULL;
-				_childs = NULL;
 			}
 			
 			Window(lv_obj_t *parent, bool isNew) {
 				_obj = parent;
-				_child = NULL;
-				_childs = NULL;
 			}
 
 			Window(Object *parent, bool isNew) {
 				_obj = parent->GetObj();
-				_child = NULL;
-				_childs = NULL;
 			}
 
-			Window(Object &parent, bool isNew) {
+			Window(Object parent, bool isNew) {
 				_obj = ((Object)parent).GetObj();
-				_child = NULL;
-				_childs = NULL;
 			}
 
 			~Window() {

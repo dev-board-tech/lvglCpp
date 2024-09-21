@@ -15,8 +15,6 @@ namespace lvgl {
 		public:
 			Image(lv_obj_t *parent) {
 				_obj = lv_img_create(parent);
-				_child = NULL;
-				_childs = NULL;
 			}
 			Image(Object *parent) {
 				if(parent && parent->GetObj()) {
@@ -24,32 +22,22 @@ namespace lvgl {
 				} else {
 					_obj = lv_img_create(NULL);
 				}
-				_child = NULL;
-				_childs = NULL;
 			}
-			Image(Object &parent) {
+			Image(Object parent) {
 				if(((Object)parent).GetObj()) {
 					_obj = lv_img_create(((Object)parent).GetObj());
 				} else {
 					_obj = lv_img_create(NULL);
 				}
-				_child = NULL;
-				_childs = NULL;
 			}
 			Image(lv_obj_t *parent, bool isNew) {
 				_obj = parent;
-				_childs = NULL;
-				_child = NULL;
 			}
 			Image(Object *parent, bool isNew) {
 				_obj = parent->GetObj();
-				_childs = parent->GetChilds();
-				_child = NULL;
 			}
-			Image(Object &parent, bool isNew) {
+			Image(Object parent, bool isNew) {
 				_obj = ((Object)parent).GetObj();
-				_childs = ((Object)parent).GetChilds();
-				_child = NULL;
 			}
 
 			~Image() {

@@ -21,8 +21,6 @@ namespace lvgl {
 			 */
 			ButtonMatrix(lv_obj_t *parent) {
 				_obj = lv_btnmatrix_create(parent);
-				_child = NULL;
-				_childs = NULL;
 			}
 			ButtonMatrix(Object *parent) {
 				if(parent && parent->GetObj()) {
@@ -30,42 +28,26 @@ namespace lvgl {
 				} else {
 					_obj = lv_btnmatrix_create(NULL);
 				}
-				_child = NULL;
-				_childs = NULL;
 			}
-			ButtonMatrix(Object &parent) {
+			ButtonMatrix(Object parent) {
 				if(((Object)parent).GetObj()) {
 					_obj = lv_btnmatrix_create(((Object)parent).GetObj());
 				} else {
 					_obj = lv_btnmatrix_create(NULL);
 				}
-				_child = NULL;
-				_childs = NULL;
 			}
 			/**
 			 * Create an empty btnMatrix object, this is useful when used as a child.
 			 */
-			ButtonMatrix() {
-				_obj = NULL;
-				_child = NULL;
-				_childs = NULL;
-			}
-			
 			ButtonMatrix(lv_obj_t *parent, bool isNew) {
 				_obj = parent;
-				_child = NULL;
-				_childs = NULL;
 			}
 
 			ButtonMatrix(Object *parent, bool isNew) {
 				_obj = parent->GetObj();
-				_child = NULL;
-				_childs = NULL;
 			}
-			ButtonMatrix(Object &parent, bool isNew) {
+			ButtonMatrix(Object parent, bool isNew) {
 				_obj = ((Object)parent).GetObj();
-				_child = NULL;
-				_childs = NULL;
 			}
 
 			~ButtonMatrix() {

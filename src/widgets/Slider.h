@@ -15,8 +15,6 @@ namespace lvgl {
 		public:
 			Slider(lv_obj_t *parent) {
 				_obj = lv_slider_create(parent);
-				_child = NULL;
-				_childs = NULL;
 			}
 			Slider(Object *parent) {
 				if(parent && parent->GetObj()) {
@@ -24,32 +22,22 @@ namespace lvgl {
 				} else {
 					_obj = lv_slider_create(NULL);
 				}
-				_child = NULL;
-				_childs = NULL;
 			}
-			Slider(Object &parent) {
+			Slider(Object parent) {
 				if(((Object)parent).GetObj()) {
 					_obj = lv_slider_create(((Object)parent).GetObj());
 				} else {
 					_obj = lv_slider_create(NULL);
 				}
-				_child = NULL;
-				_childs = NULL;
 			}
 			Slider(lv_obj_t *parent, bool isNew) {
 				_obj = parent;
-				_childs = NULL;
-				_child = NULL;
 			}
 			Slider(Object *parent, bool isNew) {
 				_obj = parent->GetObj();
-				_childs = parent->GetChilds();
-				_child = NULL;
 			}
-			Slider(Object &parent, bool isNew) {
+			Slider(Object parent, bool isNew) {
 				_obj = ((Object)parent).GetObj();
-				_childs = ((Object)parent).GetChilds();
-				_child = NULL;
 			}
 
 			~Slider() {
