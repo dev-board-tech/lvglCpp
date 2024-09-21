@@ -17,51 +17,29 @@ namespace lvgl {
 		public:
 			MsgBox(lv_obj_t * parent, const char * title, const char * txt, const char * btn_txts[], bool add_close_btn = true) {
 				_obj = lv_msgbox_create(parent, title, txt, btn_txts, add_close_btn);
-				_child = NULL;
-				_childs = NULL;
 			}
 			MsgBox(const char * title, const char * txt, const char * btn_txts[], bool add_close_btn = true) {
 				_obj = lv_msgbox_create(NULL, title, txt, btn_txts, add_close_btn);
-				_child = NULL;
-				_childs = NULL;
 			}
 			MsgBox(Object *parent, const char * title, const char * txt, const char * btn_txts[], bool add_close_btn = true) {
 				_obj = lv_msgbox_create(NULL, title, txt, btn_txts, add_close_btn);
-				_child = NULL;
-				_childs = NULL;
 			}
-			MsgBox(Object &parent, const char * title, const char * txt, const char * btn_txts[], bool add_close_btn = true) {
+			MsgBox(Object parent, const char * title, const char * txt, const char * btn_txts[], bool add_close_btn = true) {
 				if(((Object)parent).GetObj()) {
 					_obj = lv_msgbox_create(((Object)parent).GetObj(), title, txt, btn_txts, add_close_btn);
 				} else {
 					_obj = lv_msgbox_create(NULL, title, txt, btn_txts, add_close_btn);
 				}
-				_child = NULL;
-				_childs = NULL;
-			}
-			/**
-			 * Create an empty btnMatrix object, this is useful when used as a child.
-			 */
-			MsgBox() {
-				_obj = NULL;
-				_child = NULL;
-				_childs = NULL;
 			}
 
 			MsgBox(lv_obj_t *parent, bool isNew) {
 				_obj = parent;
-				_childs = NULL;
-				_child = NULL;
 			}
 			MsgBox(Object *parent, bool isNew) {
 				_obj = parent->GetObj();
-				_childs = parent->GetChilds();
-				_child = NULL;
 			}
-			MsgBox(Object &parent, bool isNew) {
+			MsgBox(Object parent, bool isNew) {
 				_obj = ((Object)parent).GetObj();
-				_childs = ((Object)parent).GetChilds();
-				_child = NULL;
 			}
 
 			~MsgBox() {
@@ -93,20 +71,20 @@ namespace lvgl {
 			 *====================*/
 			 
 			 inline Label GetTitle() {
-				Label label;
-				label.SetObj(lv_msgbox_get_title(_obj));
+				Label label = Label(lv_msgbox_get_title(_obj), false);
+				//label.SetObj(lv_msgbox_get_title(_obj));
 				return label;
 			 }
 
 			 inline Button GetCloseBtn() {
-				Button button;
-				button.SetObj(lv_msgbox_get_close_btn(_obj));
+				Button button = Button(lv_msgbox_get_close_btn(_obj), false);
+				//button.SetObj(lv_msgbox_get_close_btn(_obj));
 				return button;
 			 }
 
 			 inline Label GetText() {
-				Label label;
-				label.SetObj(lv_msgbox_get_text(_obj));
+				Label label = Label(lv_msgbox_get_text(_obj), false);
+				//label.SetObj(lv_msgbox_get_text(_obj));
 				return label;
 			 }
 

@@ -19,8 +19,6 @@ namespace lvgl {
 		public:
 			Label(lv_obj_t *parent) {
 				_obj = lv_label_create(parent);
-				_child = NULL;
-				_childs = NULL;
 			}
 
 			Label(Object *parent) {
@@ -29,8 +27,6 @@ namespace lvgl {
 				} else {
 					_obj = lv_label_create(NULL);
 				}
-				_child = NULL;
-				_childs = NULL;
 			}
 
 			Label(Window *parent) {
@@ -39,18 +35,14 @@ namespace lvgl {
 				} else {
 					_obj = lv_label_create(NULL);
 				}
-				_child = NULL;
-				_childs = NULL;
 			}
 
-			Label(Object &parent) {
+			Label(Object parent) {
 				if(((Object)parent).GetObj()) {
 					_obj = lv_label_create(((Object)parent).GetObj());
 				} else {
 					_obj = lv_label_create(NULL);
 				}
-				_child = NULL;
-				_childs = NULL;
 			}
 			
 			Label(lv_obj_t *parent, char *fmt, ...) {
@@ -68,8 +60,6 @@ namespace lvgl {
 				vsnprintf(buffer, size + 1, fmt, args);
 				va_end(args);
 				lv_label_set_text(_obj, buffer);
-				_child = NULL;
-				_childs = NULL;
 			}
 
 			Label(Object *parent, char *fmt, ...) {
@@ -87,8 +77,6 @@ namespace lvgl {
 				vsnprintf(buffer, size + 1, fmt, args);
 				va_end(args);
 				lv_label_set_text(_obj, buffer);
-				_child = NULL;
-				_childs = NULL;
 			}
 
 			Label(Object parent, char *fmt, ...) {
@@ -106,33 +94,17 @@ namespace lvgl {
 				vsnprintf(buffer, size + 1, fmt, args);
 				va_end(args);
 				lv_label_set_text(_obj, buffer);
-				_child = NULL;
-				_childs = NULL;
-			}
-		/**
-			 * Create an empty btnMatrix object, this is useful when used as a child.
-			 */
-			Label() {
-				_obj = NULL;
-				_child = NULL;
-				_childs = NULL;
 			}
 
 			Label(lv_obj_t *parent, bool isNew) {
 				_obj = parent;
-				_childs = NULL;
-				_child = NULL;
 			}
 			Label(Object *parent, bool isNew) {
 				_obj = parent->GetObj();
-				_childs = parent->GetChilds();
-				_child = NULL;
 			}
 
-			Label(Object &parent, bool isNew) {
+			Label(Object parent, bool isNew) {
 				_obj = ((Object)parent).GetObj();
-				_childs = ((Object)parent).GetChilds();
-				_child = NULL;
 			}
 
 			~Label() {
@@ -161,10 +133,10 @@ namespace lvgl {
 			 * @param obj           pointer to a Label object
 			 * @param text          '\0' terminated character string. NULL to refresh with the current text.
 			 */
-			inline Label *SetText(const char * text) {
+			/*inline Label *SetText(const char * text) {
 				lv_label_set_text(_obj, text);
 				return this;
-			}
+			}*/
 
 			/**
 			 * Set a new formatted text for a Label. Memory will be allocated to store the text by the Label.

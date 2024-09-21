@@ -17,53 +17,29 @@ namespace lvgl {
 		class Object {
 		protected:
 			lv_obj_t *_obj;
-			lv_obj_t *_child;
-			Object **_childs;
 		public:
 			Object(lv_obj_t *obj = NULL) {
 				_obj = lv_obj_create(obj);
-				_child = NULL;
-				_childs = NULL;
 			}
 			Object(Object *obj) {
 				_obj = lv_obj_create(obj->GetObj());
-				_child = NULL;
-				_childs = NULL;
 			}
 			Object(lv_obj_t *parent, bool isNew) {
 				_obj = parent;
-				_child = NULL;
-				_childs = NULL;
 			}
 			Object(Object *parent, bool isNew) {
-				if(isNew) {
-					_obj = (lv_obj_t *)malloc(sizeof(lv_obj_t));
-					memcpy(_obj, parent->GetObj(), sizeof(lv_obj_t));
-				} else {
-					_obj = parent->GetObj();
-					_child = NULL;
-					_childs = NULL;
-				}
+				_obj = parent->GetObj();
 			}
-			Object(Object &parent, bool isNew) {
-				if(isNew) {
-					_obj = (lv_obj_t *)malloc(sizeof(lv_obj_t));
-					memcpy(_obj, ((Object)parent).GetObj(), sizeof(lv_obj_t));
-				} else {
+			Object(Object parent, bool isNew) {
+				_obj = ((Object)parent).GetObj();
+			}
+			/*Object(const Object &parent, bool isNew) {
 					_obj = ((Object)parent).GetObj();
-					_child = NULL;
-					_childs = NULL;
-				}
-			}
+			}*/
+
 			~Object() {
 			
 			}
-			Object(const Object &parent, bool isNew) {
-					_obj = ((Object)parent).GetObj();
-					_child = NULL;
-					_childs = NULL;
-			}
-
 			inline Object *SetObj(lv_obj_t *obj) {
 				_obj = obj;
 				return this;
@@ -81,14 +57,6 @@ namespace lvgl {
 
 			inline lv_obj_t *GetObj() {
 				return _obj;
-			}
-
-			inline lv_obj_t *GetChild() {
-				return _child;
-			}
-
-			inline Object **GetChilds() {
-				return _childs;
 			}
 
 			void SetEnabled(bool enable) {

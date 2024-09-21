@@ -15,8 +15,6 @@ namespace lvgl {
 		public:
 			Switch(lv_obj_t *parent) {
 				_obj = lv_switch_create(parent);
-				_child = NULL;
-				_childs = NULL;
 			}
 			Switch(Object *parent) {
 				if(parent && parent->GetObj()) {
@@ -24,32 +22,22 @@ namespace lvgl {
 				} else {
 					_obj = lv_switch_create(NULL);
 				}
-				_child = NULL;
-				_childs = NULL;
 			}
-			Switch(Object &parent) {
+			Switch(Object parent) {
 				if(((Object)parent).GetObj()) {
 					_obj = lv_switch_create(((Object)parent).GetObj());
 				} else {
 					_obj = lv_switch_create(NULL);
 				}
-				_child = NULL;
-				_childs = NULL;
 			}
 			Switch(lv_obj_t *parent, bool isNew) {
 				_obj = parent;
-				_childs = NULL;
-				_child = NULL;
 			}
 			Switch(Object *parent, bool isNew) {
 				_obj = parent->GetObj();
-				_childs = parent->GetChilds();
-				_child = NULL;
 			}
-			Switch(Object &parent, bool isNew) {
+			Switch(Object parent, bool isNew) {
 				_obj = ((Object)parent).GetObj();
-				_childs = ((Object)parent).GetChilds();
-				_child = NULL;
 			}
 
 			~Switch() {

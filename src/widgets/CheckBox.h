@@ -15,8 +15,6 @@ namespace lvgl {
 		public:
 			CheckBox(lv_obj_t *parent) {
 				_obj = lv_checkbox_create(parent);
-				_child = NULL;
-				_childs = NULL;
 			}
 			CheckBox(Object *parent) {
 				if(parent && parent->GetObj()) {
@@ -24,27 +22,22 @@ namespace lvgl {
 				} else {
 					_obj = lv_checkbox_create(NULL);
 				}
-				_child = NULL;
-				_childs = NULL;
 			}
-			CheckBox(Object &parent) {
+			CheckBox(Object parent) {
 				if(((Object)parent).GetObj()) {
 					_obj = lv_checkbox_create(((Object)parent).GetObj());
 				} else {
 					_obj = lv_checkbox_create(NULL);
 				}
-				_child = NULL;
-				_childs = NULL;
+			}
+			CheckBox(lv_obj_t *parent, bool isNew) {
+				_obj = parent;
 			}
 			CheckBox(Object *parent, bool isNew) {
 				_obj = parent->GetObj();
-				_childs = parent->GetChilds();
-				_child = NULL;
 			}
-			CheckBox(Object &parent, bool isNew) {
+			CheckBox(Object parent, bool isNew) {
 				_obj = ((Object)parent).GetObj();
-				_childs = ((Object)parent).GetChilds();
-				_child = NULL;
 			}
 			virtual ~CheckBox() {
 

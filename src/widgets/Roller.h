@@ -15,8 +15,6 @@ namespace lvgl {
 		public:
 			Roller(lv_obj_t *parent) {
 				_obj = lv_roller_create(parent);
-				_child = NULL;
-				_childs = NULL;
 			}
 			Roller(Object *parent) {
 				if(parent && parent->GetObj()) {
@@ -24,27 +22,22 @@ namespace lvgl {
 				} else {
 					_obj = lv_roller_create(NULL);
 				}
-				_child = NULL;
-				_childs = NULL;
 			}
-			Roller(Object &parent) {
+			Roller(Object parent) {
 				if(((Object)parent).GetObj()) {
 					_obj = lv_roller_create(((Object)parent).GetObj());
 				} else {
 					_obj = lv_roller_create(NULL);
 				}
-				_child = NULL;
-				_childs = NULL;
+			}
+			Roller(lv_obj_t *parent, bool isNew) {
+				_obj = parent;
 			}
 			Roller(Object *parent, bool isNew) {
 				_obj = parent->GetObj();
-				_childs = parent->GetChilds();
-				_child = NULL;
 			}
-			Roller(Object &parent, bool isNew) {
+			Roller(Object parent, bool isNew) {
 				_obj = ((Object)parent).GetObj();
-				_childs = ((Object)parent).GetChilds();
-				_child = NULL;
 			}
 			~Roller() {
 
