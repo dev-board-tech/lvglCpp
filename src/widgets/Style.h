@@ -498,10 +498,203 @@ namespace lvgl {
 			lv_style_set_flex_grow(&style, value);
 			return this;
 		}
+		
+		
+		
+		/**
+		 * Clear all properties from a style and free all allocated memories.
+		 * @param style pointer to a style
+		 */
+		inline Style * Reset() {
+			lv_style_reset(&style);
+			return this;
+		}
+
+		/**
+		 * Register a new style property for custom usage
+		 * @return a new property ID, or LV_STYLE_PROP_INV if there are no more available.
+		 * @example
+		 * lv_style_prop_t MY_PROP;
+		 * static inline void lv_style_set_my_prop(lv_style_t * style, lv_color_t value) {
+		 * lv_style_value_t v = {.color = value}; lv_style_set_prop(style, MY_PROP, v); }
+		 *
+		 * ...
+		 * MY_PROP = lv_style_register_prop();
+		 * ...
+		 * lv_style_set_my_prop(&style1, lv_palette_main(LV_PALETTE_RED));
+		 */
+		inline static lv_style_prop_t RegisterProp(uint8_t flag) {
+			return lv_style_register_prop(flag);
+		}
+
+		/**
+		 * Get the number of custom properties that have been registered thus far.
+		 */
+		inline static lv_style_prop_t GetNumCustomProps(void) {
+			return lv_style_get_num_custom_props();
+		}
+
+		/**
+		 * Remove a property from a style
+		 * @param style pointer to a style
+		 * @param prop  a style property ORed with a state.
+		 * @return true: the property was found and removed; false: the property wasn't found
+		 */
+		inline bool RemoveProp(lv_style_prop_t prop) {
+			return lv_style_remove_prop(&style, prop);
+		}
+
+		/**
+		 * Set the value of property in a style.
+		 * This function shouldn't be used directly by the user.
+		 * Instead use `lv_style_set_<prop_name>()`. E.g. `lv_style_set_bg_color()`
+		 * @param style pointer to style
+		 * @param prop the ID of a property (e.g. `LV_STYLE_BG_COLOR`)
+		 * @param value `lv_style_value_t` variable in which a field is set according to the type of `prop`
+		 */
+		inline Style * SetProp(lv_style_prop_t prop, lv_style_value_t value) {
+			lv_style_set_prop(&style, prop, value);
+			return this;
+		}
+
+		/**
+		 * Set a special meta state for a property in a style.
+		 * This function shouldn't be used directly by the user.
+		 * @param style pointer to style
+		 * @param prop the ID of a property (e.g. `LV_STYLE_BG_COLOR`)
+		 * @param meta the meta value to attach to the property in the style
+		 */
+		inline Style * SetPropMeta(lv_style_prop_t prop, uint16_t meta) {
+			lv_style_set_prop_meta(&style, prop, meta);
+			return this;
+		}
+
+		/**
+		 * Get the value of a property
+		 * @param style pointer to a style
+		 * @param prop  the ID of a property
+		 * @param value pointer to a `lv_style_value_t` variable to store the value
+		 * @return LV_RES_INV: the property wasn't found in the style (`value` is unchanged)
+		 *         LV_RES_OK: the property was fond, and `value` is set accordingly
+		 * @note For performance reasons there are no sanity check on `style`
+		 */
+		inline lv_style_res_t GetProp(lv_style_prop_t prop, lv_style_value_t * value) {
+			return lv_style_get_prop(&style, prop, value);
+		}
+
+		/**
+		 * Initialize a transition descriptor.
+		 * @param tr        pointer to a transition descriptor to initialize
+		 * @param props     an array with the properties to transition. The last element must be zero.
+		 * @param path_cb   an animation path (ease) callback. If `NULL` liner path will be used.
+		 * @param time      duration of the transition in [ms]
+		 * @param delay     delay before the transition in [ms]
+		 * @param user_data any custom data that will be saved in the transition animation and will be available when `path_cb` is called
+		 * @example
+		 * const static lv_style_prop_t trans_props[] = { LV_STYLE_BG_OPA, LV_STYLE_BG_COLOR, 0 };
+		 *  static lv_style_transition_dsc_t trans1;
+		 *  lv_style_transition_dsc_init(&trans1, trans_props, NULL, 300, 0, NULL);
+		 */
+		inline static void TransitionDscInit(lv_style_transition_dsc_t * tr, const lv_style_prop_t props[],
+				                          lv_anim_path_cb_t path_cb, uint32_t time, uint32_t delay, void * user_data) {
+			lv_style_transition_dsc_init(tr, props, path_cb, time, delay, user_data);
+		}
+
+		/**
+		 * Get the default value of a property
+		 * @param prop the ID of a property
+		 * @return the default value
+		 */
+		inline static lv_style_value_t PropGetDefault(lv_style_prop_t prop) {
+			return lv_style_prop_get_default(prop);
+		}
+
+		/**
+		 * Get the value of a property
+		 * @param style pointer to a style
+		 * @param prop  the ID of a property
+		 * @param value pointer to a `lv_style_value_t` variable to store the value
+		 * @return LV_RES_INV: the property wasn't found in the style (`value` is unchanged)
+		 *         LV_RES_OK: the property was fond, and `value` is set accordingly
+		 * @note For performance reasons there are no sanity check on `style`
+		 * @note This function is the same as ::lv_style_get_prop but inlined. Use it only on performance critical places
+		 */
+		inline lv_style_res_t GetPropInlined(lv_style_prop_t prop, lv_style_value_t * value) {
+			return lv_style_get_prop_inlined(&style, prop, value);
+		}
+
+		/**
+		 * Checks if a style is empty (has no properties)
+		 * @param style pointer to a style
+		 * @return true if the style is empty
+		 */
+		inline bool IsEmpty() {
+			return lv_style_is_empty(&style);
+		}
+
+		/**
+		 * Tell the group of a property. If the a property from a group is set in a style the (1 << group) bit of style->has_group is set.
+		 * It allows early skipping the style if the property is not exists in the style at all.
+		 * @param prop a style property
+		 * @return the group [0..7] 7 means all the custom properties with index > 112
+		 */
+		inline uint8_t GetPropGroup(lv_style_prop_t prop) {
+			return _lv_style_get_prop_group(prop);
+		}
+
+		/**
+		 * Get the flags of a built-in or custom property.
+		 *
+		 * @param prop a style property
+		 * @return the flags of the property
+		 */
+		inline static uint8_t PropLockupFlags(lv_style_prop_t prop) {
+			return _lv_style_prop_lookup_flags(prop);
+		}
 
 
-	private:
-		lv_style_t style;
+		inline Style * SetSize(lv_coord_t value) {
+			lv_style_set_size(&style, value);
+			return this;
+		}
+
+		inline Style * SetPadAll(lv_coord_t value) {
+			lv_style_set_pad_all(&style, value);
+			return this;
+		}
+
+		inline Style * SetPadHorisontal(lv_coord_t value) {
+			lv_style_set_pad_hor(&style, value);
+			return this;
+		}
+
+		inline Style * SetPadVer(lv_coord_t value) {
+			lv_style_set_pad_ver(&style, value);
+			return this;
+		}
+
+		inline Style * SetPadGap(lv_coord_t value) {
+			lv_style_set_pad_gap(&style, value);
+			return this;
+		}
+
+		/**
+		 * @brief Check if the style property has a specified behavioral flag.
+		 *
+		 * Do not pass multiple flags to this function as backwards-compatibility is not guaranteed
+		 * for that.
+		 *
+		 * @param prop Property ID
+		 * @param flag Flag
+		 * @return true if the flag is set for this property
+		 */
+		static inline bool PropHasFlag(lv_style_prop_t prop, uint8_t flag) {
+			return lv_style_prop_has_flag(prop, flag);
+		}
+
+
+		private:
+			lv_style_t style;
 	};
 } /* namespace lvgl */
 

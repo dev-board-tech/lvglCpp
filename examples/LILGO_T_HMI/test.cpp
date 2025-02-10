@@ -15,16 +15,16 @@
 
 void uiInit() {
 	static lvgl::widget::TabView tView = lvgl::widget::TabView(lv_scr_act());
-	tView.AddTab("Tab 1");
-	tView.AddTab("Tab");
-	tView.AddTab("Tab 3");
-	tView.AddTab("Tab 4");
+	lvgl::widget::Object *tab1 = tView.AddTab("Tab 1");
+	lvgl::widget::Object *tab2 = tView.AddTab("Tab");
+	lvgl::widget::Object *tab3 = tView.AddTab("Tab 3");
+	lvgl::widget::Object *tab4 = tView.AddTab("Tab 4");
 	tView.RenameTab(1, "Tab 2");
 
-	lv_obj_t *tab2 = tView.GetTabObj("Tab 2");
-	lv_obj_t *tab1 = tView.GetTabObj("Tab 1");
-	lv_obj_t *tab3 = tView.GetTabObj("Tab 3");
-	lv_obj_t *tab4 = tView.GetTabObj("Tab 4");
+	//lv_obj_t *tab2 = tView.("Tab 2");
+	//lv_obj_t *tab1 = tView.GetObj("Tab 1");
+	//lv_obj_t *tab3 = tView.GetObj("Tab 3");
+	//lv_obj_t *tab4 = tView.GetObj("Tab 4");
 	static lvgl::widget::ButtonMatrix bMatrix = lvgl::widget::ButtonMatrix(tab2);
 	static const char *btnm_map[] = {
 			"1", "2", "3", "4", "5", "\n",
@@ -86,7 +86,7 @@ void uiInit() {
 	static lvgl::widget::Image image = lvgl::widget::Image(tab1);
 	image.SetPos(0, 120);
 	image.SetSize(30, 30);
-	image.SetSource(&fan30);
+	image.SetImageSource(&fan30);
 
 	static lvgl::widget::Line line = lvgl::widget::Line(tab1);
 	line.SetPos(40, 120);
