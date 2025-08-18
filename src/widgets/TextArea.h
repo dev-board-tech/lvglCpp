@@ -46,7 +46,7 @@ namespace lvgl {
 
 			}
 
-			inline lv_obj_t *getObj() {
+			inline lv_obj_t *GetObj() {
 				return _obj;
 			}
 
@@ -251,7 +251,7 @@ namespace lvgl {
 			 * @param obj       pointer to a text area object
 			 * @param align     the align mode from ::lv_text_align_t
 			 */
-			inline TextArea *SetAlign(lv_text_align_t align) {
+			inline TextArea *SetTextAlign(lv_text_align_t align) {
 				lv_textarea_set_align(_obj, align);
 				return this;
 			}
@@ -267,6 +267,10 @@ namespace lvgl {
 			 */
 			inline const char *GetText() {
 				return lv_textarea_get_text((const lv_obj_t *)_obj);
+			}
+
+			static inline const char *GetText(const lv_obj_t *obj) {
+				return lv_textarea_get_text(obj);
 			}
 
 			/**

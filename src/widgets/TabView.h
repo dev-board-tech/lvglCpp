@@ -99,7 +99,6 @@ namespace lvgl {
 						new_map[idx] = (const char*)lv_mem_alloc(strlen(name) + 1);
 						strcpy((char *)new_map[idx], name);
 						new_map[tab_id] = "";
-						Serial.println(name);
 					}
 				}
 				/*left or right dir*/
@@ -280,6 +279,18 @@ namespace lvgl {
 			inline TabView *RenameTab(uint32_t tab_id, const char * new_name) {
 				lv_tabview_rename_tab(_obj, tab_id, new_name);
 				return this;
+			}
+			inline const char * GetTabName(uint16_t idx) {
+				lv_tabview_t * tabview = (lv_tabview_t *)_obj;
+				if(idx >= tabview->tab_cnt)
+					return NULL;
+				if(tabview->tab_pos & LV_DIR_HOR)
+					idx *= 2;
+				return tabview->map[idx];
+			}
+			inline uint16_t GetTabCount() {
+				lv_tabview_t * tabview = (lv_tabview_t *)_obj;
+				return tabview->tab_cnt;
 			}
 			inline Object GetContent() {
 				return Object(lv_tabview_get_content(_obj), false);

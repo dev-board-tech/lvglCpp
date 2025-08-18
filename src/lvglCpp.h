@@ -26,6 +26,7 @@
 #include "widgets/CheckBox.h"
 #include "widgets/DropDown.h"
 #include "widgets/Image.h"
+#include "widgets/Keyboard.h"
 #include "widgets/Label.h"
 #include "widgets/Line.h"
 #include "widgets/List.h"

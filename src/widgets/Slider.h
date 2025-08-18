@@ -58,7 +58,7 @@ namespace lvgl {
 			 * @param value     the new value
 			 * @param anim      LV_ANIM_ON: set the value with an animation; LV_ANIM_OFF: change the value immediately
 			 */
-			inline Slider *SetValue(int32_t value, lv_anim_enable_t anim) {
+			inline Slider *SetValue(int32_t value, lv_anim_enable_t anim = LV_ANIM_OFF) {
 				lv_bar_set_value(_obj, value, anim);
 				return this;
 			}
@@ -69,7 +69,7 @@ namespace lvgl {
 			 * @param value     new value
 			 * @param anim      LV_ANIM_ON: set the value with an animation; LV_ANIM_OFF: change the value immediately
 			 */
-			inline Slider *SetLeftValue(int32_t value, lv_anim_enable_t anim) {
+			inline Slider *SetLeftValue(int32_t value, lv_anim_enable_t anim = LV_ANIM_OFF) {
 				lv_bar_set_start_value(_obj, value, anim);
 				return this;
 			}
