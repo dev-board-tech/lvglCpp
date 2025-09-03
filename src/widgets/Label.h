@@ -44,7 +44,7 @@ namespace lvgl {
 					_obj = lv_label_create(NULL);
 				}
 			}
-			
+
 			Label(lv_obj_t *parent, char *fmt, ...) {
 				if(parent) {
 					_obj = lv_label_create(parent);
@@ -68,15 +68,23 @@ namespace lvgl {
 				} else {
 					_obj = lv_label_create(lv_scr_act());
 				}
+				lv_label_t * label = (lv_label_t *)_obj;
+
+				if(label->text != NULL && label->static_txt == 0) {
+					lv_mem_free(label->text);
+					label->text = NULL;
+				}
+
 				va_list args;
 				va_start(args, fmt);
-				int size = vsnprintf(NULL, 0, fmt, args);
+				label->text = _lv_txt_set_text_vfmt(fmt, args);
+				/*int size = vsnprintf(NULL, 0, fmt, args);
 				va_end(args);
 				char buffer[size + 1];
 				va_start(args, fmt);
-				vsnprintf(buffer, size + 1, fmt, args);
+				vsnprintf(buffer, size + 1, fmt, args);*/
 				va_end(args);
-				lv_label_set_text(_obj, buffer);
+				//lv_label_set_text(_obj, buffer);
 			}
 
 			Label(Object parent, char *fmt, ...) {
