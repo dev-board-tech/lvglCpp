@@ -15,6 +15,8 @@ namespace lvgl {
 		public:
 			DropDown(lv_obj_t *parent) {
 				_obj = lv_dropdown_create(parent);
+				_child = NULL;
+				_childs = NULL;
 			}
 			DropDown(Object *parent) {
 				if(parent && parent->GetObj()) {
@@ -22,22 +24,27 @@ namespace lvgl {
 				} else {
 					_obj = lv_dropdown_create(NULL);
 				}
+				_child = NULL;
+				_childs = NULL;
 			}
-			DropDown(Object parent) {
+			DropDown(Object &parent) {
 				if(((Object)parent).GetObj()) {
 					_obj = lv_dropdown_create(((Object)parent).GetObj());
 				} else {
 					_obj = lv_dropdown_create(NULL);
 				}
-			}
-			DropDown(lv_obj_t *parent, bool isNew) {
-				_obj = parent;
+				_child = NULL;
+				_childs = NULL;
 			}
 			DropDown(Object *parent, bool isNew) {
 				_obj = parent->GetObj();
+				_childs = parent->GetChilds();
+				_child = NULL;
 			}
-			DropDown(Object parent, bool isNew) {
+			DropDown(Object &parent, bool isNew) {
 				_obj = ((Object)parent).GetObj();
+				_childs = ((Object)parent).GetChilds();
+				_child = NULL;
 			}
 			DropDown(lv_obj_t *parent, const char *options) {
 				if(options == NULL) {
@@ -50,6 +57,8 @@ namespace lvgl {
 					}
 					lv_dropdown_set_options(_obj, options);
 				}
+				_child = NULL;
+				_childs = NULL;
 			}
 			DropDown(Object *parent, const char *options) {
 				if(options == NULL) {
@@ -62,18 +71,8 @@ namespace lvgl {
 					}
 					lv_dropdown_set_options(_obj, options);
 				}
-			}
-			DropDown(Object parent, const char *options) {
-				if(options == NULL) {
-					_obj = ((Object)parent).GetObj();
-				} else {
-					if(((Object)parent).GetObj()) {
-						_obj = lv_dropdown_create(((Object)parent).GetObj());
-					} else {
-						_obj = lv_dropdown_create(NULL);
-					}
-					lv_dropdown_set_options(_obj, options);
-				}
+				_child = NULL;
+				_childs = NULL;
 			}
 			~DropDown() {
 

@@ -18,6 +18,8 @@ namespace lvgl {
 		public:
 			TextArea(lv_obj_t *parent) {
 				_obj = lv_textarea_create(parent);
+				_child = NULL;
+				_childs = NULL;
 			}
 			TextArea(Object *parent) {
 				if(parent && parent->GetObj()) {
@@ -25,22 +27,32 @@ namespace lvgl {
 				} else {
 					_obj = lv_textarea_create(NULL);
 				}
+				_child = NULL;
+				_childs = NULL;
 			}
-			TextArea(Object parent) {
+			TextArea(Object &parent) {
 				if(((Object)parent).GetObj()) {
 					_obj = lv_textarea_create(((Object)parent).GetObj());
 				} else {
 					_obj = lv_textarea_create(NULL);
 				}
-			}
-			TextArea(lv_obj_t *parent, bool isNew) {
-				_obj = parent;
+				_child = NULL;
+				_childs = NULL;
 			}
 			TextArea(Object *parent, bool isNew) {
 				_obj = parent->GetObj();
+				_childs = parent->GetChilds();
+				_child = NULL;
 			}
-			TextArea(Object parent, bool isNew) {
+			TextArea(Object &parent, bool isNew) {
 				_obj = ((Object)parent).GetObj();
+				_childs = ((Object)parent).GetChilds();
+				_child = NULL;
+			}
+			TextArea(lv_obj_t *obj, bool isNew) {
+				_obj = obj;
+				_childs = NULL;
+				_child = NULL;
 			}
 			~TextArea() {
 

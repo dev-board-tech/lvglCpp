@@ -19,6 +19,8 @@ namespace lvgl {
 		public:
 			List(lv_obj_t *parent) {
 				_obj = lv_list_create(parent);
+				_child = NULL;
+				_childs = NULL;
 			}
 			List(Object *parent) {
 				if(parent && parent->GetObj()) {
@@ -26,22 +28,32 @@ namespace lvgl {
 				} else {
 					_obj = lv_list_create(NULL);
 				}
+				_child = NULL;
+				_childs = NULL;
 			}
-			List(Object parent) {
+			List(Object &parent) {
 				if(((Object)parent).GetObj()) {
 					_obj = lv_list_create(((Object)parent).GetObj());
 				} else {
 					_obj = lv_list_create(NULL);
 				}
-			}
-			List(lv_obj_t *parent, bool isNew) {
-				_obj = parent;
+				_child = NULL;
+				_childs = NULL;
 			}
 			List(Object *parent, bool isNew) {
 				_obj = parent->GetObj();
+				_childs = parent->GetChilds();
+				_child = NULL;
 			}
-			List(Object parent, bool isNew) {
+			List(Object &parent, bool isNew) {
 				_obj = ((Object)parent).GetObj();
+				_childs = ((Object)parent).GetChilds();
+				_child = NULL;
+			}
+			List() {
+				_obj = NULL;
+				_child = NULL;
+				_childs = NULL;
 			}
 
 			~List() {
@@ -73,7 +85,7 @@ namespace lvgl {
 			 * @param obj           pointer to a Label object
 			 * @param text          '\0' terminated character string. NULL to refresh with the current text.
 			 */
-			inline List *addText(const char * text) {
+			inline List *AddText(const char * text) {
 				lv_list_add_text(_obj, text);
 				return this;
 			}
@@ -84,7 +96,7 @@ namespace lvgl {
 			 * @param fmt           `printf`-like format
 			 * @example lv_label_set_text_fmt(label1, "%d user", user_num);
 			 */
-			inline Label *AddText(const char * fmt, ...) {
+			inline Label AddText(const char * fmt, ...) {
 				va_list args;
 				va_start(args, fmt);
 				int size = vsnprintf(NULL, 0, fmt, args);
@@ -93,7 +105,8 @@ namespace lvgl {
 				va_start(args, fmt);
 				vsnprintf(buffer, size + 1, fmt, args);
 				va_end(args);
-				Label *label = new Label(lv_list_add_text(_obj, buffer), false);
+				Label label;
+				label.SetObj(lv_list_add_text(_obj, buffer));
 				return label;
 			}
 
@@ -120,7 +133,8 @@ namespace lvgl {
 				va_start(args, fmt);
 				vsnprintf(buffer, size + 1, fmt, args);
 				va_end(args);
-				Button *btn = new Button(lv_list_add_btn(_obj, icon, buffer), false);
+				Button *btn = new Button();
+				btn->SetObj(lv_list_add_btn(_obj, icon, buffer));
 				return btn;
 			}
 			

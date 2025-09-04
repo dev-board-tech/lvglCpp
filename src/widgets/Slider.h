@@ -15,6 +15,8 @@ namespace lvgl {
 		public:
 			Slider(lv_obj_t *parent) {
 				_obj = lv_slider_create(parent);
+				_child = NULL;
+				_childs = NULL;
 			}
 			Slider(Object *parent) {
 				if(parent && parent->GetObj()) {
@@ -22,22 +24,32 @@ namespace lvgl {
 				} else {
 					_obj = lv_slider_create(NULL);
 				}
+				_child = NULL;
+				_childs = NULL;
 			}
-			Slider(Object parent) {
+			Slider(Object &parent) {
 				if(((Object)parent).GetObj()) {
 					_obj = lv_slider_create(((Object)parent).GetObj());
 				} else {
 					_obj = lv_slider_create(NULL);
 				}
+				_child = NULL;
+				_childs = NULL;
 			}
 			Slider(lv_obj_t *parent, bool isNew) {
 				_obj = parent;
+				_childs = NULL;
+				_child = NULL;
 			}
 			Slider(Object *parent, bool isNew) {
 				_obj = parent->GetObj();
+				_childs = parent->GetChilds();
+				_child = NULL;
 			}
-			Slider(Object parent, bool isNew) {
+			Slider(Object &parent, bool isNew) {
 				_obj = ((Object)parent).GetObj();
+				_childs = ((Object)parent).GetChilds();
+				_child = NULL;
 			}
 
 			~Slider() {
@@ -58,7 +70,7 @@ namespace lvgl {
 			 * @param value     the new value
 			 * @param anim      LV_ANIM_ON: set the value with an animation; LV_ANIM_OFF: change the value immediately
 			 */
-			inline Slider *SetValue(int32_t value, lv_anim_enable_t anim) {
+			inline Slider *SetValue(int32_t value, lv_anim_enable_t anim = LV_ANIM_ON) {
 				lv_bar_set_value(_obj, value, anim);
 				return this;
 			}
@@ -69,7 +81,7 @@ namespace lvgl {
 			 * @param value     new value
 			 * @param anim      LV_ANIM_ON: set the value with an animation; LV_ANIM_OFF: change the value immediately
 			 */
-			inline Slider *SetLeftValue(int32_t value, lv_anim_enable_t anim) {
+			inline Slider *SetLeftValue(int32_t value, lv_anim_enable_t anim = LV_ANIM_ON) {
 				lv_bar_set_start_value(_obj, value, anim);
 				return this;
 			}

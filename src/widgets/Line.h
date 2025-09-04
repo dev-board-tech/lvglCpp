@@ -15,6 +15,8 @@ namespace lvgl {
 		public:
 			Line(lv_obj_t *parent) {
 				_obj = lv_line_create(parent);
+				_child = NULL;
+				_childs = NULL;
 			}
 			Line(Object *parent) {
 				if(parent && parent->GetObj()) {
@@ -22,22 +24,27 @@ namespace lvgl {
 				} else {
 					_obj = lv_line_create(NULL);
 				}
+				_child = NULL;
+				_childs = NULL;
 			}
-			Line(Object parent) {
+			Line(Object &parent) {
 				if(((Object)parent).GetObj()) {
 					_obj = lv_line_create(((Object)parent).GetObj());
 				} else {
 					_obj = lv_line_create(NULL);
 				}
-			}
-			Line(lv_obj_t *parent, bool isNew) {
-				_obj = parent;
+				_child = NULL;
+				_childs = NULL;
 			}
 			Line(Object *parent, bool isNew) {
 				_obj = parent->GetObj();
+				_childs = parent->GetChilds();
+				_child = NULL;
 			}
-			Line(Object parent, bool isNew) {
+			Line(Object &parent, bool isNew) {
 				_obj = ((Object)parent).GetObj();
+				_childs = ((Object)parent).GetChilds();
+				_child = NULL;
 			}
 			~Line() {
 

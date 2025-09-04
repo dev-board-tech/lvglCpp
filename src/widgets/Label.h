@@ -19,6 +19,8 @@ namespace lvgl {
 		public:
 			Label(lv_obj_t *parent) {
 				_obj = lv_label_create(parent);
+				_child = NULL;
+				_childs = NULL;
 			}
 
 			Label(Object *parent) {
@@ -27,6 +29,8 @@ namespace lvgl {
 				} else {
 					_obj = lv_label_create(NULL);
 				}
+				_child = NULL;
+				_childs = NULL;
 			}
 
 			Label(Window *parent) {
@@ -35,16 +39,20 @@ namespace lvgl {
 				} else {
 					_obj = lv_label_create(NULL);
 				}
+				_child = NULL;
+				_childs = NULL;
 			}
 
-			Label(Object parent) {
+			Label(Object &parent) {
 				if(((Object)parent).GetObj()) {
 					_obj = lv_label_create(((Object)parent).GetObj());
 				} else {
 					_obj = lv_label_create(NULL);
 				}
+				_child = NULL;
+				_childs = NULL;
 			}
-
+			
 			Label(lv_obj_t *parent, char *fmt, ...) {
 				if(parent) {
 					_obj = lv_label_create(parent);
@@ -60,6 +68,8 @@ namespace lvgl {
 				vsnprintf(buffer, size + 1, fmt, args);
 				va_end(args);
 				lv_label_set_text(_obj, buffer);
+				_child = NULL;
+				_childs = NULL;
 			}
 
 			Label(Object *parent, char *fmt, ...) {
@@ -68,23 +78,17 @@ namespace lvgl {
 				} else {
 					_obj = lv_label_create(lv_scr_act());
 				}
-				lv_label_t * label = (lv_label_t *)_obj;
-
-				if(label->text != NULL && label->static_txt == 0) {
-					lv_mem_free(label->text);
-					label->text = NULL;
-				}
-
 				va_list args;
 				va_start(args, fmt);
-				label->text = _lv_txt_set_text_vfmt(fmt, args);
-				/*int size = vsnprintf(NULL, 0, fmt, args);
+				int size = vsnprintf(NULL, 0, fmt, args);
 				va_end(args);
 				char buffer[size + 1];
 				va_start(args, fmt);
-				vsnprintf(buffer, size + 1, fmt, args);*/
+				vsnprintf(buffer, size + 1, fmt, args);
 				va_end(args);
-				//lv_label_set_text(_obj, buffer);
+				lv_label_set_text(_obj, buffer);
+				_child = NULL;
+				_childs = NULL;
 			}
 
 			Label(Object parent, char *fmt, ...) {
@@ -102,17 +106,33 @@ namespace lvgl {
 				vsnprintf(buffer, size + 1, fmt, args);
 				va_end(args);
 				lv_label_set_text(_obj, buffer);
+				_child = NULL;
+				_childs = NULL;
+			}
+		/**
+			 * Create an empty btnMatrix object, this is useful when used as a child.
+			 */
+			Label() {
+				_obj = NULL;
+				_child = NULL;
+				_childs = NULL;
 			}
 
 			Label(lv_obj_t *parent, bool isNew) {
 				_obj = parent;
+				_childs = NULL;
+				_child = NULL;
 			}
 			Label(Object *parent, bool isNew) {
 				_obj = parent->GetObj();
+				_childs = parent->GetChilds();
+				_child = NULL;
 			}
 
-			Label(Object parent, bool isNew) {
+			Label(Object &parent, bool isNew) {
 				_obj = ((Object)parent).GetObj();
+				_childs = ((Object)parent).GetChilds();
+				_child = NULL;
 			}
 
 			~Label() {

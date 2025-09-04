@@ -197,6 +197,13 @@ namespace lvgl {
 			lv_style_set_transform_pivot_y(&style, value);
 			return this;
 		}
+		Style *SetPadAll(lv_coord_t value) {
+			lv_style_set_pad_left(&style, value);
+			lv_style_set_pad_right(&style, value);
+			lv_style_set_pad_top(&style, value);
+			lv_style_set_pad_bottom(&style, value);
+			return this;
+		}
 		Style *SetPadTop(lv_coord_t value) {
 			lv_style_set_pad_top(&style, value);
 			return this;

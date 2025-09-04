@@ -18,6 +18,8 @@ namespace lvgl {
 		public:
 			Table(lv_obj_t *parent) {
 				_obj = lv_table_create(parent);
+				_child = NULL;
+				_childs = NULL;
 			}
 			Table(Object *parent) {
 				if(parent && parent->GetObj()) {
@@ -25,22 +27,32 @@ namespace lvgl {
 				} else {
 					_obj = lv_table_create(NULL);
 				}
+				_child = NULL;
+				_childs = NULL;
 			}
-			Table(Object parent) {
+			Table(Object &parent) {
 				if(((Object)parent).GetObj()) {
 					_obj = lv_table_create(((Object)parent).GetObj());
 				} else {
 					_obj = lv_table_create(NULL);
 				}
+				_child = NULL;
+				_childs = NULL;
 			}
 			Table(lv_obj_t *parent, bool isNew) {
 				_obj = parent;
+				_childs = NULL;
+				_child = NULL;
 			}
 			Table(Object *parent, bool isNew) {
 				_obj = parent->GetObj();
+				_childs = parent->GetChilds();
+				_child = NULL;
 			}
-			Table(Object parent, bool isNew) {
+			Table(Object &parent, bool isNew) {
 				_obj = ((Object)parent).GetObj();
+				_childs = ((Object)parent).GetChilds();
+				_child = NULL;
 			}
 
 			~Table() {

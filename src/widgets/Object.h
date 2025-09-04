@@ -17,29 +17,53 @@ namespace lvgl {
 		class Object {
 		protected:
 			lv_obj_t *_obj;
+			lv_obj_t *_child;
+			Object **_childs;
 		public:
 			Object(lv_obj_t *obj = NULL) {
 				_obj = lv_obj_create(obj);
+				_child = NULL;
+				_childs = NULL;
 			}
 			Object(Object *obj) {
 				_obj = lv_obj_create(obj->GetObj());
+				_child = NULL;
+				_childs = NULL;
 			}
 			Object(lv_obj_t *parent, bool isNew) {
 				_obj = parent;
+				_child = NULL;
+				_childs = NULL;
 			}
 			Object(Object *parent, bool isNew) {
-				_obj = parent->GetObj();
+				if(isNew) {
+					_obj = (lv_obj_t *)malloc(sizeof(lv_obj_t));
+					memcpy(_obj, parent->GetObj(), sizeof(lv_obj_t));
+				} else {
+					_obj = parent->GetObj();
+					_child = NULL;
+					_childs = NULL;
+				}
 			}
-			Object(Object parent, bool isNew) {
-				_obj = ((Object)parent).GetObj();
-			}
-			/*Object(const Object &parent, bool isNew) {
+			Object(Object &parent, bool isNew) {
+				if(isNew) {
+					_obj = (lv_obj_t *)malloc(sizeof(lv_obj_t));
+					memcpy(_obj, ((Object)parent).GetObj(), sizeof(lv_obj_t));
+				} else {
 					_obj = ((Object)parent).GetObj();
-			}*/
-
+					_child = NULL;
+					_childs = NULL;
+				}
+			}
 			~Object() {
 			
 			}
+			Object(const Object &parent, bool isNew) {
+					_obj = ((Object)parent).GetObj();
+					_child = NULL;
+					_childs = NULL;
+			}
+
 			inline Object *SetObj(lv_obj_t *obj) {
 				_obj = obj;
 				return this;
@@ -57,6 +81,14 @@ namespace lvgl {
 
 			inline lv_obj_t *GetObj() {
 				return _obj;
+			}
+
+			inline lv_obj_t *GetChild() {
+				return _child;
+			}
+
+			inline Object **GetChilds() {
+				return _childs;
 			}
 
 			void SetEnabled(bool enable) {
@@ -654,291 +686,291 @@ namespace lvgl {
 
 
 
-			inline Object *sSetStyleWidth(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *sSetStyleWidth(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_width(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleMinWidth(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleMinWidth(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_min_width(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleMaxWidth(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleMaxWidth(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_max_width(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleHeight(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleHeight(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_height(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleMinHeight(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleMinHeight(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_min_height(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleMaxHeight(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleMaxHeight(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_max_height(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleX(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleX(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_x(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleY(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleY(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_y(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleAlign(lv_align_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleAlign(lv_align_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_align(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleTransformWidth(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTransformWidth(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_transform_width(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleTransformHeight(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTransformHeight(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_transform_height(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleTransformX(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTransformX(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_translate_x(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleTransformY(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTransformY(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_translate_y(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleTransformZoom(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTransformZoom(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_transform_zoom(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleTranbsformAngle(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTranbsformAngle(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_transform_angle(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleTransformPivotX(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTransformPivotX(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_transform_pivot_x(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleTransformPivotY(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTransformPivotY(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_transform_pivot_y(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStylePadTop(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStylePadTop(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_pad_top(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStylePadBottom(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStylePadBottom(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_pad_bottom(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStylePadLeft(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStylePadLeft(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_pad_left(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStylePadRight(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStylePadRight(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_pad_right(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStylePadRow(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStylePadRow(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_pad_row(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStylePadCollumn(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStylePadCollumn(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_pad_column(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleBgColor(lv_color_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBgColor(lv_color_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_bg_color(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleBgOpa(lv_opa_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBgOpa(lv_opa_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_bg_opa(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleBgGradColor(lv_color_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBgGradColor(lv_color_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_bg_grad_color(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleBgGradDir(lv_grad_dir_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBgGradDir(lv_grad_dir_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_bg_grad_dir(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleBgMainStop(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBgMainStop(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_bg_main_stop(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleBgGradStop(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBgGradStop(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_bg_grad_stop(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleBgGrad(const lv_grad_dsc_t * value, lv_style_selector_t selector) {
+			inline Object *SetStyleBgGrad(const lv_grad_dsc_t * value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_bg_grad(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleBgDitherMode(lv_dither_mode_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBgDitherMode(lv_dither_mode_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_bg_dither_mode(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleBgImgSrc(const void * value, lv_style_selector_t selector) {
+			inline Object *SetStyleBgImgSrc(const void * value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_bg_img_src(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleBgImgOpa(lv_opa_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBgImgOpa(lv_opa_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_bg_img_opa(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleBgImgRecolor(lv_color_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBgImgRecolor(lv_color_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_bg_img_recolor(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleBgImgRecolorOpa(lv_opa_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBgImgRecolorOpa(lv_opa_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_bg_img_recolor_opa(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleBgImgTiled(bool value, lv_style_selector_t selector) {
+			inline Object *SetStyleBgImgTiled(bool value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_bg_img_tiled(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleBorderColor(lv_color_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBorderColor(lv_color_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_border_color(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleBorderOpa(lv_opa_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBorderOpa(lv_opa_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_border_opa(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleBorderWidth(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBorderWidth(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_border_width(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleBorderSide(lv_border_side_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBorderSide(lv_border_side_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_border_side(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleBorderPost(bool value, lv_style_selector_t selector) {
+			inline Object *SetStyleBorderPost(bool value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_border_post(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleOutlineWidth(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleOutlineWidth(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_outline_width(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleOutlineColor(lv_color_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleOutlineColor(lv_color_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_outline_color(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleOutlineOpa(lv_opa_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleOutlineOpa(lv_opa_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_outline_opa(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleOutlinePad(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleOutlinePad(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_outline_pad(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleShadowWidth(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleShadowWidth(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_shadow_width(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleShadowOfsX(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleShadowOfsX(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_shadow_ofs_x(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleShadowOfsY(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleShadowOfsY(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_shadow_ofs_y(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleShadowSpread(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleShadowSpread(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_shadow_spread(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleShadowColor(lv_color_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleShadowColor(lv_color_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_shadow_color(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleShadowOpa(lv_opa_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleShadowOpa(lv_opa_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_shadow_opa(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleImgOpa(lv_opa_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleImgOpa(lv_opa_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_img_opa(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleImgRecolor(lv_color_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleImgRecolor(lv_color_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_img_recolor(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleImgRecolorOpa(lv_opa_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleImgRecolorOpa(lv_opa_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_img_recolor_opa(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleLineWidth(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleLineWidth(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_line_width(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleLineDashWidth(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleLineDashWidth(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_line_dash_width(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleLineDashGap(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleLineDashGap(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_line_dash_gap(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleLineRounded(bool value, lv_style_selector_t selector) {
+			inline Object *SetStyleLineRounded(bool value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_line_rounded(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleLineColor(lv_color_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleLineColor(lv_color_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_line_color(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleLineOpa(lv_opa_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleLineOpa(lv_opa_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_line_opa(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleArcWidth(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleArcWidth(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_arc_width(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleArcRounded(bool value, lv_style_selector_t selector) {
+			inline Object *SetStyleArcRounded(bool value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_arc_rounded(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleArcColor(lv_color_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleArcColor(lv_color_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_arc_color(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleArcOpa(lv_opa_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleArcOpa(lv_opa_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_arc_opa(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleArcImgSrc(const void * value, lv_style_selector_t selector) {
+			inline Object *SetStyleArcImgSrc(const void * value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_arc_img_src(_obj,value, selector);
 				return this;
 			}
-			inline Object *SetStyleTextColor(lv_color_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTextColor(lv_color_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_text_color(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleTextOpa(lv_opa_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTextOpa(lv_opa_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_text_opa(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleTextFont(const lv_font_t * value, lv_style_selector_t selector) {
+			inline Object *SetStyleTextFont(const lv_font_t * value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_text_font(_obj,value, selector);
 				return this;
 			}
-			inline Object *SetStyleTextLetterSpace(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTextLetterSpace(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_text_letter_space(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleTextLineSpace(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTextLineSpace(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_text_line_space(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleTextDecor(lv_text_decor_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTextDecor(lv_text_decor_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_text_decor(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleTextAlign(lv_text_align_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleTextAlign(lv_text_align_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_text_align(_obj, value, selector);
 				return this;
 			}
@@ -946,55 +978,55 @@ namespace lvgl {
 				lv_obj_set_style_pad_all(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleRadius(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleRadius(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_radius(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleClipCorner(bool value, lv_style_selector_t selector) {
+			inline Object *SetStyleClipCorner(bool value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_clip_corner(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleOpa(lv_opa_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleOpa(lv_opa_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_opa(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleOpaLayered(lv_opa_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleOpaLayered(lv_opa_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_opa_layered(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleColorFilterDsc(const lv_color_filter_dsc_t * value, lv_style_selector_t selector) {
+			inline Object *SetStyleColorFilterDsc(const lv_color_filter_dsc_t * value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_color_filter_dsc(_obj,value, selector);
 				return this;
 			}
-			inline Object *SetStyleColorFilterOpa(lv_opa_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleColorFilterOpa(lv_opa_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_color_filter_opa(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleAnim(const lv_anim_t * value, lv_style_selector_t selector) {
+			inline Object *SetStyleAnim(const lv_anim_t * value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_anim(_obj,value, selector);
 				return this;
 			}
-			inline Object *SetStyleAnimTime(uint32_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleAnimTime(uint32_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_anim_time(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleAnimSpeed(uint32_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleAnimSpeed(uint32_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_anim_speed(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleTransition(const lv_style_transition_dsc_t * value, lv_style_selector_t selector) {
+			inline Object *SetStyleTransition(const lv_style_transition_dsc_t * value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_transition(_obj,value, selector);
 				return this;
 			}
-			inline Object *SetStyleBlendMode(lv_blend_mode_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBlendMode(lv_blend_mode_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_blend_mode(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleLayout(uint16_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleLayout(uint16_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_layout(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleBaseDir(lv_base_dir_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleBaseDir(lv_base_dir_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_base_dir(_obj, value, selector);
 				return this;
 			}
@@ -1011,22 +1043,22 @@ namespace lvgl {
 				return this;
 			}
 			
-			inline Object *AddStyle(lv_style_t * style, lv_style_selector_t selector = 0) {
+			inline Object *AddStyle(lv_style_t * style, lv_style_selector_t selector = NULL) {
 				lv_obj_add_style(_obj, style, selector);
 				return this;
 			}
 			
-			inline Object *AddStyle(lvgl::Style * style, lv_style_selector_t selector = 0) {
+			inline Object *AddStyle(lvgl::Style * style, lv_style_selector_t selector = NULL) {
 				lv_obj_add_style(_obj, style->Get(), selector);
 				return this;
 			}
 			
-			/*inline Object *AddStyle(lvgl::Style style, lv_style_selector_t selector = 0) {
+			/*inline Object *AddStyle(lvgl::Style style, lv_style_selector_t selector = NULL) {
 				lv_obj_add_style(_obj, style.Get(), selector);
 				return this;
 			}*/
 			
-			inline Object *RemoveStyle(lv_style_t * style, lv_style_selector_t selector) {
+			inline Object *RemoveStyle(lv_style_t * style, lv_style_selector_t selector = NULL) {
 				lv_obj_remove_style(_obj, style, selector);
 				return this;
 			}
@@ -1055,21 +1087,21 @@ namespace lvgl {
 				return lv_obj_get_style_prop(_obj, part, prop);
 			}
 			
-			inline Object *SetLocalStyleProp(lv_style_prop_t prop, lv_style_value_t value, lv_style_selector_t selector) {
+			inline Object *SetLocalStyleProp(lv_style_prop_t prop, lv_style_value_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_local_style_prop(_obj, prop, value, selector);
 				return this;
 			}
 			
-			inline Object *SetLocalStylePropMeta(lv_style_prop_t prop, uint16_t meta, lv_style_selector_t selector) {
+			inline Object *SetLocalStylePropMeta(lv_style_prop_t prop, uint16_t meta, lv_style_selector_t selector = NULL) {
 				lv_obj_set_local_style_prop_meta(_obj, prop, meta, selector);
 				return this;
 			}
 			
-			inline lv_style_res_t GetLocalStyleProp(lv_style_prop_t prop, lv_style_value_t * value, lv_style_selector_t selector) {
+			inline lv_style_res_t GetLocalStyleProp(lv_style_prop_t prop, lv_style_value_t * value, lv_style_selector_t selector = NULL) {
 				return lv_obj_get_local_style_prop(_obj, prop, value, selector);
 			}
 			
-			inline bool RemoveLocalStyleProp(lv_style_prop_t prop, lv_style_selector_t selector) {
+			inline bool RemoveLocalStyleProp(lv_style_prop_t prop, lv_style_selector_t selector = NULL) {
 				return lv_obj_remove_local_style_prop(_obj, prop, selector);
 			}
 			
@@ -1096,30 +1128,30 @@ namespace lvgl {
 				return this;
 			}
 			
-			inline lv_state_t StyleGetSelectorState(lv_style_selector_t selector) {
+			inline lv_state_t StyleGetSelectorState(lv_style_selector_t selector = NULL) {
 				return lv_obj_style_get_selector_state(selector);
 			}
 			
-			inline lv_part_t StyleGetSelectorPart(lv_style_selector_t selector) {
+			inline lv_part_t StyleGetSelectorPart(lv_style_selector_t selector = NULL) {
 				return lv_obj_style_get_selector_part(selector);
 			}
 			
-			inline Object *SetStylePadHor(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStylePadHor(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_pad_hor(_obj, value, selector);
 				return this;
 			}
 			
-			inline Object *SetStylePadVer(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStylePadVer(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_pad_ver(_obj, value, selector);
 				return this;
 			}
 			
-			inline Object *SetStylePadGap(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStylePadGap(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_pad_gap(_obj, value, selector);
 				return this;
 			}
 			
-			inline Object *SetStyleSize(lv_coord_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleSize(lv_coord_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_size(_obj, value, selector);
 				return this;
 			}
@@ -1489,23 +1521,23 @@ namespace lvgl {
 				return this;
 			}
 
-			inline Object *SetStyleFlexFlow(lv_flex_flow_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleFlexFlow(lv_flex_flow_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_flex_flow(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleFlexMainPlace(lv_flex_align_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleFlexMainPlace(lv_flex_align_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_flex_main_place(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleFlexCrossPlace(lv_flex_align_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleFlexCrossPlace(lv_flex_align_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_flex_cross_place(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleFlexTrackPlace(lv_flex_align_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleFlexTrackPlace(lv_flex_align_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_flex_track_place(_obj, value, selector);
 				return this;
 			}
-			inline Object *SetStyleFlexGrow(uint8_t value, lv_style_selector_t selector) {
+			inline Object *SetStyleFlexGrow(uint8_t value, lv_style_selector_t selector = NULL) {
 				lv_obj_set_style_flex_grow(_obj, value, selector);
 				return this;
 			}
