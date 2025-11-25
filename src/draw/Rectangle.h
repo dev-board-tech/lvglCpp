@@ -308,3 +308,6 @@ namespace lvgl {
 }
 
 #endif
+
+//Added by Sloeber 
+#pragma once

@@ -30,14 +30,14 @@ namespace lvgl {
 					_obj = lv_chart_create(NULL);
 				}
 			}
-			Chart(lv_obj_t *parent, bool isNew) {
-				_obj = parent;
+			Chart(lv_obj_t *object, bool isNew) {
+				_obj = object;
 			}
-			Chart(Object *parent, bool isNew) {
-				_obj = parent->GetObj();
+			Chart(Object *object, bool isNew) {
+				_obj = object->GetObj();
 			}
-			Chart(Object parent, bool isNew) {
-				_obj = ((Object)parent).GetObj();
+			Chart(Object object, bool isNew) {
+				_obj = ((Object)object).GetObj();
 			}
 
 			~Chart() {
@@ -488,3 +488,6 @@ namespace lvgl {
 } /* namespace lvgl */
 
 #endif /* LVGLCPP_SRC_CHART_H_ */
+
+//Added by Sloeber 
+#pragma once

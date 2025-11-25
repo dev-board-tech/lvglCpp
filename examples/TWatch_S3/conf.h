@@ -15,3 +15,5 @@
 #define DEFAULT_COLOR                           (lv_color_make(252, 218, 72))
 
 #endif
+//Added by Sloeber 
+#pragma once

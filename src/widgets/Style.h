@@ -67,12 +67,24 @@ namespace lvgl {
 		class Transition {
 		public:
 			Transition(Prop *prop, lv_anim_path_cb_t path_cb, uint32_t time = 250, uint32_t delay = 0, void * user_data = NULL) {
+				pathCb = path_cb;
+				this->delay = delay;
+				this->time = time;
+				this->userData = user_data;
 				lv_style_transition_dsc_init(&transitionDef, prop->Get(), path_cb, time, delay, user_data);
 			}
 			Transition(Prop prop, lv_anim_path_cb_t path_cb, uint32_t time = 250, uint32_t delay = 0, void * user_data = NULL) {
+				pathCb = path_cb;
+				this->delay = delay;
+				this->time = time;
+				this->userData = user_data;
 				lv_style_transition_dsc_init(&transitionDef, prop.Get(), path_cb, time, delay, user_data);
 			}
 			Transition(const lv_style_prop_t *prop, lv_anim_path_cb_t path_cb, uint32_t time = 250, uint32_t delay = 0, void * user_data = NULL) {
+				pathCb = path_cb;
+				this->delay = delay;
+				this->time = time;
+				this->userData = user_data;
 				lv_style_transition_dsc_init(&transitionDef, prop, path_cb, time, delay, user_data);
 			}
 			Transition *SetCb(lv_anim_path_cb_t path_cb) {
@@ -513,3 +525,6 @@ namespace lvgl {
 } /* namespace lvgl */
 
 #endif
+
+//Added by Sloeber 
+#pragma once

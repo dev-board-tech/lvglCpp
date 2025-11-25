@@ -51,19 +51,19 @@ namespace lvgl {
 				_childs = NULL;
 			}
 			
-			ButtonMatrix(lv_obj_t *parent, bool isNew) {
-				_obj = parent;
+			ButtonMatrix(lv_obj_t *object, bool isNew) {
+				_obj = object;
 				_child = NULL;
 				_childs = NULL;
 			}
 
-			ButtonMatrix(Object *parent, bool isNew) {
-				_obj = parent->GetObj();
+			ButtonMatrix(Object *object, bool isNew) {
+				_obj = object->GetObj();
 				_child = NULL;
 				_childs = NULL;
 			}
-			ButtonMatrix(Object &parent, bool isNew) {
-				_obj = ((Object)parent).GetObj();
+			ButtonMatrix(Object &object, bool isNew) {
+				_obj = ((Object)object).GetObj();
 				_child = NULL;
 				_childs = NULL;
 			}
@@ -245,3 +245,6 @@ namespace lvgl {
 
 
 #endif /* LVGLCPP_SRC_BUTTONMATRIX_H_ */
+
+//Added by Sloeber 
+#pragma once

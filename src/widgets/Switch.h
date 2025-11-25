@@ -36,19 +36,19 @@ namespace lvgl {
 				_child = NULL;
 				_childs = NULL;
 			}
-			Switch(lv_obj_t *parent, bool isNew) {
-				_obj = parent;
+			Switch(lv_obj_t *object, bool isNew) {
+				_obj = object;
 				_childs = NULL;
 				_child = NULL;
 			}
-			Switch(Object *parent, bool isNew) {
-				_obj = parent->GetObj();
-				_childs = parent->GetChilds();
+			Switch(Object *object, bool isNew) {
+				_obj = object->GetObj();
+				_childs = object->GetChilds();
 				_child = NULL;
 			}
-			Switch(Object &parent, bool isNew) {
-				_obj = ((Object)parent).GetObj();
-				_childs = ((Object)parent).GetChilds();
+			Switch(Object &object, bool isNew) {
+				_obj = ((Object)object).GetObj();
+				_childs = ((Object)object).GetChilds();
 				_child = NULL;
 			}
 
@@ -65,3 +65,6 @@ namespace lvgl {
 } /* namespace lvgl */
 
 #endif /* LVGLCPP_SRC_SWITCH_H_ */
+
+//Added by Sloeber 
+#pragma once

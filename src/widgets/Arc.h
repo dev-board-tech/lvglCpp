@@ -36,14 +36,14 @@ namespace lvgl {
 				_child = NULL;
 				_childs = NULL;
 			}
-			Arc(Object *parent, bool isNew) {
-				_obj = parent->GetObj();
-				_childs = parent->GetChilds();
+			Arc(Object *object, bool isNew) {
+				_obj = object->GetObj();
+				_childs = object->GetChilds();
 				_child = NULL;
 			}
-			Arc(Object &parent, bool isNew) {
-				_obj = ((Object)parent).GetObj();
-				_childs = ((Object)parent).GetChilds();
+			Arc(Object &object, bool isNew) {
+				_obj = ((Object)object).GetObj();
+				_childs = ((Object)object).GetChilds();
 				_child = NULL;
 			}
 			/**
@@ -299,3 +299,6 @@ namespace lvgl {
 } /* namespace lvgl */
 
 #endif /* LVGLCPP_SRC_ARC_H_ */
+
+//Added by Sloeber 
+#pragma once

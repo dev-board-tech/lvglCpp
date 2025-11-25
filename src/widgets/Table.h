@@ -39,19 +39,19 @@ namespace lvgl {
 				_child = NULL;
 				_childs = NULL;
 			}
-			Table(lv_obj_t *parent, bool isNew) {
-				_obj = parent;
+			Table(lv_obj_t *object, bool isNew) {
+				_obj = object;
 				_childs = NULL;
 				_child = NULL;
 			}
-			Table(Object *parent, bool isNew) {
-				_obj = parent->GetObj();
-				_childs = parent->GetChilds();
+			Table(Object *object, bool isNew) {
+				_obj = object->GetObj();
+				_childs = object->GetChilds();
 				_child = NULL;
 			}
-			Table(Object &parent, bool isNew) {
-				_obj = ((Object)parent).GetObj();
-				_childs = ((Object)parent).GetChilds();
+			Table(Object &object, bool isNew) {
+				_obj = ((Object)object).GetObj();
+				_childs = ((Object)object).GetChilds();
 				_child = NULL;
 			}
 
@@ -248,3 +248,6 @@ namespace lvgl {
 } /* namespace lvgl */
 
 #endif /* LVGLCPP_SRC_TABLE_H_ */
+
+//Added by Sloeber 
+#pragma once

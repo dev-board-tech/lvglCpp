@@ -36,14 +36,14 @@ namespace lvgl {
 				_child = NULL;
 				_childs = NULL;
 			}
-			Roller(Object *parent, bool isNew) {
-				_obj = parent->GetObj();
-				_childs = parent->GetChilds();
+			Roller(Object *object, bool isNew) {
+				_obj = object->GetObj();
+				_childs = object->GetChilds();
 				_child = NULL;
 			}
-			Roller(Object &parent, bool isNew) {
-				_obj = ((Object)parent).GetObj();
-				_childs = ((Object)parent).GetChilds();
+			Roller(Object &object, bool isNew) {
+				_obj = ((Object)object).GetObj();
+				_childs = ((Object)object).GetChilds();
 				_child = NULL;
 			}
 			~Roller() {
@@ -146,3 +146,6 @@ namespace lvgl {
 } /* namespace lvgl */
 
 #endif /* LVGLCPP_SRC_ROLLER_H_ */
+
+//Added by Sloeber 
+#pragma once

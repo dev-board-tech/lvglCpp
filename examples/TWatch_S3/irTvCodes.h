@@ -201,3 +201,5 @@ public:
 };
 
 #endif
+//Added by Sloeber 
+#pragma once

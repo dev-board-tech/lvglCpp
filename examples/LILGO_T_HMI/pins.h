@@ -39,3 +39,6 @@
 #define SDIO_SCLK_PIN  (12)
 
 #endif //__PINS_CENTER_H_
+
+//Added by Sloeber 
+#pragma once

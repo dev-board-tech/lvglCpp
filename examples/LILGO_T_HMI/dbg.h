@@ -10,3 +10,6 @@ void DBG_println(char *str);
 void DBG_printf(char *fmt, ...);
 
 #endif // __DBG_H__
+
+//Added by Sloeber 
+#pragma once

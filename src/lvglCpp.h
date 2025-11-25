@@ -32,6 +32,7 @@
 #include "widgets/List.h"
 #include "widgets/MsgBox.h"
 #include "widgets/Object.h"
+#include "widgets/PwdBox.h"
 #include "widgets/Roller.h"
 #include "widgets/Slider.h"
 #include "widgets/SpinBox.h"
@@ -45,3 +46,6 @@
 
 
 #endif /* LVGLCPP_SRC_LVGLCPP_H_ */
+
+//Added by Sloeber 
+#pragma once

@@ -36,19 +36,19 @@ namespace lvgl {
 				_child = NULL;
 				_childs = NULL;
 			}
-			Image(lv_obj_t *parent, bool isNew) {
-				_obj = parent;
+			Image(lv_obj_t *object, bool isNew) {
+				_obj = object;
 				_childs = NULL;
 				_child = NULL;
 			}
-			Image(Object *parent, bool isNew) {
-				_obj = parent->GetObj();
-				_childs = parent->GetChilds();
+			Image(Object *object, bool isNew) {
+				_obj = object->GetObj();
+				_childs = object->GetChilds();
 				_child = NULL;
 			}
-			Image(Object &parent, bool isNew) {
-				_obj = ((Object)parent).GetObj();
-				_childs = ((Object)parent).GetChilds();
+			Image(Object &object, bool isNew) {
+				_obj = ((Object)object).GetObj();
+				_childs = ((Object)object).GetChilds();
 				_child = NULL;
 			}
 
@@ -254,3 +254,6 @@ namespace lvgl {
 } /* namespace lvgl */
 
 #endif /* LVGLCPP_SRC_IMAGE_H_ */
+
+//Added by Sloeber 
+#pragma once

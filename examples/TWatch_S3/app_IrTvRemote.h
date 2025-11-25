@@ -275,3 +275,5 @@ void irTvRemoteVeiw(lv_obj_t *parent) {
 }
 
 #endif
+//Added by Sloeber 
+#pragma once

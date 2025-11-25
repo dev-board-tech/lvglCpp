@@ -36,14 +36,14 @@ namespace lvgl {
 				_child = NULL;
 				_childs = NULL;
 			}
-			DropDown(Object *parent, bool isNew) {
-				_obj = parent->GetObj();
-				_childs = parent->GetChilds();
+			DropDown(Object *object, bool isNew) {
+				_obj = object->GetObj();
+				_childs = object->GetChilds();
 				_child = NULL;
 			}
-			DropDown(Object &parent, bool isNew) {
-				_obj = ((Object)parent).GetObj();
-				_childs = ((Object)parent).GetChilds();
+			DropDown(Object &object, bool isNew) {
+				_obj = ((Object)object).GetObj();
+				_childs = ((Object)object).GetChilds();
 				_child = NULL;
 			}
 			DropDown(lv_obj_t *parent, const char *options) {
@@ -323,3 +323,6 @@ namespace lvgl {
 } /* namespace lvgl */
 
 #endif /* LVGLCPP_SRC_DROPDOWN_H_ */
+
+//Added by Sloeber 
+#pragma once

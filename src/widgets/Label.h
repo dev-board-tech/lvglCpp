@@ -10,8 +10,10 @@
 #include <stdio.h>
 #include <stdarg.h>
 
+#include <lvgl.h>
 #include "Object.h"
 #include "Window.h"
+#include <widgets/lv_label.h>
 
 namespace lvgl {
 	namespace widget {
@@ -118,20 +120,20 @@ namespace lvgl {
 				_childs = NULL;
 			}
 
-			Label(lv_obj_t *parent, bool isNew) {
-				_obj = parent;
+			Label(lv_obj_t *object, bool isNew) {
+				_obj = object;
 				_childs = NULL;
 				_child = NULL;
 			}
-			Label(Object *parent, bool isNew) {
-				_obj = parent->GetObj();
-				_childs = parent->GetChilds();
+			Label(Object *object, bool isNew) {
+				_obj = object->GetObj();
+				_childs = object->GetChilds();
 				_child = NULL;
 			}
 
-			Label(Object &parent, bool isNew) {
-				_obj = ((Object)parent).GetObj();
-				_childs = ((Object)parent).GetChilds();
+			Label(Object &object, bool isNew) {
+				_obj = ((Object)object).GetObj();
+				_childs = ((Object)object).GetChilds();
 				_child = NULL;
 			}
 
@@ -352,3 +354,6 @@ namespace lvgl {
 } /* namespace lvgl */
 
 #endif /* LVGLCPP_SRC_LABEL_H_ */
+
+//Added by Sloeber 
+#pragma once

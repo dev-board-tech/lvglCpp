@@ -37,15 +37,15 @@ namespace lvgl {
 				}
 			}
 
-			Keyboard(lv_obj_t *parent, bool isNew) {
-				_obj = parent;
+			Keyboard(lv_obj_t *object, bool isNew) {
+				_obj = object;
 			}
-			Keyboard(Object *parent, bool isNew) {
-				_obj = parent->GetObj();
+			Keyboard(Object *object, bool isNew) {
+				_obj = object->GetObj();
 			}
 
-			Keyboard(Object parent, bool isNew) {
-				_obj = ((Object)parent).GetObj();
+			Keyboard(Object object, bool isNew) {
+				_obj = ((Object)object).GetObj();
 			}
 
 			~Keyboard() {
@@ -185,3 +185,6 @@ namespace lvgl {
 	}
 }
 #endif
+
+//Added by Sloeber 
+#pragma once

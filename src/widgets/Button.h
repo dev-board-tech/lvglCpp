@@ -10,8 +10,8 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-#include "Label.h"
 #include "Object.h"
+#include "Label.h"
 #include "Window.h"
 
 
@@ -107,23 +107,27 @@ namespace lvgl {
 				_obj = NULL;
 				_child = NULL;
 				_childs = NULL;
+				_label = NULL;
 			}
 
-			Button(lv_obj_t *parent, bool isNew) {
-				_obj = parent;
+			Button(lv_obj_t *object, bool isNew) {
+				_obj = object;
 				_childs = NULL;
 				_child = NULL;
+				_label = NULL;
 			}
-			Button(Object *parent, bool isNew) {
-				_obj = parent->GetObj();
-				_childs = parent->GetChilds();
+			Button(Object *object, bool isNew) {
+				_obj = object->GetObj();
+				_childs = object->GetChilds();
 				_child = NULL;
+				_label = NULL;
 			}
 
-			Button(Object &parent, bool isNew) {
-				_obj = ((Object)parent).GetObj();
-				_childs = ((Object)parent).GetChilds();
+			Button(Object &object, bool isNew) {
+				_obj = ((Object)object).GetObj();
+				_childs = ((Object)object).GetChilds();
 				_child = NULL;
+				_label = NULL;
 			}
 
 			~Button() {
@@ -151,3 +155,6 @@ namespace lvgl {
 } /* namespace lvgl */
 
 #endif /* LVGLCPP_SRC_BUTTON_H_ */
+
+//Added by Sloeber 
+#pragma once

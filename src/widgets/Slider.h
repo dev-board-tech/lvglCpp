@@ -36,19 +36,19 @@ namespace lvgl {
 				_child = NULL;
 				_childs = NULL;
 			}
-			Slider(lv_obj_t *parent, bool isNew) {
-				_obj = parent;
+			Slider(lv_obj_t *object, bool isNew) {
+				_obj = object;
 				_childs = NULL;
 				_child = NULL;
 			}
-			Slider(Object *parent, bool isNew) {
-				_obj = parent->GetObj();
-				_childs = parent->GetChilds();
+			Slider(Object *object, bool isNew) {
+				_obj = object->GetObj();
+				_childs = object->GetChilds();
 				_child = NULL;
 			}
-			Slider(Object &parent, bool isNew) {
-				_obj = ((Object)parent).GetObj();
-				_childs = ((Object)parent).GetChilds();
+			Slider(Object &object, bool isNew) {
+				_obj = ((Object)object).GetObj();
+				_childs = ((Object)object).GetChilds();
 				_child = NULL;
 			}
 
@@ -173,3 +173,6 @@ namespace lvgl {
 } /* namespace lvgl */
 
 #endif /* LVGLCPP_SRC_SLIDER_H_ */
+
+//Added by Sloeber 
+#pragma once

@@ -29,14 +29,20 @@ namespace lvgl {
 				}
 			}
 
-			SpinBox(lv_obj_t *parent, bool isNew) {
-				_obj = parent;
+			SpinBox(lv_obj_t *object, bool isNew) {
+				_obj = object;
+				_childs = NULL;
+				_child = NULL;
 			}
-			SpinBox(Object *parent, bool isNew) {
-				_obj = parent->GetObj();
+			SpinBox(Object *object, bool isNew) {
+				_obj = object->GetObj();
+				_childs = object->GetChilds();
+				_child = NULL;
 			}
-			SpinBox(Object parent, bool isNew) {
-				_obj = ((Object)parent).GetObj();
+			SpinBox(Object object, bool isNew) {
+				_obj = ((Object)object).GetObj();
+				_childs = ((Object)object).GetChilds();
+				_child = NULL;
 			}
 
 			~SpinBox() {
@@ -219,3 +225,6 @@ namespace lvgl {
 }
 
 #endif
+
+//Added by Sloeber 
+#pragma once

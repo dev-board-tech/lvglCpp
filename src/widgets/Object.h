@@ -30,27 +30,27 @@ namespace lvgl {
 				_child = NULL;
 				_childs = NULL;
 			}
-			Object(lv_obj_t *parent, bool isNew) {
-				_obj = parent;
+			Object(lv_obj_t *object, bool isNew) {
+				_obj = object;
 				_child = NULL;
 				_childs = NULL;
 			}
-			Object(Object *parent, bool isNew) {
+			Object(Object *object, bool isNew) {
 				if(isNew) {
 					_obj = (lv_obj_t *)malloc(sizeof(lv_obj_t));
-					memcpy(_obj, parent->GetObj(), sizeof(lv_obj_t));
+					memcpy(_obj, object->GetObj(), sizeof(lv_obj_t));
 				} else {
-					_obj = parent->GetObj();
+					_obj = object->GetObj();
 					_child = NULL;
 					_childs = NULL;
 				}
 			}
-			Object(Object &parent, bool isNew) {
+			Object(Object &object, bool isNew) {
 				if(isNew) {
 					_obj = (lv_obj_t *)malloc(sizeof(lv_obj_t));
-					memcpy(_obj, ((Object)parent).GetObj(), sizeof(lv_obj_t));
+					memcpy(_obj, ((Object)object).GetObj(), sizeof(lv_obj_t));
 				} else {
-					_obj = ((Object)parent).GetObj();
+					_obj = ((Object)object).GetObj();
 					_child = NULL;
 					_childs = NULL;
 				}
@@ -58,8 +58,8 @@ namespace lvgl {
 			~Object() {
 			
 			}
-			Object(const Object &parent, bool isNew) {
-					_obj = ((Object)parent).GetObj();
+			Object(const Object &object, bool isNew) {
+					_obj = ((Object)object).GetObj();
 					_child = NULL;
 					_childs = NULL;
 			}
@@ -1048,7 +1048,7 @@ namespace lvgl {
 				return this;
 			}
 			
-			inline Object *AddStyle(lvgl::Style * style, lv_style_selector_t selector = NULL) {
+			inline Object *AddStyle(lvgl::Style *style, lv_style_selector_t selector = NULL) {
 				lv_obj_add_style(_obj, style->Get(), selector);
 				return this;
 			}
@@ -1830,3 +1830,6 @@ namespace lvgl {
 } /* namespace lvgl */
 
 #endif /* LVCPP_LVOBJ_H_ */
+
+//Added by Sloeber 
+#pragma once

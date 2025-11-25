@@ -34,14 +34,20 @@ namespace lvgl {
 				}
 			}
 			
-			TabView(lv_obj_t *parent, bool isNew) {
-				_obj = parent;
+			TabView(lv_obj_t *object, bool isNew) {
+				_obj = object;
+				_childs = NULL;
+				_child = NULL;
 			}
-			TabView(Object *parent, bool isNew) {
-				_obj = parent->GetObj();
+			TabView(Object *object, bool isNew) {
+				_obj = object->GetObj();
+				_childs = object->GetChilds();
+				_child = NULL;
 			}
-			TabView(Object parent, bool isNew) {
-				_obj = ((Object)parent).GetObj();
+			TabView(Object object, bool isNew) {
+				_obj = ((Object)object).GetObj();
+				_childs = ((Object)object).GetChilds();
+				_child = NULL;
 			}
 
 			~TabView() {
@@ -314,3 +320,6 @@ namespace lvgl {
 } /* namespace lvgl */
 
 #endif /* LVGLCPP_SRC_TABVIEW_H_ */
+
+//Added by Sloeber 
+#pragma once

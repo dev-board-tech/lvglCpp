@@ -26,7 +26,7 @@ namespace lvgl {
 				_childs = NULL;
 			}
 			MsgBox(Object *parent, const char * title, const char * txt, const char * btn_txts[], bool add_close_btn = true) {
-				_obj = lv_msgbox_create(NULL, title, txt, btn_txts, add_close_btn);
+				_obj = lv_msgbox_create(parent->GetObj(), title, txt, btn_txts, add_close_btn);
 				_child = NULL;
 				_childs = NULL;
 			}
@@ -48,19 +48,19 @@ namespace lvgl {
 				_childs = NULL;
 			}
 
-			MsgBox(lv_obj_t *parent, bool isNew) {
-				_obj = parent;
+			MsgBox(lv_obj_t *object, bool isNew) {
+				_obj = object;
 				_childs = NULL;
 				_child = NULL;
 			}
-			MsgBox(Object *parent, bool isNew) {
-				_obj = parent->GetObj();
-				_childs = parent->GetChilds();
+			MsgBox(Object *object, bool isNew) {
+				_obj = object->GetObj();
+				_childs = object->GetChilds();
 				_child = NULL;
 			}
-			MsgBox(Object &parent, bool isNew) {
-				_obj = ((Object)parent).GetObj();
-				_childs = ((Object)parent).GetChilds();
+			MsgBox(Object &object, bool isNew) {
+				_obj = ((Object)object).GetObj();
+				_childs = ((Object)object).GetChilds();
 				_child = NULL;
 			}
 
@@ -138,3 +138,6 @@ namespace lvgl {
 
 #endif /* LVGLCPP_SRC_LABEL_H_ */
 
+
+//Added by Sloeber 
+#pragma once

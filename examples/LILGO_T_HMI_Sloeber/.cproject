@@ -23,11 +23,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LILGO_T_HMI/core/variant}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LILGO_T_HMI/LILGO_T_HMI}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LILGO_T_HMI/libraries/OneButton/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LILGO_T_HMI/libraries/SPI/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LILGO_T_HMI/libraries/ArduinoJson/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LILGO_T_HMI/libraries/lvgl/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LILGO_T_HMI/libraries/arduFPGA-app-common-arduino/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LILGO_T_HMI/libraries/ESP32/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.cpp.sketch.input.1489513534" name="CPP source files" superClass="io.sloeber.compiler.cpp.sketch.input"/>
 							</tool>
@@ -37,11 +33,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LILGO_T_HMI/core/variant}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LILGO_T_HMI/LILGO_T_HMI}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LILGO_T_HMI/libraries/OneButton/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LILGO_T_HMI/libraries/SPI/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LILGO_T_HMI/libraries/ArduinoJson/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LILGO_T_HMI/libraries/lvgl/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LILGO_T_HMI/libraries/arduFPGA-app-common-arduino/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LILGO_T_HMI/libraries/ESP32/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.c.sketch.input.285223591" name="C Source Files" superClass="io.sloeber.compiler.c.sketch.input"/>
 							</tool>
@@ -51,11 +43,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LILGO_T_HMI/core/variant}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LILGO_T_HMI/LILGO_T_HMI}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LILGO_T_HMI/libraries/OneButton/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LILGO_T_HMI/libraries/SPI/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LILGO_T_HMI/libraries/ArduinoJson/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LILGO_T_HMI/libraries/lvgl/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LILGO_T_HMI/libraries/arduFPGA-app-common-arduino/src}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/LILGO_T_HMI/libraries/ESP32/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.S.sketch.input.19629170" name="Assembly source files" superClass="io.sloeber.compiler.S.sketch.input"/>
 							</tool>
